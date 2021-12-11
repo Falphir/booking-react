@@ -37,8 +37,6 @@
 }
 
 .navbar-logo {
-    
-    color: #fff;
     justify-self: start;
     margin-left: 20px;
     cursor: pointer;
@@ -118,14 +116,14 @@
         z-index: 1;
     }
     .nav-links {
+        
         text-align: center;
         padding: 2rem;
         width: 100%;
         display: table;
     }
     .nav-links:hover {
-        background-color: #fff;
-        color: #242424;
+        box-shadow: inset 0px -10px 10px -7px #cb9b51;
         border-radius: 0;
     }
     .navbar-logo {
@@ -148,22 +146,24 @@
         font-size: 2rem;
     }
     .nav-links-mobile {
+        background: var(--gold);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        padding: 8px 20px;
+        border: 2px solid;
+        border-image-source: var(--gold);
+        border-image-slice: 1;
         display: block;
         text-align: center;
         margin: 2rem auto;
-        border-radius: 4px;
         width: 80%;
-        text-decoration: none;
         font-size: 1.5rem;
-        background-color: transparent;
-        color: #fff;
         padding: 14px 20px;
-        border: 1px solid #fff;
         transition: all 0.3s ease-out;
     }
     .nav-links-mobile:hover {
-        background: #fff;
-        color: #242424;
+        transition: all 0.3s ease-out;
+        box-shadow: 0px 0px 13px #cb9b51;
         transition: 250ms;
     }
 }
