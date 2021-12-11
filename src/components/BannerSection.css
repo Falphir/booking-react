@@ -7,7 +7,7 @@ video {
 }
 
 .banner-container {
-    background: url('../assests/images/banner.jpg') center center/cover no-repeat;
+    background: url('../assets/images/banner.jpg') center center/cover no-repeat;
     height: 95vh;
     width: 100%;
     display: flex;

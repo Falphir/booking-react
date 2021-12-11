@@ -1,3 +1,5 @@
+
+
 :root {
  --gold: linear-gradient( to right, #462523 0, #cb9b51 22%, #f6e27a 45%, #f6f2c0 50%, #f6e27a 55%, #cb9b51 78%, #462523 100%); 
 }
@@ -28,13 +30,18 @@
     max-width: 1500px;
 }
 
+.Logo {
+    background-image: url('../assets/logo/logo.png');
+    width: 80px;
+    height: 50px;
+}
+
 .navbar-logo {
+    
     color: #fff;
     justify-self: start;
     margin-left: 20px;
     cursor: pointer;
-    text-decoration: none;
-    font-size: 2rem;
     display: flex;
     align-items: center;
 }

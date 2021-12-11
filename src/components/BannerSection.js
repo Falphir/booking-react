@@ -2,6 +2,7 @@ import React from 'react';
 import '../App.css';
 import { Button } from './Button';
 import './BannerSection.css';
+import { Input } from 'antd';
 
 function BannerSection() {
     return (
@@ -10,12 +11,7 @@ function BannerSection() {
             <h1>FIND BOOK ENJOY</h1>
             <p>What are you waiting for?</p>
             <div className="banner-btns">
-                <Button className='btns' buttonStyle='btn--outline' buttonSize='btn--large'>
-                    GET STARTED
-                </Button>
-                <Button className='btns' buttonStyle='btn--primary' buttonSize='btn--large'>
-                    WATCH TRAILER <i className='far fa-play-circle'/>
-                </Button>
+                <Input size="large" placeholder="large size"/>
             </div>
         </div>
     )
