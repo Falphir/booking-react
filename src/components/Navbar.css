@@ -71,7 +71,7 @@
 }
 
 .nav-links:hover {
-    border-bottom: 3px solid #fff;
+    box-shadow: inset 0px -10px 4px -7px #cb9b51;
     transition: all 0.2s ease-out;
 }
 
