@@ -1,5 +1,9 @@
+:root {
+ --gold: linear-gradient( to right, #462523 0, #cb9b51 22%, #f6e27a 45%, #f6f2c0 50%, #f6e27a 55%, #cb9b51 78%, #462523 100%); 
+}
+
 .gold-color {
-    background-image: linear-gradient( to right, #462523 0, #cb9b51 22%, #f6e27a 45%, #f6f2c0 50%, #f6e27a 55%, #cb9b51 78%, #462523 100%);
+    background-image: var(--gold);
     color: transparent;
     -webkit-background-clip: text;
 }
@@ -56,6 +60,9 @@
 
 .nav-links {
     /*color: #d4af37;*/
+    background-image: var(--gold);
+    color: transparent;
+    -webkit-background-clip: text;
     display: flex;
     align-items: center;
     text-decoration: none;
