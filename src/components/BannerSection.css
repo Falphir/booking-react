@@ -1,10 +1,12 @@
-video {
+@import 'antd/dist/antd.css';
+
+/* video {
     object-fit: cover;
     width: 100%;
     height: 100%;
     position: fixed;
     z-index: -1;
-}
+} */
 
 .banner-container {
     background: url('../assets/images/banner.jpg') center center/cover no-repeat;
@@ -20,12 +22,14 @@ video {
 
 .banner-container > h1 {
     color: #fff;
-    font-size: 110px;
+    font-size: 90px;
     margin-top: -250px;
+    font-family: 'PT Sans', sans-serif;
+    font-weight: 600;
 }
 
 .banner-container > p {
-    margin-top: 8px;
+    margin-top: -16px;
     color: #fff;
     font-size: 32px;
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
@@ -40,20 +44,17 @@ video {
     margin: 6px;
 }
 
-.fa-play-circle {
-    margin-left: 4px;
-}
 
 @media screen and (max-width : 960px) {
-    .hero-container > h1 {
-        font-size: 70px;
+    .banner-container > h1 {
+        font-size: 70px ;
         margin-top: -150px;
     }
 }
 
 @media screen and (max-width : 768px) {
     .banner-container > h1 {
-        font-size: 50px;
+        font-size: 40px;
         margin-top: -100px;
     }
 
