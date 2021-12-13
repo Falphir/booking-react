@@ -25,7 +25,7 @@
     justify-content: center;
     align-items: center;
     height: 80px;
-    max-width: 1500px;
+    max-width: 1800px;
 }
 
 .Logo {
@@ -91,7 +91,7 @@
 }
 
 @media screen and (max-width: 960px) {
-    .NavbarItems {
+    .navbar- {
         position: relative;
     }
     .nav-menu {
@@ -127,14 +127,14 @@
         position: absolute;
         top: 0;
         left: 0;
-        transform: translate(25%, 50%);
+        transform: translate(25%, 25%);
     }
     .menu-icon {
         display: block;
         position: absolute;
         top: 0;
         right: 0;
-        transform: translate(-100%, 60%);
+        transform: translate(-100%, 40%);
         font-size: 1.8rem;
         cursor: pointer;
     }

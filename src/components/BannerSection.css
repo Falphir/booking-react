@@ -36,13 +36,34 @@
 
 }
 
-.banner-btns {
+.banner-search {
     margin-top: 32px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-.banner-btns .btn {
-    margin: 6px;
+.banner-search .input {
+    border-radius: 4px 0px 0px 4px;
+    height: 60px;
 }
+
+.input::-webkit-input-placeholder {
+    font-size: 16px;
+}
+
+.banner-search .check-in-out {
+    border-radius: 0px 0px 0px 0px;
+    height: 60px;
+}
+
+.banner-search .btn-search {
+    border-radius: 0px 4px 4px 0px;
+    height: 60px;
+    width: 200px;
+    font-size: 20px;
+}
+
 
 
 @media screen and (max-width : 960px) {
@@ -69,5 +90,10 @@
 
     .btn {
         width: 100%;
+    }
+
+    .banner-search {
+        width: 70%;
+        height: 70%;
     }
 }
