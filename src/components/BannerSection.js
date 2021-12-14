@@ -14,9 +14,10 @@ function BannerSection() {
             <h1>FIND BOOK ENJOY</h1>
             <p>What are you waiting for?</p>
             <div className="banner-search">
-                <Input  className='input' placeholder="Pesquise aqui..."/>
+                <Input  className='input' placeholder="Search here..."/>
                 <RangePicker  className="check-in-out"/>
-                <Button className='btn-search'>Search</Button>
+                <Button className='btn-search'>
+                   <i class="fas fa-search" aria-hidden="true"></i></Button>
             </div>
         </div>
     )

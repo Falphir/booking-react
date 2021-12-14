@@ -61,12 +61,13 @@
 .banner-search .btn-search {
     border-radius: 0px 4px 4px 0px;
     height: 60px;
-    width: 175px;
+    width: 125px;
     font-size: 20px;
     background-color: #242424;
     border: 2px solid #242424;
     color: #fff;
 }
+
 
 .banner-search .btn-search:hover {
     transition: all 0.3s ease-out;
@@ -93,7 +94,6 @@
 
     .banner-search .btn-search {
         width: 60%;
-        font-size: 16px;
     }
 }
 
@@ -122,15 +122,14 @@
     }
 
     .banner-search .check-in-out {
-        width: 30%;
+        width: 45%;
         height: 40px;
         
     }
 
     .banner-search .btn-search {
-        width: 30%;
+        width: 80px;
         height: 40px;
-        font-size: 12px;
         
     }
 }
