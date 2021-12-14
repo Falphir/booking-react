@@ -46,6 +46,7 @@
 .banner-search .input {
     border-radius: 4px 0px 0px 4px;
     height: 60px;
+    width: 300px;
 }
 
 .input::-webkit-input-placeholder {
@@ -60,9 +61,19 @@
 .banner-search .btn-search {
     border-radius: 0px 4px 4px 0px;
     height: 60px;
-    width: 200px;
+    width: 175px;
     font-size: 20px;
+    background-color: #242424;
+    border: 2px solid #242424;
+    color: #fff;
 }
+
+.banner-search .btn-search:hover {
+    transition: all 0.3s ease-out;
+    box-shadow: 5px 0px 13px -2px #cb9b51;
+    transition: 250ms;
+}
+
 
 
 
@@ -70,6 +81,19 @@
     .banner-container > h1 {
         font-size: 70px ;
         margin-top: -150px;
+    }
+
+    .banner-search .input {
+        width: 80%;
+    }
+
+    .banner-search .check-in-out {
+        width: 80%;
+    }
+
+    .banner-search .btn-search {
+        width: 60%;
+        font-size: 16px;
     }
 }
 
@@ -92,8 +116,21 @@
         width: 100%;
     }
 
-    .banner-search {
-        width: 70%;
-        height: 70%;
+    .banner-search .input {
+        width: 30%;
+        height: 40px;
+    }
+
+    .banner-search .check-in-out {
+        width: 30%;
+        height: 40px;
+        
+    }
+
+    .banner-search .btn-search {
+        width: 30%;
+        height: 40px;
+        font-size: 12px;
+        
     }
 }
