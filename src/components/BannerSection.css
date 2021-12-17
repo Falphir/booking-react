@@ -71,7 +71,7 @@
 
 .banner-search .btn-search:hover {
     transition: all 0.3s ease-out;
-    box-shadow: 5px 0px 13px -2px #cb9b51;
+    box-shadow: 5px 0px 13px -2px var(--gold-shadow);
     transition: 250ms;
 }
 
