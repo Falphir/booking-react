@@ -7,6 +7,7 @@ import logo from '../assets/logo/logo_simples.png'
 function Navbar() {
   const [click, setClick] = useState(false);
   const [button, setButton] = useState(true);
+  const [dashboardLink, setDashboardButton] = useState(true);
 
   const handleClick = () => setClick(!click);
   const closeMobileMenu = () => setClick(false);
@@ -19,8 +20,20 @@ function Navbar() {
     }
   };
 
+  const role = "admin";
+
+  //Função detetar se tem perm para aceder dashboard
+  const showDashboardButton = () => {
+    if (role == "admin") {
+      setDashboardButton(true);
+    } else {
+      setDashboardButton(false);
+    }
+  };
+
   useEffect(() => {
     showButton();
+    showDashboardButton();
   }, []);
 
   window.addEventListener('resize', showButton);
@@ -59,7 +72,15 @@ function Navbar() {
                 Products
               </Link>
             </li>
-
+            {dashboardLink && 
+            <li className='nav-item'>
+              <Link to='/dashboard'
+                    className='nav-links'
+                    onClick={closeMobileMenu}
+              >
+                Dashboard
+              </Link>
+            </li>}
             <li>
               <Link
                 to='/sign-up'
