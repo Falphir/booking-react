@@ -8,9 +8,6 @@
   cursor: pointer;
 }
 
-.btn--gold {
- 
-}
 
 .btn--gold--outline {
   background: var(--gold);

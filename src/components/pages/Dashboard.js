@@ -1,9 +1,10 @@
 import React from 'react'
+import DashboardTable from '../DashboardTable'
 
 function Dashboard() {
     return (
         <>
-            
+            <DashboardTable/>
         </>
     )
 }

@@ -6,21 +6,39 @@ import logo from '../assets/logo/logo_simples.png'
 
 function Navbar() {
   const [click, setClick] = useState(false);
-  const [button, setButton] = useState(true);
+  const [button, setButton] = useState(false);
   const [dashboardLink, setDashboardButton] = useState(true);
+  const [reservesLink, setReservesButton] = useState(true);
 
   const handleClick = () => setClick(!click);
   const closeMobileMenu = () => setClick(false);
 
   const showButton = () => {
     if (window.innerWidth <= 960) {
+      if (login) {
+        setButton(false);
+      }
       setButton(false);
     } else {
-      setButton(true);
+      if (login) {
+        setButton (false);
+      } else {
+        setButton (true);
+      }
+      
     }
   };
 
   const role = "admin";
+  const login = true;
+
+  const showReservesButton = () => {
+    if (login) {
+      setReservesButton(true);
+    } else {
+      setReservesButton(false);
+    }
+  };
 
   //Função detetar se tem perm para aceder dashboard
   const showDashboardButton = () => {
@@ -34,6 +52,7 @@ function Navbar() {
   useEffect(() => {
     showButton();
     showDashboardButton();
+    showReservesButton();
   }, []);
 
   window.addEventListener('resize', showButton);
@@ -49,29 +68,31 @@ function Navbar() {
             <i className={click ? 'fas fa-times' : 'fas fa-bars'} />
           </div>
           <ul className={click ? 'nav-menu active' : 'nav-menu'}>
-            <li className='nav-item'>
+            {/* <li className='nav-item'>
               <Link to='/' className='nav-links' onClick={closeMobileMenu}>
                 Home
               </Link>
-            </li>
+            </li> */}
+           
+            <li className='nav-item'>
+              <Link
+                to='/rooms'
+                className='nav-links'
+                onClick={closeMobileMenu}
+              >
+                Rooms
+              </Link>
+            </li> 
+            {reservesLink &&
             <li className='nav-item'>
               <Link
                 to='/services'
                 className='nav-links'
                 onClick={closeMobileMenu}
               >
-                Services
+                Reserves
               </Link>
-            </li>
-            <li className='nav-item'>
-              <Link
-                to='/products'
-                className='nav-links'
-                onClick={closeMobileMenu}
-              >
-                Products
-              </Link>
-            </li>
+            </li>}
             {dashboardLink && 
             <li className='nav-item'>
               <Link to='/dashboard'
@@ -81,13 +102,22 @@ function Navbar() {
                 Dashboard
               </Link>
             </li>}
-            <li>
+            <li hidden={login}>
               <Link
                 to='/sign-up'
                 className='nav-links-mobile'
                 onClick={closeMobileMenu}
               >
                 Sign Up
+              </Link>
+            </li>
+            <li hidden={login}>
+              <Link
+                to='/sign-in'
+                className='nav-links-mobile'
+                onClick={closeMobileMenu}
+              >
+                Sign In
               </Link>
             </li>
           </ul>
