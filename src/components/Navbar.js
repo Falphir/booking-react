@@ -21,11 +21,11 @@ function Navbar() {
       setButton(false);
     } else {
       if (login) {
-        setButton (false);
+        setButton(false);
       } else {
-        setButton (true);
+        setButton(true);
       }
-      
+
     }
   };
 
@@ -62,7 +62,7 @@ function Navbar() {
       <nav className='navbar'>
         <div className='navbar-container'>
           <Link to='/' className='navbar-logo' onClick={closeMobileMenu}>
-             <img className='Logo' src={logo}/>
+            <img className='Logo' src={logo} />
           </Link>
           <div className='menu-icon' onClick={handleClick}>
             <i className={click ? 'fas fa-times' : 'fas fa-bars'} />
@@ -73,7 +73,7 @@ function Navbar() {
                 Home
               </Link>
             </li> */}
-           
+
             <li className='nav-item'>
               <Link
                 to='/rooms'
@@ -82,26 +82,26 @@ function Navbar() {
               >
                 Rooms
               </Link>
-            </li> 
+            </li>
             {reservesLink &&
-            <li className='nav-item'>
-              <Link
-                to='/services'
-                className='nav-links'
-                onClick={closeMobileMenu}
-              >
-                Reserves
-              </Link>
-            </li>}
-            {dashboardLink && 
-            <li className='nav-item'>
-              <Link to='/dashboard'
-                    className='nav-links'
-                    onClick={closeMobileMenu}
-              >
-                Dashboard
-              </Link>
-            </li>}
+              <li className='nav-item'>
+                <Link
+                  to='/reserves'
+                  className='nav-links'
+                  onClick={closeMobileMenu}
+                >
+                  Reserves
+                </Link>
+              </li>}
+            {dashboardLink &&
+              <li className='nav-item'>
+                <Link to='/dashboard'
+                  className='nav-links'
+                  onClick={closeMobileMenu}
+                >
+                  Dashboard
+                </Link>
+              </li>}
             <li hidden={login}>
               <Link
                 to='/sign-up'
