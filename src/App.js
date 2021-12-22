@@ -6,6 +6,7 @@ import Footer from './components/Footer';
 import 'antd/dist/antd.css';
 import Dashboard from './components/pages/Dashboard';
 import Rooms from './rooms/Rooms';
+import RoomsForm from './rooms/add/RoomsForm';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
           <Route path='/' exact element={<Home />} />
           <Route path='/dashboard' exact element={<Dashboard />} />
           <Route path='/rooms' exact element={<Rooms></Rooms>}></Route>
+          <Route path='/roomsform' exact element={<RoomsForm></RoomsForm>}></Route>
         </Routes>
         <Footer />
       </Router>
