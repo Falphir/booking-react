@@ -33,7 +33,20 @@ const RoomsForm = () => {
 
 
     const buildRooms = (data) => {
-        return { ...data, tags: [{ name: data.tags }] }
+        return {
+            ...data, tags: [
+                { typeRoom: data.typeRoom },
+                { vip: data.vip },
+                { nPool: data.nPool },
+                { carPark: data.carPark },
+                { breakfast: data.breakfast },
+                { lunch: data.lunch },
+                { spa: data.spa },
+                { nStars: data.nStars },
+                { nSingleBed: data.nSingleBed },
+                { nDoubleBed: data.nDoubleBed }
+            ]
+        }
     };
 
 
@@ -68,7 +81,8 @@ const RoomsForm = () => {
 
                 <div className="field">
                     <label>Tags: </label>
-                    {/* <input name="tags" ref={register}></input> */}
+
+                    <br></br>
 
                     <label>Type Room: </label>
                     <select {...register('typeRoom')}>
@@ -79,14 +93,20 @@ const RoomsForm = () => {
                         <option value="Casa de Campo">Casa de Campo</option>
                     </select>
 
+                    <br></br>
+
                     <label>Vip: </label>
                     <select {...register('vip')}>
                         <option value="yes">Yes</option>
                         <option value="no">No</option>
                     </select>
 
+                    <br></br>
+
                     <label>Nº Pool: </label>
                     <input {...register('nPool')}></input>
+
+                    <br></br>
 
                     <label>Car Park: </label>
                     <select {...register('carPark')}>
@@ -94,11 +114,15 @@ const RoomsForm = () => {
                         <option value="no">No</option>
                     </select>
 
+                    <br></br>
+
                     <label>BreakFast: </label>
                     <select {...register('breakfast')}>
                         <option value="yes">Yes</option>
                         <option value="no">No</option>
                     </select>
+
+                    <br></br>
 
                     <label>Lunch: </label>
                     <select {...register('lunch')}>
@@ -106,11 +130,15 @@ const RoomsForm = () => {
                         <option value="no">No</option>
                     </select>
 
+                    <br></br>
+
                     <label>Spa: </label>
                     <select {...register('spa')}>
                         <option value="yes">Yes</option>
                         <option value="no">No</option>
                     </select>
+
+                    <br></br>
 
                     <label>Nº Stars: </label>
                     <select {...register('nStars')}>
@@ -122,8 +150,12 @@ const RoomsForm = () => {
                         <option value="five">5</option>
                     </select>
 
+                    <br></br>
+
                     <label>Nº Single Bed: </label>
                     <input {...register('nSingleBed')}></input>
+
+                    <br></br>
 
                     <label>Nº Double Bed: </label>
                     <input {...register('nDoubleBed')}></input>
