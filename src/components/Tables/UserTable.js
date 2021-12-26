@@ -1,5 +1,5 @@
-import React, {useState, useEffect } from 'react';
-import { Table } from 'antd';
+import React, { useState, useEffect } from 'react';
+import { Table, Tag, Space } from 'antd';
 import Config from '../../config'
 
 
@@ -15,37 +15,58 @@ const UserTable = (props) => {
         }
     });
 
-
-    const renderHobbies = (hobbies) => {
-        return hobbies.map((hobbie) => {
-            return (
-                <label key={hobbie._id}>{ hobbie.name };</label>
-            )
-        })
-    }
-
     const columns = [
         {
             title: 'Name',
             dataIndex: 'name',
-            width: '20%',
+            key: 'name'
         },
         {
-            title: 'LastName',
-            dataIndex: 'lastName',
-            width: '20%',
+            title: 'Email',
+            dataIndex: 'email',
+            key: 'email'
         },
         {
-            title: 'Hobbies',
-            dataIndex: 'hobbies',
-            render: renderHobbies,
+            title: 'Password',
+            dataIndex: 'password',
+            key: 'password'
         },
+        {
+            title: 'Role',
+            dataIndex: 'role',
+            key: 'role',
+            render: (role) => (
+                <>
+                  {role.map((Role) => {
+                    let color = Role.length > 5 ? "geekblue" : "green";
+                    if (Role === "loser") {
+                      color = "volcano";
+                    }
+                    return (
+                      <Tag color={color} key={Role}>
+                        {Role.toUpperCase()}
+                      </Tag>
+                    );
+                  })}
+                </>
+              )
+        },
+        {
+            title: "Action",
+            key: "action",
+            render: (text, record) => (
+                <Space size="middle">
+                    <a>Delete</a>
+                </Space>
+            )
+        },
+
     ];
 
     const { players, pagination } = data;
 
     const fetchApi = (pageSize, current) => {
-        const url = '/team/players?' + new URLSearchParams ({
+        const url = '/auth/admin/users' + new URLSearchParams({
             limit: pageSize,
             skip: current - 1
         })
@@ -53,29 +74,29 @@ const UserTable = (props) => {
         fetch(url, {
             headers: { 'Accept': 'application/json', 'x-access-token': Config.token }
         })
-        .then((response) => response.json())
-        .then((response) => {
-            const { auth, players = [], 
-                pagination } = response;
+            .then((response) => response.json())
+            .then((response) => {
+                const { auth, players = [],
+                    pagination } = response;
 
-            if(auth) {
-                setLoading(false);
-                setData({
-                    players,
-                    pagination: {
-                        current: pagination.page + 1 || 1,
-                        pageSize: pagination.pageSize || 10,
-                        total: pagination.total || 5
-                    }
-                })
-            }
-        })
+                if (auth) {
+                    setLoading(false);
+                    setData({
+                        players,
+                        pagination: {
+                            current: pagination.page + 1 || 1,
+                            pageSize: pagination.pageSize || 10,
+                            total: pagination.total || 5
+                        }
+                    })
+                }
+            })
     }
 
-    useEffect(()=> {
+    useEffect(() => {
         fetchApi(data.pagination.pageSize, data.pagination.current);
 
-        return () => setData ({
+        return () => setData({
             players: [],
             pagination: {
                 current: 1,
