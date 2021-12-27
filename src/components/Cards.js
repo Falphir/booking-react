@@ -2,14 +2,14 @@ import React from 'react';
 import './Cards.css';
 import CardItem from './CardItem';
 
-function Cards () {
+function Cards() {
   return (
     <div className='cards'>
       <h1>Check out these Rooms!</h1>
       <div className='cards__container'>
         <div className='cards__wrapper'>
           <ul className='cards__items'>
-          <CardItem
+            <CardItem
               src='images/room.jpg'
               text='Ride through the Sahara Desert on a guided camel tour'
               preco='80€ p/pessoa'
