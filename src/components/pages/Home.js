@@ -3,11 +3,11 @@ import '../../App.css'
 import BannerSection from '../BannerSection'
 import Cards from '../Cards'
 
-function Home () {
+function Home() {
     return (
         <>
-            <BannerSection/>
-            <Cards/>
+            <BannerSection />
+            <Cards />
         </>
     )
 }

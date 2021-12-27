@@ -1,6 +1,7 @@
 import { useForm } from "react-hook-form";
 import './RoomsForm.css';
 import Config from '../../config';
+import axios from "axios";
 
 
 const RoomsForm = () => {
@@ -18,6 +19,7 @@ const RoomsForm = () => {
             .then((response) => {
                 if (response.ok) {
                     console.log(response);
+                    alert("Room created");
                     return response.json();
 
                 } else {
@@ -35,25 +37,35 @@ const RoomsForm = () => {
     const buildRooms = (data) => {
         return {
             ...data, tags: [
-                { typeRoom: data.typeRoom },
-                { vip: data.vip },
-                { nPool: data.nPool },
-                { carPark: data.carPark },
-                { breakfast: data.breakfast },
-                { lunch: data.lunch },
-                { spa: data.spa },
-                { nStars: data.nStars },
-                { nSingleBed: data.nSingleBed },
-                { nDoubleBed: data.nDoubleBed }
+                {
+                    typeRoom: data.typeRoom,
+                    vip: data.vip,
+                    nPool: data.nPool,
+                    carPark: data.carPark,
+                    breakfast: data.breakfast,
+                    lunch: data.lunch,
+                    spa: data.spa,
+                    nStars: data.nStars,
+                    nSingleBed: data.nSingleBed,
+                    nDoubleBed: data.nDoubleBed
+                }
             ]
         }
     };
+
 
 
     return (
         <>
             <h2>Rooms Form</h2>
             <form className="form-Rooms" onSubmit={handleSubmit(onSubmit)}>
+                <div className="field">
+                    <label>Image: </label>
+                    <input id="" name="" type="file" onChange={this.handleSelectedFile} {...register('image')}></input>
+                    <button onClick={this.handleUpload}>Upload</button>
+                    <div> {Math.round(this.state.loaded, 2)} %</div>
+                </div>
+
                 <div className="field">
                     <label>Description: </label>
                     <input {...register('description')}></input>

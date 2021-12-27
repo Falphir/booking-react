@@ -1,16 +1,15 @@
-import Room from './RoomTable';
-import './Rooms.css';
+import User from './UserTable';
+import './Users.css';
 import Config from '../config';
 import React, { useState } from 'react';
-import RoomsForm from './add/RoomsForm';
 import { Navigate } from 'react-router-dom';
-import RoomTable from './RoomTable';
+import UserTable from './UserTable';
 
 
 
-const Rooms = () => {
+const Users = () => {
     const [loading, setLoading] = useState(true);
-    const [rooms, setRooms] = useState([]);
+    const [users, setUsers] = useState([]);
 
     //se n tiver configurado o token no config.js, irá diretamente redirecionar para a homepage
     if (!Config.token) {
@@ -19,10 +18,10 @@ const Rooms = () => {
 
 
     return (
-        <div className='room-container'>
-            <RoomTable></RoomTable>
+        <div className='user-container'>
+            <UserTable></UserTable>
         </div>
     )
 }
 
-export default Rooms;
+export default Users;
