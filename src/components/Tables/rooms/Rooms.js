@@ -1,6 +1,6 @@
 import Room from './RoomTable';
 import './Rooms.css';
-import Config from '../config';
+import Config from '../../../config';
 import React, { useState } from 'react';
 import RoomsForm from './add/RoomsForm';
 import { Navigate } from 'react-router-dom';

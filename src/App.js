@@ -5,10 +5,10 @@ import './App.css';
 import Footer from './components/Footer';
 import 'antd/dist/antd.css';
 import Dashboard from './components/pages/Dashboard';
-import Rooms from './rooms/Rooms';
-import RoomsForm from './rooms/add/RoomsForm';
+import Rooms from './components/Tables/rooms/Rooms';
+import RoomsForm from './components/Tables/rooms/add/RoomsForm';
 import Login from './login/LoginForm';
-import Users from './users/Users';
+import Users from './components/Tables/users/Users';
 
 function App() {
   return (

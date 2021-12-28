@@ -1,7 +1,7 @@
 import './UserTable.css';
 import React, { useState, useEffect } from 'react';
-import Config from '../config';
-import { Pagination, Table } from 'antd';
+import Config from '../../../config';
+import { Pagination, Table, Space } from 'antd';
 
 const UserTable = (props) => {
 
@@ -24,31 +24,42 @@ const UserTable = (props) => {
             )
         })
     }
+    
 
 
     const columns = [
         {
             title: 'Name',
             dataIndex: 'name',
-            width: '20%',
+            key: 'name'
         },
 
         {
             title: 'Email',
             dataIndex: 'email',
-            width: '20%',
+            key: 'email'
         },
 
         {
             title: 'Password',
             dataIndex: 'password',
-            width: '30%',
+            key: 'password'
         },
 
         {
             title: 'Role',
             dataIndex: 'role',
+            key: 'role',
             render: renderRoles,
+        },
+        {
+            title: "Action",
+            key: "action",
+            render: (text, record) => (
+                <Space size="middle">
+                    <a>Delete</a>
+                </Space>
+            )
         },
     ];
 

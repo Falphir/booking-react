@@ -1,7 +1,8 @@
 import './RoomTable.css';
 import React, { useState, useEffect } from 'react';
-import Config from '../config';
+import Config from '../../../config';
 import { Pagination, Table } from 'antd';
+import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
 
 const RoomTable = (props) => {
 
@@ -10,16 +11,24 @@ const RoomTable = (props) => {
         rooms: [],
         pagination: {
             current: 1,
-            pageSize: 3,
+            pageSize: 10,
             total: 0
         }
     });
 
+    //Renderizar Imagem
+    const renderImage = (text, record) => {
+        return (
+            <img src={record.image} style={{ width: 150 }, { height: 75 }} />
+        );
+    }
 
+    //Renderizar Tags
     const renderTags = (tags) => {
         return tags.map((tag) => {
             return (
                 <label key={tag._id}>
+
                     Type Room: {tag.typeRoom},
                     VIP: {tag.vip.toString()},
                     Nº Pool: {tag.nPool},
@@ -35,42 +44,37 @@ const RoomTable = (props) => {
         })
     }
 
-
     const columns = [
         {
             title: 'Image',
             dataIndex: 'image',
-            width: '20%',
+            render: renderImage
         },
-
+        // render: () => <img src={`image`} style={{width: 100}, {height: 50}}/>
+        // <img src="images/room2.jpg" style={{width: 100}, {height: 50}}/>
         {
             title: 'Description',
             dataIndex: 'description',
-            width: '20%',
         },
 
         {
             title: 'Nº Adults',
             dataIndex: 'nAdult',
-            width: '6%',
         },
 
         {
             title: 'Nº Children',
             dataIndex: 'nChild',
-            width: '6%',
         },
 
         {
             title: 'Nº Rooms',
             dataIndex: 'nRoom',
-            width: '6%',
         },
 
         {
             title: 'Price (€)',
             dataIndex: 'price',
-            width: '6%',
         },
 
         {
@@ -78,7 +82,23 @@ const RoomTable = (props) => {
             dataIndex: 'tags',
             render: renderTags,
         },
+        {
+            title: 'Actions',
+            render: (record) => {
+                return <>
+                    <EditOutlined/>
+                    <DeleteOutlined onClick={() =>{ onDeleteRoom(record) }} style={{color: "red", marginLeft: 12}} />
+                </>
+            }
+        }
+
     ];
+
+    const onDeleteRoom=(record) => {
+        setData(pre => {
+            pre.filter((rooms.map((room) => { return room._id} ) !== record._id))
+        })
+    }
 
 
     const fetchApi = (pageSize, current) => {
@@ -135,7 +155,6 @@ const RoomTable = (props) => {
 
 
     return (
-
         <Table
             columns={columns}
             rowKey={record => record._id}
@@ -145,6 +164,7 @@ const RoomTable = (props) => {
             onChange={handleTableChange}
 
         />
+
     )
 }
 
