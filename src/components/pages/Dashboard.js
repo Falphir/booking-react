@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import { Routes, Route, Link } from 'react-router-dom';
 import 'antd/dist/antd.css';
 import { Layout, Menu, Breadcrumb } from 'antd';
 import Users from '../Tables/users/Users';
