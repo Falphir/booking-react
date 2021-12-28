@@ -1,7 +1,7 @@
 import './UserTable.css';
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import Config from '../config';
-import { Pagination, Table } from 'antd';
+import { Table } from 'antd';
 
 const UserTable = (props) => {
 
@@ -18,7 +18,7 @@ const UserTable = (props) => {
     const renderRoles = (roles) => {
         return roles.map((role) => {
             return (
-                <label>
+                <label key={role._id}>
                     Name: {role.name}
                 </label>
             )
