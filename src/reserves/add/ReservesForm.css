@@ -1,0 +1,19 @@
+.form-Reserves{
+    display: flex;
+    flex-direction: column;
+    width: 350px;
+}
+
+.field {
+    margin-bottom: 5px;
+}
+
+.field label {
+    width: 100px;
+    margin-right: 5px;
+    display: inline-block;
+}
+
+.sumbit {
+    width: 150px;
+}

@@ -9,6 +9,8 @@ import Rooms from './rooms/Rooms';
 import RoomsForm from './rooms/add/RoomsForm';
 import Login from './login/LoginForm';
 import Users from './users/Users';
+import Reserves from './reserves/Reserves';
+import ReservesForm from './reserves/add/ReservesForm';
 
 function App() {
   return (
@@ -22,6 +24,8 @@ function App() {
         <Route path='/rooms' exact element={<Rooms></Rooms>}></Route>
         <Route path='/users' exact element={<Users></Users>}></Route>
         <Route path='/roomsform' exact element={<RoomsForm></RoomsForm>}></Route>
+        <Route path='/reserves' exact element={<Reserves></Reserves>}></Route>
+        <Route path='/reservesform' exact element={<ReservesForm></ReservesForm>}></Route>
       </Routes>
       <Footer />
       {/* </Router> */}
