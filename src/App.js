@@ -17,10 +17,10 @@ function App() {
       <Navbar />
       <Routes>
         <Route path='/' exact element={<Home />} />
-        <Route path='/login' exact element={<Login></Login>}></Route>
-        <Route path='/dashboard' exact element={<Dashboard />} />
-        <Route path='/rooms' exact element={<Rooms></Rooms>}></Route>
-        <Route path='/users' exact element={<Users></Users>}></Route>
+        <Route path='/login' exact element={<Login/>}></Route>
+        <Route path='/dashboard' exact element={<Dashboard/>} />
+        <Route path='/rooms' exact element={<Rooms/>}></Route>
+        <Route path='/users' exact element={<Users/>}></Route>
         <Route path='/roomsform' exact element={<RoomsForm></RoomsForm>}></Route>
       </Routes>
       <Footer />
