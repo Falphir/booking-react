@@ -1,60 +1,53 @@
-import './UserTable.css';
-import { useState, useEffect } from 'react';
-import Config from '../config';
 import { Table } from 'antd';
+import { useState, useEffect } from 'react';
+import './ReserveTable.css';
+import Config from '../config';
 
-const UserTable = (props) => {
+const ReserveTable = (props) => {
 
-    const [loading, setLoading] = useState(true);
+    let a = new Date(props.dateCheckIn);
+    let dateCheckIn = a.toLocaleString();
+
+    let b = new Date(props.dateCheckOut);
+    let dateCheckOut = b.toLocaleString();
+
+    const [loading, setLoading] = useState();
     const [data, setData] = useState({
-        users: [],
+        reserves: [],
         pagination: {
             current: 1,
-            pageSize: 3,
+            pageSize: 2,
             total: 0
         }
     });
 
-    const renderRoles = (roles) => {
-        return roles.map((role) => {
-            return (
-                <label key={role._id}>
-                    Name: {role.name}
-                </label>
-            )
-        })
-    }
-
 
     const columns = [
         {
-            title: 'Name',
-            dataIndex: 'name',
-            width: '20%',
+            title: 'Date Check In',
+            dataIndex: 'dateCheckIn',
+            width: '20%,'
         },
-
         {
-            title: 'Email',
-            dataIndex: 'email',
-            width: '20%',
+            title: 'Date Check Out',
+            dataIndex: 'dateCheckOut',
+            width: '20%,'
         },
-
         {
-            title: 'Password',
-            dataIndex: 'password',
-            width: '30%',
+            title: 'Name User',
+            dataIndex: 'nameUser',
+            width: '20%,'
         },
-
         {
-            title: 'Role',
-            dataIndex: 'role',
-            render: renderRoles,
-        },
+            title: 'ID Rooms',
+            dataIndex: 'idRoom',
+            width: '20%,'
+        }
     ];
 
 
     const fetchApi = (pageSize, current) => {
-        const url = '/auth/admin/users?' + new URLSearchParams({
+        const url = '/reserve/reserves?' + new URLSearchParams({
             limit: pageSize,
             skip: current - 1
         })
@@ -67,13 +60,12 @@ const UserTable = (props) => {
             .then((response) => response.json())
 
             .then((response) => {
-                const { auth, users = [], pagination } = response;
-
+                const { auth, reserves = [], pagination } = response;
 
                 if (auth) {
                     setLoading(false);
                     setData({
-                        users,
+                        reserves,
                         pagination: {
                             current: pagination.page + 1 || 1,
                             pageSize: pagination.pageSize || 10,
@@ -89,12 +81,13 @@ const UserTable = (props) => {
         fetchApi(data.pagination.pageSize, data.pagination.current);
 
         return () => setData({
-            users: [],
+            reserves: [],
             pagination: {
                 current: 1,
                 pageSize: 10
             }
         });
+
     }, []);
 
 
@@ -103,21 +96,18 @@ const UserTable = (props) => {
     };
 
 
-    const { users, pagination } = data;
-
+    const { reserves, pagination } = data;
 
     return (
-
         <Table
             columns={columns}
             rowKey={record => record._id}
-            dataSource={users}
+            dataSource={reserves}
             pagination={pagination}
             loading={loading}
             onChange={handleTableChange}
-
         />
     )
 }
 
-export default UserTable;
+export default ReserveTable;
