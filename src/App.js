@@ -5,6 +5,7 @@ import './App.css';
 import Footer from './components/Footer';
 import 'antd/dist/antd.css';
 import Dashboard from './components/pages/Dashboard';
+import RoomDetails from './components/pages/RoomDetails';
 import Rooms from './components/Tables/rooms/Rooms';
 import RoomsForm from './components/Tables/rooms/add/RoomsForm';
 import Login from './login/LoginForm';
@@ -22,7 +23,7 @@ function App() {
         <Route path='/login' exact element={<Login />}></Route>
         <Route path='/dashboard' exact element={<Dashboard />} />
         <Route path='/rooms' exact element={<Rooms />}></Route>
-        <Route path='/rooms/room/:id' exact element={<RoomsDetails/>}></Route>
+        <Route path='/rooms/room/:id' exact element={<RoomDetails/>}></Route>
         <Route path='/users' exact element={<Users />}></Route>
         <Route path='/roomsform' exact element={<RoomsForm></RoomsForm>}></Route>
         <Route path='/reserves' exact element={<Reserves></Reserves>}></Route>
