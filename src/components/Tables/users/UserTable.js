@@ -10,20 +10,31 @@ const UserTable = (props) => {
         users: [],
         pagination: {
             current: 1,
-            pageSize: 3,
+            pageSize: 10,
             total: 0
         }
     });
 
-    const renderRoles = (roles) => {
+    /* const renderRoles = (roles) => {
         return roles.map((role) => {
             return (
                 <label key={role._id}>
                     Name: {role.name}
+                    Scopes: {renderScopes}
                 </label>
             )
         })
-    }
+    } */
+
+    /* const renderScopes = (scopes) => {
+        return scopes.map((scope) => {
+            return (
+                <label key={scope._id}>
+                    {scope.scopes}
+                </label>
+            )
+        })
+    } */
 
 
     const columns = [
@@ -45,11 +56,11 @@ const UserTable = (props) => {
             width: '30%',
         },
 
-        {
+        /* {
             title: 'Role',
             dataIndex: 'role',
-            render: renderRoles,
-        },
+            render: renderRoles
+        } */
     ];
 
 
@@ -115,7 +126,6 @@ const UserTable = (props) => {
             pagination={pagination}
             loading={loading}
             onChange={handleTableChange}
-
         />
     )
 }

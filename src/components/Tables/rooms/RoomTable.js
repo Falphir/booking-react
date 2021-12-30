@@ -169,9 +169,7 @@ const RoomTable = (props) => {
             pagination={pagination}
             loading={loading}
             onChange={handleTableChange}
-
         />
-
     )
 }
 
