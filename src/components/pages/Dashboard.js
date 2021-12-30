@@ -4,6 +4,7 @@ import { Layout, Menu, Breadcrumb } from 'antd';
 import Users from '../Tables/users/Users';
 import Rooms from '../Tables/rooms/Rooms';
 import Reserves from '../Tables/reserves/Reserves';
+import {Link} from 'react-router-dom'
 
 
 const { Content, Sider } = Layout;
@@ -16,8 +17,8 @@ function Dashboard() {
         <Layout>
             <Content style={{ padding: '0 50px' }}>
                 <Breadcrumb style={{ margin: '16px 0' }}>
-                    <Breadcrumb.Item>Home</Breadcrumb.Item>
-                    <Breadcrumb.Item>Dashboard</Breadcrumb.Item>
+                    <Breadcrumb.Item><Link to="/">Home</Link></Breadcrumb.Item>
+                    <Breadcrumb.Item><Link to="/dashboard">Dashboard</Link></Breadcrumb.Item>
                 </Breadcrumb>
                 <Layout className="site-layout-background" style={{ padding: '24px 0' }}>
                     <Sider className="site-layout-background" width={200} style={{ marginRight: '10px' }}>

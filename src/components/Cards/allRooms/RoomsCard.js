@@ -152,7 +152,7 @@ const RoomsCard = (props) => {
 
                         <div className="additional">
                             <Row gutter={16}>
-                                <Col span={8}>
+                                <Col span={6}>
                                     <div key={item._id}>
                                         {item.tags.map(tag => {
                                             return (
@@ -163,15 +163,15 @@ const RoomsCard = (props) => {
 
                                 </Col>
 
-                                <Col span={4}>
+                                <Col span={6}>
                                     {item.nAdult} <i class="fas fa-user-alt"></i>
                                 </Col>
 
-                                <Col span={8}>
+                                <Col span={6}>
                                     {item.nChild} <i class="fas fa-child"></i>
                                 </Col>
 
-                                <Col span={4}>
+                                <Col span={6}>
                                     {item.price} <i class="fas fa-euro-sign"></i>
                                 </Col>
                             </Row>
