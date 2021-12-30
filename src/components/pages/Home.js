@@ -7,8 +7,6 @@ function Home() {
     return (
         <>
             <BannerSection />
-            <br></br>
-
             <RoomsCard></RoomsCard>
         </>
     )
