@@ -11,6 +11,7 @@ import Login from './login/LoginForm';
 import Users from './components/Tables/users/Users';
 import Reserves from './components/Tables/reserves/Reserves';
 import ReservesForm from './components/Tables/reserves/add/ReservesForm';
+import AllRoomsList from './components/Cards/allRoomsList/Rooms';
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
         <Route path='/roomsform' exact element={<RoomsForm></RoomsForm>}></Route>
         <Route path='/reserves' exact element={<Reserves></Reserves>}></Route>
         <Route path='/reservesform' exact element={<ReservesForm></ReservesForm>}></Route>
+        <Route path='/roomList' exact element={<AllRoomsList></AllRoomsList>}></Route>
       </Routes>
       <Footer />
       {/* </Router> */}

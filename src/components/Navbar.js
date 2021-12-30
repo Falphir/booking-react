@@ -9,7 +9,6 @@ function Navbar() {
   const [button, setButton] = useState(false);
   const [dashboardLink, setDashboardButton] = useState(true);
   const [reservesLink, setReservesButton] = useState(true);
-
   const handleClick = () => setClick(!click);
   const closeMobileMenu = () => setClick(false);
 
@@ -68,11 +67,20 @@ function Navbar() {
             <i className={click ? 'fas fa-times' : 'fas fa-bars'} />
           </div>
           <ul className={click ? 'nav-menu active' : 'nav-menu'}>
-            {/* <li className='nav-item'>
+            <li className='nav-item'>
               <Link to='/' className='nav-links' onClick={closeMobileMenu}>
                 Home
               </Link>
-            </li> */}
+            </li>
+
+            <li className='nav-item'>
+              <Link to='/roomList'
+                className='nav-links'
+                onClick={closeMobileMenu}
+              >
+                Rooms
+              </Link>
+            </li>
 
             {dashboardLink &&
               <li className='nav-item'>

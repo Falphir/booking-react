@@ -1,11 +1,10 @@
 import './RoomsCard.css';
 import React, { useState, useEffect } from 'react';
 import Config from '../../../config';
-import { List, Card, Col, Row, Pagination } from 'antd';
+import { List, Card, Col, Row } from 'antd';
 import { EditOutlined, EllipsisOutlined, SettingOutlined } from '@ant-design/icons';
-
-
 const { Meta } = Card;
+
 
 const RoomsCard = (props) => {
 
@@ -14,7 +13,7 @@ const RoomsCard = (props) => {
         rooms: [],
         pagination: {
             current: 1,
-            pageSize: 5,
+            pageSize: 10,
             total: 0
         }
     });
@@ -101,7 +100,7 @@ const RoomsCard = (props) => {
 
 
     return (
-        <List grid={{ gutter: 16, column: 5 }} dataSource={rooms} columns={columns} rowKey={record => record._id} loading={loading}
+        <List grid={{ gutter: 16, column: 3 }} dataSource={rooms} pagination={pagination} columns={columns} rowKey={record => record._id} loading={loading}
             renderItem={item => (
                 <List.Item>
                     <Card key={item._id} cover={<img alt="example" src="https://images.unsplash.com/photo-1618773928121-c32242e63f39?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80" />}>
