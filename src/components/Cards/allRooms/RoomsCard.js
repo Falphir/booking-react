@@ -12,25 +12,25 @@ function useWindowSize() {
     // Initialize state with undefined width/height so server and client renders match
     // Learn more here: https://joshwcomeau.com/react/the-perils-of-rehydration/
     const [windowSize, setWindowSize] = useState({
-      width: undefined,
+        width: undefined,
     });
     useEffect(() => {
-      // Handler to call on window resize
-      function handleResize() {
-        // Set window width/height to state
-        setWindowSize({
-          width: window.innerWidth,
-        });
-      }
-      // Add event listener
-      window.addEventListener("resize", handleResize);
-      // Call handler right away so state gets updated with initial window size
-      handleResize();
-      // Remove event listener on cleanup
-      return () => window.removeEventListener("resize", handleResize);
+        // Handler to call on window resize
+        function handleResize() {
+            // Set window width/height to state
+            setWindowSize({
+                width: window.innerWidth,
+            });
+        }
+        // Add event listener
+        window.addEventListener("resize", handleResize);
+        // Call handler right away so state gets updated with initial window size
+        handleResize();
+        // Remove event listener on cleanup
+        return () => window.removeEventListener("resize", handleResize);
     }, []); // Empty array ensures that effect is only run on mount
     return windowSize;
-  }
+}
 
 const RoomsCard = (props) => {
 
@@ -127,16 +127,16 @@ const RoomsCard = (props) => {
 
     var ncolumn = 5
 
-    if(Size.width < 576) {
-         ncolumn = 1
-    } else if(Size.width >= 576 &&  Size.width < 768) {
-         ncolumn = 2
-    } else if(Size.width >= 768 &&  Size.width < 992) {
-         ncolumn = 3
-    } else if(Size.width >= 992 &&  Size.width < 1200) {
-         ncolumn = 4
-    } else if(Size.width >= 1200) {
-         ncolumn = 5
+    if (Size.width < 576) {
+        ncolumn = 1
+    } else if (Size.width >= 576 && Size.width < 768) {
+        ncolumn = 2
+    } else if (Size.width >= 768 && Size.width < 992) {
+        ncolumn = 3
+    } else if (Size.width >= 992 && Size.width < 1200) {
+        ncolumn = 4
+    } else if (Size.width >= 1200) {
+        ncolumn = 5
     }
 
     return (
@@ -144,44 +144,44 @@ const RoomsCard = (props) => {
             renderItem={item => (
                 <List.Item>
                     <Link to={`/rooms/room/${item._id}`}>
-                    <Card className='card' key={item._id} cover={<img alt="example" src="https://images.unsplash.com/photo-1618773928121-c32242e63f39?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80" />}>
-                        <Meta
-                            title={<p><span style={{ fontWeight: 'bold' }}>{item.description}</span></p>}>
-                        </Meta>
+                        <Card className='card' key={item._id} cover={<img alt="example" src="https://images.unsplash.com/photo-1618773928121-c32242e63f39?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80" />}>
+                            <Meta
+                                title={<p><span style={{ fontWeight: 'bold' }}>{item.description}</span></p>}>
+                            </Meta>
 
-                        <p></p>
+                            <p></p>
 
-                        <div className="additional">
-                            <Row gutter={16}>
-                                <Col span={6}>
-                                    <div key={item._id}>
-                                        {item.tags.map(tag => {
-                                            return (
-                                                <>{tag.nStars} <i class="fas fa-star"></i></>
-                                            );
-                                        })}
-                                    </div>
+                            <div className="additional">
+                                <Row gutter={16}>
+                                    <Col span={6}>
+                                        <div key={item._id}>
+                                            {item.tags.map(tag => {
+                                                return (
+                                                    <>{tag.nStars} <i class="fas fa-star"></i></>
+                                                );
+                                            })}
+                                        </div>
 
-                                </Col>
+                                    </Col>
 
-                                <Col span={6}>
-                                    {item.nAdult} <i class="fas fa-user-alt"></i>
-                                </Col>
+                                    <Col span={6}>
+                                        {item.nAdult} <i class="fas fa-user-alt"></i>
+                                    </Col>
 
-                                <Col span={6}>
-                                    {item.nChild} <i class="fas fa-child"></i>
-                                </Col>
+                                    <Col span={6}>
+                                        {item.nChild} <i class="fas fa-child"></i>
+                                    </Col>
 
-                                <Col span={6}>
-                                    {item.price} <i class="fas fa-euro-sign"></i>
-                                </Col>
-                            </Row>
-                        </div>
-                    </Card>
+                                    <Col span={6}>
+                                        {item.price} <i class="fas fa-euro-sign"></i>
+                                    </Col>
+                                </Row>
+                            </div>
+                        </Card>
                     </Link>
                 </List.Item>
             )}>
-                <p></p>
+            <p></p>
         </List>
     )
 }

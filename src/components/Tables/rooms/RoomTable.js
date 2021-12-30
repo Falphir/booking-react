@@ -19,7 +19,10 @@ const RoomTable = (props) => {
     //Renderizar Imagem
     const renderImage = (text, record) => {
         return (
-            <img src={record.image} alt="Room Image" style={{ width: 150 }, { height: 75 }} />
+            <img
+                src="https://images.unsplash.com/photo-1618773928121-c32242e63f39?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80"
+                // src={record.image} 
+                alt="Room Image" style={{ width: 150 }, { height: 75 }} />
         );
     }
 
@@ -28,7 +31,7 @@ const RoomTable = (props) => {
         return tags.map((tag) => {
             return (
                 <label key={tag._id}>
-                    
+
                     <Tag color="blue">Type Room: {tag.typeRoom} </Tag>
                     <Tag color="blue">VIP: {tag.vip.toString()}</Tag>
                     <Tag color="blue">Nº Pool: {tag.nPool}</Tag>
