@@ -1,8 +1,7 @@
 import ReserveTable from "./ReserveTable";
 import './Reserves.css';
-import Config from '../config';
+import Config from '../../../config';
 import { useEffect, useState } from "react";
-import ReservesForm from "./add/ReservesForm";
 import { Navigate } from "react-router-dom";
 
 
@@ -10,7 +9,7 @@ const Reserves = () => {
     const [loading, setLoading] = useState(true);
     const [reserves, setReserves] = useState([]);
 
-    useEffect(() => {
+    /* useEffect(() => {
         fetch('/reserve/reserves', {
             headers: { 'Accept': 'application/json', 'x-access-token': Config.token }
         })
@@ -27,15 +26,11 @@ const Reserves = () => {
             });
 
         return () => setReserves([]);
-    }, [])
+    }, []) */
 
 
     if (!Config.token) {
         return <Navigate to={'/'}></Navigate>
-    }
-
-    if (loading) {
-        return <h1>LOADING</h1>
     }
 
 

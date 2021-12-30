@@ -2,8 +2,7 @@ import './Rooms.css';
 import Config from '../../../config';
 import React, { useState } from 'react';
 import { Navigate } from 'react-router-dom';
-import RoomTable from './RoomTable';
-
+import RoomsCard from './RoomsCard';
 
 
 const Rooms = () => {
@@ -15,10 +14,11 @@ const Rooms = () => {
         return <Navigate to={'/'}></Navigate>
     }
 
-
     return (
         <div className='room-container'>
-            <RoomTable></RoomTable>
+            <h1>Check out these Rooms!</h1>
+
+            <RoomsCard></RoomsCard>
         </div>
     )
 }

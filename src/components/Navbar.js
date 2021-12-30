@@ -74,34 +74,6 @@ function Navbar() {
               </Link>
             </li> */}
 
-            <li className='nav-item'>
-              <Link
-                to='/rooms'
-                className='nav-links'
-                onClick={closeMobileMenu}
-              >
-                Rooms
-              </Link>
-            </li>
-            <li className='nav-item'>
-              <Link
-                to='/users'
-                className='nav-links'
-                onClick={closeMobileMenu}
-              >
-                Users
-              </Link>
-            </li>
-            {reservesLink &&
-              <li className='nav-item'>
-                <Link
-                  to='/reserves'
-                  className='nav-links'
-                  onClick={closeMobileMenu}
-                >
-                  Reserves
-                </Link>
-              </li>}
             {dashboardLink &&
               <li className='nav-item'>
                 <Link to='/dashboard'
