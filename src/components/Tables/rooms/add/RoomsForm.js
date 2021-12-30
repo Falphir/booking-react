@@ -1,7 +1,6 @@
 import { useForm } from "react-hook-form";
 import './RoomsForm.css';
 import Config from '../../../../config';
-import axios from "axios";
 
 
 const RoomsForm = () => {
