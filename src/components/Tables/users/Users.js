@@ -1,6 +1,6 @@
 import User from './UserTable';
 import './Users.css';
-import Config from '../config';
+import Config from '../../../config';
 import React, { useState } from 'react';
 import { Navigate } from 'react-router-dom';
 import UserTable from './UserTable';
