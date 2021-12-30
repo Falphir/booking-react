@@ -17,8 +17,9 @@ const Rooms = () => {
     return (
         <div className='room-container'>
             <h1>Check out these Rooms!</h1>
-
-            <RoomsCard></RoomsCard>
+            <div className='cards__container'>
+                <RoomsCard></RoomsCard>
+            </div>
         </div>
     )
 }

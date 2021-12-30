@@ -7,14 +7,40 @@ import { EditOutlined, EllipsisOutlined, SettingOutlined } from '@ant-design/ico
 
 const { Meta } = Card;
 
+
+function useWindowSize() {
+    // Initialize state with undefined width/height so server and client renders match
+    // Learn more here: https://joshwcomeau.com/react/the-perils-of-rehydration/
+    const [windowSize, setWindowSize] = useState({
+      width: undefined,
+    });
+    useEffect(() => {
+      // Handler to call on window resize
+      function handleResize() {
+        // Set window width/height to state
+        setWindowSize({
+          width: window.innerWidth,
+        });
+      }
+      // Add event listener
+      window.addEventListener("resize", handleResize);
+      // Call handler right away so state gets updated with initial window size
+      handleResize();
+      // Remove event listener on cleanup
+      return () => window.removeEventListener("resize", handleResize);
+    }, []); // Empty array ensures that effect is only run on mount
+    return windowSize;
+  }
+
 const RoomsCard = (props) => {
 
+    const Size = useWindowSize();
     const [loading, setLoading] = useState(true);
     const [data, setData] = useState({
         rooms: [],
         pagination: {
             current: 1,
-            pageSize: 10,
+            pageSize: 5,
             total: 0
         }
     });
@@ -99,9 +125,22 @@ const RoomsCard = (props) => {
 
     const { rooms, pagination } = data;
 
+    var ncolumn = 5
+
+    if(Size.width.width < 576) {
+         ncolumn = 1
+    } else if(Size.width >= 576 &&  Size.width < 768) {
+         ncolumn = 2
+    } else if(Size.width >= 768 &&  Size.width < 992) {
+         ncolumn = 3
+    } else if(Size.width >= 992 &&  Size.width < 1200) {
+         ncolumn = 4
+    } else if(Size.width >= 1200) {
+         ncolumn = 5
+    }
 
     return (
-        <List grid={{ gutter: 16, column: 5 }} dataSource={rooms} columns={columns} pagination={pagination} rowKey={record => record._id} loading={loading}
+        <List grid={{ gutter: 16, column: ncolumn }} dataSource={rooms} columns={columns} rowKey={record => record._id} loading={loading}
             renderItem={item => (
                 <List.Item>
                     <Card key={item._id} cover={<img alt="example" src="https://images.unsplash.com/photo-1618773928121-c32242e63f39?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80" />}>
@@ -140,6 +179,7 @@ const RoomsCard = (props) => {
                     </Card>
                 </List.Item>
             )}>
+                <p></p>
         </List>
     )
 }
