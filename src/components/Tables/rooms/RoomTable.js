@@ -1,7 +1,7 @@
 import './RoomTable.css';
 import React, { useState, useEffect } from 'react';
 import Config from '../../../config';
-import { Pagination, Table } from 'antd';
+import { Pagination, Table, Modal } from 'antd';
 import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
 
 const RoomTable = (props) => {
@@ -86,19 +86,26 @@ const RoomTable = (props) => {
             title: 'Actions',
             render: (record) => {
                 return <>
-                    <EditOutlined/>
-                    <DeleteOutlined onClick={() =>{ onDeleteRoom(record) }} style={{color: "red", marginLeft: 12}} />
+                    <EditOutlined />
+                    <DeleteOutlined onClick={() => { onDeleteRoom(record) }} style={{ color: "red", marginLeft: 12 }} />
                 </>
             }
         }
 
     ];
 
-    const onDeleteRoom=(record) => {
-        setData(pre => {
-            pre.filter((rooms.map((room) => { return room._id} ) !== record._id))
-        })
-    }
+    const onDeleteRoom = (record) => {
+
+        Modal.confirm({
+            title: 'Are you sure, you want to delete this room record?',
+            onOk: () => {
+                setData((pre) => {
+                    return pre.filter((room) => room.id !== record.id);
+                    //pre.filter((rooms.map((room) => { return room._id }) !== record._id))
+                });
+            },
+        });
+    };
 
 
     const fetchApi = (pageSize, current) => {

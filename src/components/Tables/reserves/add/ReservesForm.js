@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form";
 import './ReservesForm.css';
-import Config from "../../config";
+import Config from "../../../../config";
 
 
 const ReservesForm = () => {
@@ -16,10 +16,12 @@ const ReservesForm = () => {
 
             .then((response) => {
                 if (response.ok) {
+                    console.log(response);
                     alert("Reserve created");
                     return response.json();
 
                 } else {
+                    console.log(response);
                     alert("Reserve duplicate");
                 }
             })
@@ -41,27 +43,27 @@ const ReservesForm = () => {
             <form className="form-Reserves" onSubmit={handleSubmit(onSubmit)}>
                 <div className="field">
                     <label>Date Check In: </label>
-                    <input name="dateCheckIn" ref={register}></input>
+                    <input {...register('dateCheckIn')}></input>
                 </div>
 
                 <div className="field">
                     <label>Date Check Out: </label>
-                    <input name="dateCheckOut" ref={register}></input>
+                    <input {...register('dateCheckOut')}></input>
                 </div>
 
                 <div className="field">
                     <label>ID User: </label>
-                    <input name="idUser" ref={register}></input>
+                    <input {...register('idUser')}></input>
                 </div>
 
                 <div className="field">
                     <label>Name User: </label>
-                    <input name="nameUser" ref={register}></input>
+                    <input {...register('nameUser')}></input>
                 </div>
 
                 <div className="field">
                     <label>ID Room: </label>
-                    <input name="idRoom" ref={register}></input>
+                    <input {...register('idRoom')}></input>
                 </div>
 
                 <input className="submit" type="submit"></input>

@@ -1,7 +1,8 @@
-import { Table } from 'antd';
+import { Pagination, Table, Modal } from 'antd';
+import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
 import { useState, useEffect } from 'react';
 import './ReserveTable.css';
-import Config from '../config';
+import Config from '../../../config';
 
 const ReserveTable = (props) => {
 
@@ -16,7 +17,7 @@ const ReserveTable = (props) => {
         reserves: [],
         pagination: {
             current: 1,
-            pageSize: 2,
+            pageSize: 10,
             total: 0
         }
     });
@@ -26,24 +27,43 @@ const ReserveTable = (props) => {
         {
             title: 'Date Check In',
             dataIndex: 'dateCheckIn',
-            width: '20%,'
         },
         {
             title: 'Date Check Out',
             dataIndex: 'dateCheckOut',
-            width: '20%,'
         },
         {
             title: 'Name User',
             dataIndex: 'nameUser',
-            width: '20%,'
         },
         {
             title: 'ID Rooms',
             dataIndex: 'idRoom',
-            width: '20%,'
+        },
+        {
+            title: 'Actions',
+            render: (record) => {
+                return <>
+                    <EditOutlined />
+                    <DeleteOutlined onClick={() => { onDeleteReserve(record) }} style={{ color: "red", marginLeft: 12 }} />
+                </>
+            }
         }
     ];
+
+
+    const onDeleteReserve = (record) => {
+
+        Modal.confirm({
+            title: 'Are you sure, you want to delete this reserve record?',
+            onOk: () => {
+                setData((pre) => {
+                    return pre.filter((reserve) => reserve._id !== record._id);
+                    //pre.filter((rooms.map((room) => { return room._id }) !== record._id))
+                });
+            },
+        });
+    };
 
 
     const fetchApi = (pageSize, current) => {

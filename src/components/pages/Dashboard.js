@@ -3,6 +3,8 @@ import 'antd/dist/antd.css';
 import { Layout, Menu, Breadcrumb } from 'antd';
 import Users from '../Tables/users/Users';
 import Rooms from '../Tables/rooms/Rooms';
+import Reserves from '../Tables/reserves/Reserves';
+
 
 const { Content, Sider } = Layout;
 
@@ -32,10 +34,10 @@ function Dashboard() {
                     <Content className='content' style={{ padding: '12px 24px', minHeight: 280, background: '#fff' }}>
                         {(() => {
                             switch (menu) {
-                                case 1: return <Users/>;
-                                case 2: return <Rooms/>;
-                                case 3: return "#0000FF";
-                                default: return <Users/>;
+                                case 1: return <Users />;
+                                case 2: return <Rooms />;
+                                case 3: return <Reserves></Reserves>;
+                                default: return <Users />;
                             }
                         })()}
                     </Content>
