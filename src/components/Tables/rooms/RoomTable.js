@@ -1,7 +1,7 @@
 import './RoomTable.css';
 import React, { useState, useEffect } from 'react';
 import Config from '../../../config';
-import { Table, Modal } from 'antd';
+import { Table, Modal, Tag } from 'antd';
 import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
 
 const RoomTable = (props) => {
@@ -28,17 +28,17 @@ const RoomTable = (props) => {
         return tags.map((tag) => {
             return (
                 <label key={tag._id}>
-
-                    Type Room: {tag.typeRoom},
-                    VIP: {tag.vip.toString()},
-                    Nº Pool: {tag.nPool},
-                    Car Park: {tag.carPark.toString()},
-                    Breakfast: {tag.breakfast.toString()},
-                    Lunch: {tag.lunch.toString()},
-                    Spa: {tag.spa.toString()},
-                    Nº Stars: {tag.nStars},
-                    Nº Single Bed: {tag.nSingleBed},
-                    Nº Double Bed: {tag.nDoubleBed}
+                    
+                    <Tag color="blue">Type Room: {tag.typeRoom} </Tag>
+                    <Tag color="blue">VIP: {tag.vip.toString()}</Tag>
+                    <Tag color="blue">Nº Pool: {tag.nPool}</Tag>
+                    <Tag color="blue">Car Park: {tag.carPark.toString()}</Tag>
+                    <Tag color="blue">Breakfast: {tag.breakfast.toString()}</Tag>
+                    <Tag color="blue">Lunch: {tag.lunch.toString()}</Tag>
+                    <Tag color="blue">Spa: {tag.spa.toString()}</Tag>
+                    <Tag color="blue">Nº Stars: {tag.nStars}</Tag>
+                    <Tag color="blue">Nº Single Bed: {tag.nSingleBed}</Tag>
+                    <Tag color="blue">Nº Double Bed: {tag.nDoubleBed}</Tag>
                 </label>
             )
         })
@@ -97,7 +97,7 @@ const RoomTable = (props) => {
     const onDeleteRoom = (record) => {
 
         Modal.confirm({
-            title: 'Are you sure, you want to delete this room record?',
+            title: 'Are you sure, you want to delete this room?',
             onOk: () => {
                 setData((pre) => {
                     return pre.filter((room) => room.id !== record.id);
