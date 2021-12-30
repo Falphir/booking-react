@@ -59,12 +59,12 @@ const RoomsForm = () => {
         <>
             <h2>Rooms Form</h2>
             <form className="form-Rooms" onSubmit={handleSubmit(onSubmit)}>
-                <div className="field">
+                {/* <div className="field">
                     <label>Image: </label>
                     <input id="" name="" type="file" onChange={this.handleSelectedFile} {...register('image')}></input>
                     <button onClick={this.handleUpload}>Upload</button>
                     <div> {Math.round(this.state.loaded, 2)} %</div>
-                </div>
+                </div> */}
 
                 <div className="field">
                     <label>Description: </label>
@@ -103,6 +103,7 @@ const RoomsForm = () => {
                         <option value="Casa de Férias">Casa de Férias</option>
                         <option value="Hostel">Hostel</option>
                         <option value="Casa de Campo">Casa de Campo</option>
+                        <option value="Outro">Outro</option>
                     </select>
 
                     <br></br>
@@ -154,12 +155,12 @@ const RoomsForm = () => {
 
                     <label>Nº Stars: </label>
                     <select {...register('nStars')}>
-                        <option value="zero">0</option>
-                        <option value="one">1</option>
-                        <option value="two">2</option>
-                        <option value="three">3</option>
-                        <option value="four">4</option>
-                        <option value="five">5</option>
+                        <option value="0">0</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
                     </select>
 
                     <br></br>
