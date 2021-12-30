@@ -35,9 +35,7 @@ const Reserves = () => {
 
 
     return (
-        <div className="reserve-container">
-            <ReserveTable></ReserveTable>
-        </div>
+        <ReserveTable></ReserveTable>
     )
 
 }

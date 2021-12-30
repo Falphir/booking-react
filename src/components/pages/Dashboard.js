@@ -15,13 +15,13 @@ function Dashboard() {
 
     return (
         <Layout>
-            <Content style={{ padding: '0 50px' }}>
+            <Content style={{ padding: '0 30px' }}>
                 <Breadcrumb style={{ margin: '16px 0' }}>
                     <Breadcrumb.Item><Link to="/">Home</Link></Breadcrumb.Item>
                     <Breadcrumb.Item><Link to="/dashboard">Dashboard</Link></Breadcrumb.Item>
                 </Breadcrumb>
                 <Layout className="site-layout-background" style={{ padding: '24px 0' }}>
-                    <Sider className="site-layout-background" width={200} style={{ marginRight: '10px' }}>
+                    <Sider className="site-layout-background" width={150} style={{ marginRight: '10px' }}>
                         <Menu
                             mode="inline"
                             defaultSelectedKeys={['2']}
@@ -32,12 +32,12 @@ function Dashboard() {
                             <Menu.Item key="3" onClick={() => setMenu(3)}>Reserves</Menu.Item>
                         </Menu>
                     </Sider>
-                    <Content className='content' style={{ padding: '12px 24px', minHeight: 280, background: '#fff' }}>
+                    <Content className='content' style={{ minHeight: 280, background: '#fff' }}>
                         {(() => {
                             switch (menu) {
                                 case 1: return <Users />;
                                 case 2: return <Rooms />;
-                                case 3: return <Reserves></Reserves>;
+                                case 3: return <Reserves />;
                                 default: return <Users />;
                             }
                         })()}

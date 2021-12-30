@@ -16,9 +16,9 @@ const Rooms = () => {
 
 
     return (
-        <div className='room-container'>
-            <RoomTable></RoomTable>
-        </div>
+
+        <RoomTable></RoomTable>
+
     )
 }
 

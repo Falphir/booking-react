@@ -19,7 +19,7 @@ const RoomTable = (props) => {
     //Renderizar Imagem
     const renderImage = (text, record) => {
         return (
-            <img src={record.image} alt="Room Image" style={{ width: 150 }, { height: 75 }} />
+            <img src={record.image} alt="Room Image" style={{ width: 150, height: 75 }} />
         );
     }
 
@@ -86,7 +86,7 @@ const RoomTable = (props) => {
             title: 'Actions',
             render: (record) => {
                 return <>
-                    <EditOutlined />
+                    <EditOutlined onClick={() => { onEditRoom(record) }} />
                     <DeleteOutlined onClick={() => { onDeleteRoom(record) }} style={{ color: "red", marginLeft: 12 }} />
                 </>
             }
@@ -104,6 +104,33 @@ const RoomTable = (props) => {
                     //pre.filter((rooms.map((room) => { return room._id }) !== record._id))
                 });
             },
+        });
+    };
+
+    const onEditRoom = (record) => {
+
+        Modal.confirm({
+            title: 'Edit Room',
+            title="Title",
+          onOk={},
+          onCancel={},
+          footer={[
+            <Button key="back" onClick={}>
+              Return
+            </Button>,
+            <Button key="submit" type="primary" loading={loading} onClick={}>
+              Submit
+            </Button>,
+            <Button
+              key="link"
+              href="https://google.com"
+              type="primary"
+              loading={loading}
+              onClick={this.handleOk}
+            >
+              Search on Google
+            </Button>
+          ]}
         });
     };
 
@@ -171,7 +198,6 @@ const RoomTable = (props) => {
             onChange={handleTableChange}
 
         />
-
     )
 }
 
