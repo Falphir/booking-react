@@ -1,7 +1,7 @@
 import './RoomTable.css';
 import React, { useState, useEffect } from 'react';
 import Config from '../../../config';
-import { Table, Modal } from 'antd';
+import { Table, Modal, Tag } from 'antd';
 import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
 
 const RoomTable = (props) => {
@@ -26,10 +26,11 @@ const RoomTable = (props) => {
     //Renderizar Tags
     const renderTags = (tags) => {
         return tags.map((tag) => {
+            let color = tag.length > 5 ? 'geekblue' : 'green';
             return (
                 <label key={tag._id}>
-
-                    Type Room: {tag.typeRoom},
+                    
+                    <Tag color={color}>Type Room: {tag.typeRoom} </Tag>,
                     VIP: {tag.vip.toString()},
                     Nº Pool: {tag.nPool},
                     Car Park: {tag.carPark.toString()},
@@ -97,7 +98,7 @@ const RoomTable = (props) => {
     const onDeleteRoom = (record) => {
 
         Modal.confirm({
-            title: 'Are you sure, you want to delete this room record?',
+            title: 'Are you sure, you want to delete this room?',
             onOk: () => {
                 setData((pre) => {
                     return pre.filter((room) => room.id !== record.id);

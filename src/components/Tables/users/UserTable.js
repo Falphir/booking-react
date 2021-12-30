@@ -30,19 +30,16 @@ const UserTable = (props) => {
         {
             title: 'Name',
             dataIndex: 'name',
-            width: '20%',
         },
 
         {
             title: 'Email',
             dataIndex: 'email',
-            width: '20%',
         },
 
         {
             title: 'Password',
             dataIndex: 'password',
-            width: '30%',
         },
 
         {
