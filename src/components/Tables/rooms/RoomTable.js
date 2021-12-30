@@ -26,20 +26,19 @@ const RoomTable = (props) => {
     //Renderizar Tags
     const renderTags = (tags) => {
         return tags.map((tag) => {
-            let color = tag.length > 5 ? 'geekblue' : 'green';
             return (
                 <label key={tag._id}>
                     
-                    <Tag color={color}>Type Room: {tag.typeRoom} </Tag>,
-                    VIP: {tag.vip.toString()},
-                    Nº Pool: {tag.nPool},
-                    Car Park: {tag.carPark.toString()},
-                    Breakfast: {tag.breakfast.toString()},
-                    Lunch: {tag.lunch.toString()},
-                    Spa: {tag.spa.toString()},
-                    Nº Stars: {tag.nStars},
-                    Nº Single Bed: {tag.nSingleBed},
-                    Nº Double Bed: {tag.nDoubleBed}
+                    <Tag color="blue">Type Room: {tag.typeRoom} </Tag>
+                    <Tag color="blue">VIP: {tag.vip.toString()}</Tag>
+                    <Tag color="blue">Nº Pool: {tag.nPool}</Tag>
+                    <Tag color="blue">Car Park: {tag.carPark.toString()}</Tag>
+                    <Tag color="blue">Breakfast: {tag.breakfast.toString()}</Tag>
+                    <Tag color="blue">Lunch: {tag.lunch.toString()}</Tag>
+                    <Tag color="blue">Spa: {tag.spa.toString()}</Tag>
+                    <Tag color="blue">Nº Stars: {tag.nStars}</Tag>
+                    <Tag color="blue">Nº Single Bed: {tag.nSingleBed}</Tag>
+                    <Tag color="blue">Nº Double Bed: {tag.nDoubleBed}</Tag>
                 </label>
             )
         })
