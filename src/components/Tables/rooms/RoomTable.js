@@ -1,7 +1,7 @@
 import './RoomTable.css';
 import React, { useState, useEffect } from 'react';
 import Config from '../../../config';
-import { Pagination, Table, Modal } from 'antd';
+import { Table, Modal } from 'antd';
 import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
 
 const RoomTable = (props) => {
@@ -19,7 +19,7 @@ const RoomTable = (props) => {
     //Renderizar Imagem
     const renderImage = (text, record) => {
         return (
-            <img src={record.image} style={{ width: 150 }, { height: 75 }} />
+            <img src={record.image} alt="Room Image" style={{ width: 150 }, { height: 75 }} />
         );
     }
 
