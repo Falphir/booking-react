@@ -1,6 +1,6 @@
 import './UserTable.css';
 import { useState, useEffect } from 'react';
-import Config from '../config';
+import Config from '../../../config';
 import { Table } from 'antd';
 
 const UserTable = (props) => {
