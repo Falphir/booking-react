@@ -127,7 +127,7 @@ const RoomsCard = (props) => {
 
     var ncolumn = 5
 
-    if(Size.width.width < 576) {
+    if(Size.width < 576) {
          ncolumn = 1
     } else if(Size.width >= 576 &&  Size.width < 768) {
          ncolumn = 2
