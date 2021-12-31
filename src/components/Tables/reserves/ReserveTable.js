@@ -22,15 +22,27 @@ const ReserveTable = (props) => {
         }
     });
 
+    const { reserves, pagination } = data;
+
+
+    reserves.map(el => {
+        let dateCheckIn = new Date(el.dateCheckIn)
+        el.dateCheckIn_printable = dateCheckIn.toLocaleString();
+
+        let dateCheckOut = new Date(el.dateCheckOut)
+        el.dateCheckOut_printable = dateCheckOut.toLocaleString();
+    })
+
+
 
     const columns = [
         {
             title: 'Date Check In',
-            dataIndex: 'dateCheckIn',
+            dataIndex: 'dateCheckIn_printable'
         },
         {
             title: 'Date Check Out',
-            dataIndex: 'dateCheckOut',
+            dataIndex: 'dateCheckOut_printable',
         },
         {
             title: 'Name User',
@@ -116,7 +128,6 @@ const ReserveTable = (props) => {
     };
 
 
-    const { reserves, pagination } = data;
 
     return (
         <Table
