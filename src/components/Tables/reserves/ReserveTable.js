@@ -1,5 +1,5 @@
-import { Pagination, Table, Modal } from 'antd';
-import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
+import { Pagination, Table, Modal, Button, Row, Col } from 'antd';
+import { EditOutlined, DeleteOutlined, PlusOutlined } from '@ant-design/icons';
 import { useState, useEffect } from 'react';
 import './ReserveTable.css';
 import Config from '../../../config';
@@ -119,14 +119,25 @@ const ReserveTable = (props) => {
     const { reserves, pagination } = data;
 
     return (
-        <Table
-            columns={columns}
-            rowKey={record => record._id}
-            dataSource={reserves}
-            pagination={pagination}
-            loading={loading}
-            onChange={handleTableChange}
-        />
+        <div>
+            <Row justify="end">
+                <Col>
+                    <div style={{ margin: 8 }}>
+                        <Button loading={loading}>
+                            <PlusOutlined style={{ marginRight: 8 }} /> Add Reserve
+                        </Button>
+                    </div>
+                </Col>
+            </Row>
+            <Table
+                columns={columns}
+                rowKey={record => record._id}
+                dataSource={reserves}
+                pagination={pagination}
+                loading={loading}
+                onChange={handleTableChange}
+            />
+        </div>
     )
 }
 

@@ -1,7 +1,8 @@
 import './UserTable.css';
 import { useState, useEffect } from 'react';
 import Config from '../../../config';
-import { Table } from 'antd';
+import { Table, Button, Row, Col } from 'antd';
+import { PlusOutlined } from '@ant-design/icons'
 
 const UserTable = (props) => {
 
@@ -104,16 +105,26 @@ const UserTable = (props) => {
 
 
     return (
+        <div>
+            <Row justify="end">
+                <Col>
+                    <div style={{ margin: 8 }}>
+                        <Button loading={loading}>
+                            <PlusOutlined style={{ marginRight: 10 }} /> Add User
+                        </Button>
+                    </div>
+                </Col>
+            </Row>
+            <Table
+                columns={columns}
+                rowKey={record => record._id}
+                dataSource={users}
+                pagination={pagination}
+                loading={loading}
+                onChange={handleTableChange}
 
-        <Table
-            columns={columns}
-            rowKey={record => record._id}
-            dataSource={users}
-            pagination={pagination}
-            loading={loading}
-            onChange={handleTableChange}
-
-        />
+            />
+        </div>
     )
 }
 

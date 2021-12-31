@@ -1,8 +1,8 @@
 import './RoomTable.css';
 import React, { useState, useEffect } from 'react';
 import Config from '../../../config';
-import { Table, Modal, Tag } from 'antd';
-import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
+import { Table, Modal, Tag, Button, Row, Col } from 'antd';
+import { EditOutlined, DeleteOutlined, PlusOutlined } from '@ant-design/icons';
 
 const RoomTable = (props) => {
 
@@ -28,7 +28,7 @@ const RoomTable = (props) => {
         return tags.map((tag) => {
             return (
                 <label key={tag._id}>
-                    
+
                     <Tag color="blue">Type Room: {tag.typeRoom} </Tag>
                     <Tag color="blue">VIP: {tag.vip.toString()}</Tag>
                     <Tag color="blue">Nº Pool: {tag.nPool}</Tag>
@@ -109,29 +109,28 @@ const RoomTable = (props) => {
 
     const onEditRoom = (record) => {
 
-        Modal.confirm({
-            title: 'Edit Room',
-            title="Title",
-          onOk={},
-          onCancel={},
-          footer={[
-            <Button key="back" onClick={}>
-              Return
-            </Button>,
-            <Button key="submit" type="primary" loading={loading} onClick={}>
-              Submit
-            </Button>,
-            <Button
-              key="link"
-              href="https://google.com"
-              type="primary"
-              loading={loading}
-              onClick={this.handleOk}
-            >
-              Search on Google
-            </Button>
-          ]}
-        });
+        // Modal.confirm({
+        //     title: 'Edit Room',
+        //     onOk={},
+        //     onCancel={},
+        //     footer={[
+        //         <Button key="back" onClick={ }>
+        //             Return
+        //         </Button>,
+        //         <Button key="submit" type="primary" loading={loading} onClick={this.handleOk}>
+        //             Submit
+        //         </Button>,
+        //         <Button
+        //             key="link"
+        //             href="https://google.com"
+        //             type="primary"
+        //             loading={loading}
+        //             onClick={this.handleOk}
+        //         >
+        //             Search on Google
+        //         </Button>
+        //         ]}
+        // });
     };
 
 
@@ -189,15 +188,27 @@ const RoomTable = (props) => {
 
 
     return (
-        <Table
-            columns={columns}
-            rowKey={record => record._id}
-            dataSource={rooms}
-            pagination={pagination}
-            loading={loading}
-            onChange={handleTableChange}
-
-        />
+        <div>
+            <Row justify="end">
+                <Col>
+                    <div style={{ margin: 8 }}>
+                        <Button loading={loading}>
+                            <PlusOutlined style={{ marginRight: 8 }} /> Add Room
+                        </Button>
+                    </div>
+                </Col>
+            </Row>
+            <Table
+                columns={columns}
+                rowKey={record => record._id}
+                dataSource={rooms}
+                pagination={pagination}
+                loading={loading}
+                onChange={handleTableChange}
+            >
+                <Table.Footer></Table.Footer>
+            </Table>
+        </div>
     )
 }
 

@@ -20,7 +20,7 @@ function Dashboard() {
                     <Breadcrumb.Item><Link to="/">Home</Link></Breadcrumb.Item>
                     <Breadcrumb.Item><Link to="/dashboard">Dashboard</Link></Breadcrumb.Item>
                 </Breadcrumb>
-                <Layout className="site-layout-background" style={{ padding: '24px 0' }}>
+                <Layout className="site-layout-background">
                     <Sider className="site-layout-background" width={150} style={{ marginRight: '10px' }}>
                         <Menu
                             mode="inline"
