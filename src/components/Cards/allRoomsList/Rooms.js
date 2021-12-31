@@ -8,8 +8,11 @@ import HighPriceRoomsCard from './HighPriceRoomsCard';
 import MoreStarsRoomsCard from './MoreStarsRoomsCard';
 import LessStarsRoomsCard from './LessStarsRoomsCard';
 import MostRecentRoomsCard from './MostRecentRoomsCard';
-import { DownOutlined } from '@ant-design/icons';
-import { Menu, Dropdown, Button } from 'antd';
+import { Layout, Menu, Dropdown, Button, Checkbox } from 'antd';
+import { DownOutlined, EuroOutlined, UserOutlined, StarOutlined, FilterOutlined, HomeOutlined } from '@ant-design/icons';
+
+const { Sider } = Layout;
+const { SubMenu } = Menu;
 
 
 const Rooms = () => {
@@ -22,6 +25,10 @@ const Rooms = () => {
     //se n tiver configurado o token no config.js, irá diretamente redirecionar para a homepage
     if (!Config.token) {
         return <Navigate to={'/'}></Navigate>
+    }
+
+    function onChange(e) {
+        console.log(`checked = ${e.target.checked}`);
     }
 
 
@@ -77,16 +84,74 @@ const Rooms = () => {
 
 
 
+
+
     return (
-        <div className='room-container'>
-            <Dropdown overlay={menu}>
-                <Button> Order by <DownOutlined /></Button>
-            </Dropdown>
+        <>
+            <Layout>
+                <Sider className="site-layout-background" width={200}>
+                    <Menu mode="inline" defaultSelectedKeys={['1']} defaultOpenKeys={['sub1']} style={{ height: '100%' }} >
 
-            <p></p>
+                        <SubMenu key="sub1" icon={<HomeOutlined />} title="Type Room">
+                            <Menu.Item key="1"><Checkbox onChange={onChange}>Apartamento</Checkbox></Menu.Item>
+                            <Menu.Item key="2"><Checkbox onChange={onChange}>Quarto</Checkbox></Menu.Item>
+                            <Menu.Item key="3"><Checkbox onChange={onChange}>Casa de Férias</Checkbox></Menu.Item>
+                            <Menu.Item key="4"><Checkbox onChange={onChange}>Hostel</Checkbox></Menu.Item>
+                            <Menu.Item key="5"><Checkbox onChange={onChange}>Casa de Campo</Checkbox></Menu.Item>
+                            <Menu.Item key="6"><Checkbox onChange={onChange}>Outro</Checkbox></Menu.Item>
+                        </SubMenu>
+                        <SubMenu key="sub2" icon={<EuroOutlined />} title="Price (per night)">
+                            <Menu.Item key="7"><Checkbox onChange={onChange}>0€ - 50€</Checkbox></Menu.Item>
+                            <Menu.Item key="8"><Checkbox onChange={onChange}>50€ - 100€</Checkbox></Menu.Item>
+                            <Menu.Item key="9"><Checkbox onChange={onChange}>100€ - 150€</Checkbox></Menu.Item>
+                            <Menu.Item key="10"><Checkbox onChange={onChange}>150€ - 200€</Checkbox></Menu.Item>
+                            <Menu.Item key="11"><Checkbox onChange={onChange}>more than 200€</Checkbox></Menu.Item>
+                        </SubMenu>
+                        <SubMenu key="sub3" icon={<FilterOutlined />} title="Popular filters">
+                            <Menu.Item key="12"><Checkbox onChange={onChange}>Car Park</Checkbox></Menu.Item>
+                            <Menu.Item key="13"><Checkbox onChange={onChange}>BreakFast</Checkbox></Menu.Item>
+                            <Menu.Item key="14"><Checkbox onChange={onChange}>Lunch</Checkbox></Menu.Item>
+                            <Menu.Item key="15"><Checkbox onChange={onChange}>Spa</Checkbox></Menu.Item>
+                            <Menu.Item key="16"><Checkbox onChange={onChange}>Pool</Checkbox></Menu.Item>
+                            <Menu.Item key="17"><Checkbox onChange={onChange}>Vip</Checkbox></Menu.Item>
+                        </SubMenu>
+                        <SubMenu key="sub4" icon={<StarOutlined />} title="Stars">
+                            <Menu.Item key="18"><Checkbox onChange={onChange}>0 stars</Checkbox></Menu.Item>
+                            <Menu.Item key="19"><Checkbox onChange={onChange}>1 star</Checkbox></Menu.Item>
+                            <Menu.Item key="20"><Checkbox onChange={onChange}>2 stars</Checkbox></Menu.Item>
+                            <Menu.Item key="21"><Checkbox onChange={onChange}>3 stars</Checkbox></Menu.Item>
+                            <Menu.Item key="22"><Checkbox onChange={onChange}>4 stars</Checkbox></Menu.Item>
+                            <Menu.Item key="23"><Checkbox onChange={onChange}>5 stars</Checkbox></Menu.Item>
+                        </SubMenu>
+                        <SubMenu key="sub5" icon={<HomeOutlined />} title="Bed preference">
+                            <Menu.Item key="24"><Checkbox onChange={onChange}>Single Bed</Checkbox></Menu.Item>
+                            <Menu.Item key="25"><Checkbox onChange={onChange}>Double Bed</Checkbox></Menu.Item>
+                        </SubMenu>
+                        <SubMenu key="sub6" icon={<UserOutlined />} title="Person">
+                            <Menu.Item key="26"><Checkbox onChange={onChange}>1 adult</Checkbox></Menu.Item>
+                            <Menu.Item key="25"><Checkbox onChange={onChange}>2 adults</Checkbox></Menu.Item>
+                            <Menu.Item key="26"><Checkbox onChange={onChange}>1 child</Checkbox></Menu.Item>
+                            <Menu.Item key="26"><Checkbox onChange={onChange}>2 children</Checkbox></Menu.Item>
+                        </SubMenu>
+                    </Menu>
+                </Sider>
 
-            {ActiveView()}
-        </div>
+                <Layout>
+                    <div className='room-container'>
+                        <Dropdown overlay={menu}>
+                            <Button> Order by <DownOutlined /></Button>
+                        </Dropdown>
+
+                        <p></p>
+
+                        {ActiveView()}
+                    </div>
+                </Layout>
+            </Layout>
+
+
+
+        </>
     )
 }
 

@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Button } from './Button';
 import './Footer.css';
 import logo from '../assets/logo/logo_simples.png'
 

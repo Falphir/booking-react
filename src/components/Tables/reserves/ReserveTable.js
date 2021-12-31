@@ -1,16 +1,10 @@
-import { Pagination, Table, Modal } from 'antd';
+import { Table, Modal } from 'antd';
 import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
 import { useState, useEffect } from 'react';
 import './ReserveTable.css';
 import Config from '../../../config';
 
 const ReserveTable = (props) => {
-
-    let a = new Date(props.dateCheckIn);
-    let dateCheckIn = a.toLocaleString();
-
-    let b = new Date(props.dateCheckOut);
-    let dateCheckOut = b.toLocaleString();
 
     const [loading, setLoading] = useState();
     const [data, setData] = useState({
