@@ -1,11 +1,19 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import '../App.css';
 import './BannerSection.css';
 import { Input, DatePicker, Button } from 'antd';
+import { Link } from 'react-router-dom';
 
 
 function BannerSection() {
     const { RangePicker } = DatePicker;
+    const [descricao, setDescricao] = useState("");
+
+
+    const handleChange = e => {
+        setDescricao(e.target.value);
+    };
+
 
     return (
 
@@ -14,11 +22,13 @@ function BannerSection() {
             <h1>FIND BOOK ENJOY</h1>
             <p>What are you waiting for?</p>
             <div className="banner-search">
-                <Input className='input' placeholder="Search here..." />
+                <Input className='input' placeholder="Search here..." name="search" onChange={handleChange} />
                 <RangePicker className="check-in-out" />
-                <Button className='btn-search'>
-                    <i class="fas fa-search" aria-hidden="true"></i>
-                </Button>
+                <Link to={`/rooms/search/${descricao}`}>
+                    <Button className='btn-search'>
+                        <i class="fas fa-search" aria-hidden="true"></i>
+                    </Button>
+                </Link>
             </div>
         </div>
     )

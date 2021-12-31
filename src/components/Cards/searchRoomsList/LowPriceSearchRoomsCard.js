@@ -1,12 +1,11 @@
-import './RoomsCard.css';
+import './SearchRoomsCard.css';
 import React, { useState, useEffect } from 'react';
 import Config from '../../../config';
 import { List, Card, Col, Row } from 'antd';
-import { Link } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 const { Meta } = Card;
 
-
-const HighPriceRoomsCard = (props) => {
+const LowPriceSearchRoomsCard = (props) => {
 
     const [loading, setLoading] = useState(true);
     const [data, setData] = useState({
@@ -17,6 +16,9 @@ const HighPriceRoomsCard = (props) => {
             total: 0
         }
     });
+
+    const { description } = useParams();
+
 
 
     //Renderizar Tags
@@ -52,7 +54,7 @@ const HighPriceRoomsCard = (props) => {
 
 
     const fetchApi = (pageSize, current) => {
-        const url = '/hotel/rooms/highprice?' + new URLSearchParams({
+        const url = '/hotel/rooms/' + description + '/lowprice?' + new URLSearchParams({
             limit: pageSize,
             skip: current - 1
         })
@@ -145,4 +147,4 @@ const HighPriceRoomsCard = (props) => {
     )
 }
 
-export default HighPriceRoomsCard;
+export default LowPriceSearchRoomsCard;

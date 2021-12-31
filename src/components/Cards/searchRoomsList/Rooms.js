@@ -2,9 +2,14 @@ import './Rooms.css';
 import Config from '../../../config';
 import React, { useState } from 'react';
 import { Navigate } from 'react-router-dom';
-import searchRoom from './searchRoom';
+import SearchRoomCard from './SearchRoomsCard';
 import { DownOutlined } from '@ant-design/icons';
 import { Menu, Dropdown, Button } from 'antd';
+import MostRecentSearchRoomsCard from './MostRecentSearchRoomsCard';
+import LessStarsSearchRoomsCard from './LessStarsSearchRoomsCard';
+import MoreStarsSearchRoomsCard from './MoreStarsSearchRoomsCard';
+import LowPriceSearchRoomsCard from './LowPriceSearchRoomsCard';
+import HighPriceSearchRoomsCard from './HighPriceSearchRoomsCard';
 
 
 const Rooms = () => {
@@ -24,25 +29,25 @@ const Rooms = () => {
     const ActiveView = () => {
         switch (active) {
             case 1:
-                return; //highest price
+                return <HighPriceSearchRoomsCard />; //highest price
 
             case 2:
-                return; //lowest price
+                return <LowPriceSearchRoomsCard />; //lowest price
 
             case 3:
-                return; //more stars first
+                return <MoreStarsSearchRoomsCard />; //more stars first
 
             case 4:
-                return; //less stars first
+                return <LessStarsSearchRoomsCard />; //less stars first
 
             case 5:
-                return; //most recent
+                return <MostRecentSearchRoomsCard />; //most recent
 
             case 6:
-                return <searchRoom />; //most old
+                return <SearchRoomCard />; //most old
 
             default:
-                return <searchRoom />; //most old
+                return <SearchRoomCard />; //most old
         }
     };
 
@@ -86,3 +91,4 @@ const Rooms = () => {
 }
 
 export default Rooms;
+

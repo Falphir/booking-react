@@ -12,12 +12,13 @@ const RoomDetails = (props) => {
         rooms: [],
         pagination: {
             current: 1,
-            pageSize: 1,
+            pageSize: 10,
             total: 0
         }
     });
 
     const { roomId } = useParams();
+
 
     //Renderizar Tags
     const renderTags = (tags) => {
@@ -74,7 +75,7 @@ const RoomDetails = (props) => {
                         rooms,
                         pagination: {
                             current: pagination.page + 1 || 1,
-                            pageSize: pagination.pageSize || 1,
+                            pageSize: pagination.pageSize || 10,
                             total: pagination.total || 5
                         }
                     })
@@ -90,7 +91,7 @@ const RoomDetails = (props) => {
             rooms: [],
             pagination: {
                 current: 1,
-                pageSize: 1
+                pageSize: 10
             }
         });
     }, []);

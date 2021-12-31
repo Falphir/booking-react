@@ -13,7 +13,7 @@ import Users from './components/Tables/users/Users';
 import Reserves from './components/Tables/reserves/Reserves';
 import ReservesForm from './components/Tables/reserves/add/ReservesForm';
 import AllRoomsList from './components/Cards/allRoomsList/Rooms';
-import searchRoom from './components/Cards/searchRoomList/searchRoom';
+import SearchRoomsList from './components/Cards/searchRoomsList/Rooms';
 
 
 function App() {
@@ -27,7 +27,7 @@ function App() {
         <Route path='/dashboard' exact element={<Dashboard />} />
         <Route path='/rooms' exact element={<Rooms />}></Route>
         <Route path='/rooms/:roomId' exact element={<RoomDetails />}></Route>
-        <Route path='/rooms/:description' exact element={<searchRoom />}></Route>
+        <Route path='/rooms/search/:description' exact element={<SearchRoomsList />}></Route>
         <Route path='/users' exact element={<Users />}></Route>
         <Route path='/roomsform' exact element={<RoomsForm></RoomsForm>}></Route>
         <Route path='/reserves' exact element={<Reserves></Reserves>}></Route>

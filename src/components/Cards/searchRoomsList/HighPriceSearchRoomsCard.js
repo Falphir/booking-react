@@ -1,12 +1,11 @@
+import './SearchRoomsCard.css';
 import React, { useState, useEffect } from 'react';
 import Config from '../../../config';
 import { List, Card, Col, Row } from 'antd';
-import { Link, useParams } from 'react-router-dom';
-import './searchRoom.css';
+import { Link, useParams } from 'react-router-dom'
 const { Meta } = Card;
 
-
-const searchRoom = (props) => {
+const HighPriceSearchRoomsCard = (props) => {
 
     const [loading, setLoading] = useState(true);
     const [data, setData] = useState({
@@ -19,6 +18,7 @@ const searchRoom = (props) => {
     });
 
     const { description } = useParams();
+
 
 
     //Renderizar Tags
@@ -54,7 +54,7 @@ const searchRoom = (props) => {
 
 
     const fetchApi = (pageSize, current) => {
-        const url = '/hotel/rooms/' + description + '?' + new URLSearchParams({
+        const url = '/hotel/rooms/' + description + '/highprice?' + new URLSearchParams({
             limit: pageSize,
             skip: current - 1
         })
@@ -105,7 +105,7 @@ const searchRoom = (props) => {
         <List grid={{ gutter: 16, column: 3 }} dataSource={rooms} pagination={pagination} columns={columns} rowKey={record => record._id} loading={loading}
             renderItem={item => (
                 <List.Item>
-                    <Link to={`/rooms/room/${item._id}`}>
+                    <Link to={`/rooms/${item._id}`}>
                         <Card key={item._id} cover={<img alt="example" src="https://images.unsplash.com/photo-1618773928121-c32242e63f39?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80" />}>
                             <Meta
                                 title={<p><span style={{ fontWeight: 'bold' }}>{item.description}</span></p>}>
@@ -141,10 +141,10 @@ const searchRoom = (props) => {
                             </div>
                         </Card>
                     </Link>
-                </List.Item >
+                </List.Item>
             )}>
-        </List >
+        </List>
     )
 }
 
-export default searchRoom;
+export default HighPriceSearchRoomsCard;
