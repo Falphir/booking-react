@@ -129,9 +129,9 @@ const Rooms = () => {
                         </SubMenu>
                         <SubMenu key="sub6" icon={<UserOutlined />} title="Person">
                             <Menu.Item key="26"><Checkbox onChange={onChange}>1 adult</Checkbox></Menu.Item>
-                            <Menu.Item key="25"><Checkbox onChange={onChange}>2 adults</Checkbox></Menu.Item>
-                            <Menu.Item key="26"><Checkbox onChange={onChange}>1 child</Checkbox></Menu.Item>
-                            <Menu.Item key="26"><Checkbox onChange={onChange}>2 children</Checkbox></Menu.Item>
+                            <Menu.Item key="27"><Checkbox onChange={onChange}>2 adults</Checkbox></Menu.Item>
+                            <Menu.Item key="28"><Checkbox onChange={onChange}>1 child</Checkbox></Menu.Item>
+                            <Menu.Item key="29"><Checkbox onChange={onChange}>2 children</Checkbox></Menu.Item>
                         </SubMenu>
                     </Menu>
                 </Sider>
