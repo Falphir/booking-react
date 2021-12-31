@@ -2,6 +2,7 @@ import './RoomsCard.css';
 import React, { useState, useEffect } from 'react';
 import Config from '../../../config';
 import { List, Card, Col, Row } from 'antd';
+import { Link } from 'react-router-dom'
 const { Meta } = Card;
 
 
@@ -102,40 +103,42 @@ const MostRecentRoomsCard = (props) => {
         <List grid={{ gutter: 16, column: 3 }} dataSource={rooms} pagination={pagination} columns={columns} rowKey={record => record._id} loading={loading}
             renderItem={item => (
                 <List.Item>
-                    <Card key={item._id} cover={<img alt="example" src="https://images.unsplash.com/photo-1618773928121-c32242e63f39?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80" />}>
-                        <Meta
-                            title={<p><span style={{ fontWeight: 'bold' }}>{item.description}</span></p>}>
-                        </Meta>
+                    <Link to={`/rooms/room/${item._id}`}>
+                        <Card key={item._id} cover={<img alt="example" src="https://images.unsplash.com/photo-1618773928121-c32242e63f39?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80" />}>
+                            <Meta
+                                title={<p><span style={{ fontWeight: 'bold' }}>{item.description}</span></p>}>
+                            </Meta>
 
-                        <p></p>
+                            <p></p>
 
-                        <div className="additional">
-                            <Row xs={24} xl={16}>
-                                <Col xs={24} xl={8}>
-                                    <div key={item._id}>
-                                        {item.tags.map(tag => {
-                                            return (
-                                                <>{tag.nStars} <i class="fas fa-star"></i></>
-                                            );
-                                        })}
-                                    </div>
+                            <div className="additional">
+                                <Row xs={24} xl={16}>
+                                    <Col xs={24} xl={8}>
+                                        <div key={item._id}>
+                                            {item.tags.map(tag => {
+                                                return (
+                                                    <>{tag.nStars} <i class="fas fa-star"></i></>
+                                                );
+                                            })}
+                                        </div>
 
-                                </Col>
+                                    </Col>
 
-                                <Col xs={20} xl={4}>
-                                    {item.nAdult} <i class="fas fa-user-alt"></i>
-                                </Col>
+                                    <Col xs={20} xl={4}>
+                                        {item.nAdult} <i class="fas fa-user-alt"></i>
+                                    </Col>
 
-                                <Col xs={24} xl={8}>
-                                    {item.nChild} <i class="fas fa-child"></i>
-                                </Col>
+                                    <Col xs={24} xl={8}>
+                                        {item.nChild} <i class="fas fa-child"></i>
+                                    </Col>
 
-                                <Col xs={20} xl={4}>
-                                    {item.price} <i class="fas fa-euro-sign"></i>
-                                </Col>
-                            </Row>
-                        </div>
-                    </Card>
+                                    <Col xs={20} xl={4}>
+                                        {item.price} <i class="fas fa-euro-sign"></i>
+                                    </Col>
+                                </Row>
+                            </div>
+                        </Card>
+                    </Link>
                 </List.Item>
             )}>
         </List>
