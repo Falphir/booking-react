@@ -2,22 +2,22 @@ import React, { useState, useEffect } from 'react';
 import Config from '../../config';
 import { List, Card, Col, Row } from 'antd';
 import { Link, useParams } from 'react-router-dom';
-
 const { Meta } = Card;
 
-function RoomDetails() {
 
-    const { id } = useParams();
+const RoomDetails = (props) => {
+
     const [loading, setLoading] = useState(true);
     const [data, setData] = useState({
         rooms: [],
         pagination: {
             current: 1,
-            pageSize: 5,
+            pageSize: 1,
             total: 0
         }
     });
 
+    const { id } = useParams();
 
     //Renderizar Tags
     const renderTags = (tags) => {
@@ -50,8 +50,13 @@ function RoomDetails() {
         { title: 'Tags', value: 'tags', render: renderTags }
     ];
 
+
     const fetchApi = (pageSize, current) => {
-        const url = '/hotel/rooms/' + id + new URLSearchParams({})
+        const url = '/hotel/rooms/' + id + '?' + new URLSearchParams({
+            limit: pageSize,
+            skip: current - 1
+        })
+
 
         fetch(url, {
             headers: { 'Accept': 'application/json', 'x-access-token': Config.token }
@@ -69,7 +74,7 @@ function RoomDetails() {
                         rooms,
                         pagination: {
                             current: pagination.page + 1 || 1,
-                            pageSize: pagination.pageSize || 10,
+                            pageSize: pagination.pageSize || 1,
                             total: pagination.total || 5
                         }
                     })
@@ -85,7 +90,7 @@ function RoomDetails() {
             rooms: [],
             pagination: {
                 current: 1,
-                pageSize: 10
+                pageSize: 1
             }
         });
     }, []);
@@ -93,50 +98,47 @@ function RoomDetails() {
 
     const { rooms, pagination } = data;
 
-    return (
 
-        <List grid={{ gutter: 16, column: 5 }} dataSource={rooms} columns={columns} rowKey={record => record._id} loading={loading}
+    return (
+        <List grid={{ gutter: 16, column: 3 }} dataSource={rooms} pagination={pagination} columns={columns} rowKey={record => record._id} loading={loading}
             renderItem={item => (
                 <List.Item>
-                    <Link to={`/rooms/room/${item._id}`}>
-                        <Card className='card' key={item._id} cover={<img alt="example" src="https://images.unsplash.com/photo-1618773928121-c32242e63f39?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80" />}>
-                            <Meta
-                                title={<p><span style={{ fontWeight: 'bold' }}>{item.description}</span></p>}>
-                            </Meta>
+                    <Card key={item._id} cover={<img alt="example" src="https://images.unsplash.com/photo-1618773928121-c32242e63f39?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80" />}>
+                        <Meta
+                            title={<p><span style={{ fontWeight: 'bold' }}>{item.description}</span></p>}>
+                        </Meta>
 
-                            <p></p>
+                        <p></p>
 
-                            <div className="additional">
-                                <Row gutter={16}>
-                                    <Col span={6}>
-                                        <div key={item._id}>
-                                            {item.tags.map(tag => {
-                                                return (
-                                                    <>{tag.nStars} <i class="fas fa-star"></i></>
-                                                );
-                                            })}
-                                        </div>
+                        <div className="additional">
+                            <Row xs={24} xl={16}>
+                                <Col xs={24} xl={8}>
+                                    <div key={item._id}>
+                                        {item.tags.map(tag => {
+                                            return (
+                                                <>{tag.nStars} <i class="fas fa-star"></i></>
+                                            );
+                                        })}
+                                    </div>
 
-                                    </Col>
+                                </Col>
 
-                                    <Col span={6}>
-                                        {item.nAdult} <i class="fas fa-user-alt"></i>
-                                    </Col>
+                                <Col xs={20} xl={4}>
+                                    {item.nAdult} <i class="fas fa-user-alt"></i>
+                                </Col>
 
-                                    <Col span={6}>
-                                        {item.nChild} <i class="fas fa-child"></i>
-                                    </Col>
+                                <Col xs={24} xl={8}>
+                                    {item.nChild} <i class="fas fa-child"></i>
+                                </Col>
 
-                                    <Col span={6}>
-                                        {item.price} <i class="fas fa-euro-sign"></i>
-                                    </Col>
-                                </Row>
-                            </div>
-                        </Card>
-                    </Link>
+                                <Col xs={20} xl={4}>
+                                    {item.price} <i class="fas fa-euro-sign"></i>
+                                </Col>
+                            </Row>
+                        </div>
+                    </Card>
                 </List.Item>
             )}>
-            <p></p>
         </List>
     )
 }
