@@ -24,7 +24,7 @@ const UserTable = (props) => {
                 </label>
             )
         })
-    } */
+    }
 
     /* const renderScopes = (scopes) => {
         return scopes.map((scope) => {

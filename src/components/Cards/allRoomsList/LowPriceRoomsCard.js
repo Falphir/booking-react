@@ -5,7 +5,7 @@ import { List, Card, Col, Row } from 'antd';
 const { Meta } = Card;
 
 
-const RoomsCard = (props) => {
+const LowPriceRoomsCard = (props) => {
 
     const [loading, setLoading] = useState(true);
     const [data, setData] = useState({
@@ -51,7 +51,7 @@ const RoomsCard = (props) => {
 
 
     const fetchApi = (pageSize, current) => {
-        const url = '/hotel/rooms?' + new URLSearchParams({
+        const url = '/hotel/rooms/lowprice?' + new URLSearchParams({
             limit: pageSize,
             skip: current - 1
         })
@@ -142,4 +142,4 @@ const RoomsCard = (props) => {
     )
 }
 
-export default RoomsCard;
+export default LowPriceRoomsCard;
