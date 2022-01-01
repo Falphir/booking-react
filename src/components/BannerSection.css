@@ -44,7 +44,7 @@
 .banner-search .input {
     border-radius: 4px 0px 0px 4px;
     height: 60px;
-    width: 300px;
+    width: 600px;
 }
 
 .input::-webkit-input-placeholder {
@@ -92,7 +92,7 @@
     }
 
     .banner-search .input {
-        width: 80%;
+        width: 100%;
     }
 
     .banner-search .check-in-out {
@@ -100,7 +100,7 @@
     }
 
     .banner-search .btn-search {
-        width: 60%;
+        width: 100%;
     }
 }
 
@@ -124,7 +124,7 @@
     }
 
     .banner-search .input {
-        width: 30%;
+        width: 60%;
         height: 40px;
     }
 
