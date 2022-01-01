@@ -60,7 +60,7 @@ const MoreStarsRoomsCard = (props) => {
 
 
         fetch(url, {
-            headers: { 'Accept': 'application/json', 'x-access-token': Config.token }
+            headers: { 'Accept': 'application/json' }
         })
 
             .then((response) => response.json())

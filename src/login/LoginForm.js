@@ -36,7 +36,7 @@ const LoginForm = () => {
 
 
     if (loginSuccess) {
-        return <Navigate to='/rooms' />
+        return <Navigate to='/' />
     }
 
 

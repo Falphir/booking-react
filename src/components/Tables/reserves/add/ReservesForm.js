@@ -9,7 +9,7 @@ const ReservesForm = () => {
 
     const postReserve = (data) => {
         fetch('/reserve/reserves', {
-            headers: { 'Content-Type': 'application/json', 'x-access-token': Config.token },
+            headers: { 'Content-Type': 'application/json' },
             method: 'POST',
             body: JSON.stringify(data)
         })

@@ -1,4 +1,4 @@
-import React, { useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Config from '../config'
 
@@ -82,7 +82,7 @@ function CardItem(props) {
 
 
         fetch(url, {
-            headers: { 'Accept': 'application/json', 'x-access-token': Config.token }
+            headers: { 'Accept': 'application/json' }
         })
 
             .then((response) => response.json())
