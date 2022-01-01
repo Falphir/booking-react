@@ -11,7 +11,7 @@ const { Content, Sider } = Layout;
 
 function Dashboard() {
 
-    const [menu, setMenu] = useState(2);
+    const [menu, setMenu] = useState(1);
 
     return (
         <Layout>

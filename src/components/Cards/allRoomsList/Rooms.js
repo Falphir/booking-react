@@ -1,6 +1,6 @@
 import './Rooms.css';
 import Config from '../../../config';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Navigate } from 'react-router-dom';
 import RoomsCard from './RoomsCard';
 import LowPriceRoomsCard from './LowPriceRoomsCard';
@@ -9,17 +9,49 @@ import MoreStarsRoomsCard from './MoreStarsRoomsCard';
 import LessStarsRoomsCard from './LessStarsRoomsCard';
 import MostRecentRoomsCard from './MostRecentRoomsCard';
 import { Layout, Menu, Dropdown, Button, Checkbox } from 'antd';
-import { DownOutlined, EuroOutlined, UserOutlined, StarOutlined, FilterOutlined, HomeOutlined } from '@ant-design/icons';
+import { DownOutlined, EuroOutlined, UserOutlined, StarOutlined, FilterOutlined, HomeOutlined, MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons';
 
-const { Sider } = Layout;
 const { SubMenu } = Menu;
 
+const { Header, Sider } = Layout;
+
+function useWindowSize() {
+    // Initialize state with undefined width/height so server and client renders match
+    // Learn more here: https://joshwcomeau.com/react/the-perils-of-rehydration/
+    const [windowSize, setWindowSize] = useState({
+        width: undefined,
+    });
+    useEffect(() => {
+        // Handler to call on window resize
+        function handleResize() {
+            // Set window width/height to state
+            setWindowSize({
+                width: window.innerWidth,
+            });
+        }
+        // Add event listener
+        window.addEventListener("resize", handleResize);
+        // Call handler right away so state gets updated with initial window size
+        handleResize();
+        // Remove event listener on cleanup
+        return () => window.removeEventListener("resize", handleResize);
+    }, []); // Empty array ensures that effect is only run on mount
+    return windowSize;
+}
 
 const Rooms = () => {
+    const Size = useWindowSize();
     const [active, setActive] = useState(true);
+    const [collapsed, setCollapsed] = useState(true);
+    const [state, setState] = useState({
+        state: {
+            collapsed: false
+        }
+    });
     const SetView = (active) => {
         setActive(active);
     };
+
 
 
     //se n tiver configurado o token no config.js, irá diretamente redirecionar para a homepage
@@ -31,7 +63,11 @@ const Rooms = () => {
         console.log(`checked = ${e.target.checked}`);
     }
 
-
+    const toggle = () => {
+        setState({
+            collapsed: !state.collapsed,
+        });
+    };
 
     const ActiveView = () => {
         switch (active) {
@@ -82,23 +118,36 @@ const Rooms = () => {
         </Menu>
     );
 
-
-
-
+        
 
     return (
-        <>
-            <Layout>
-                <Sider className="site-layout-background" width={200}>
+        <div>
+            <Layout >
+                <Sider
+                    className="site-layout-background"
+                    trigger={null}
+                    collapsible
+                    collapsed={state.collapsed}
+                    width={200}
+                    style={{
+                        marginLeft: 16,
+                        marginTop: 16,
+                        marginBottom: 16,
+                        overflow: "auto",
+                        position: "sticky",
+                        top: 0,
+                        left: 0,
+                    }}
+                >
                     <Menu mode="inline" defaultSelectedKeys={['1']} defaultOpenKeys={['sub1']} style={{ height: '100%' }} >
-
                         <SubMenu key="sub1" icon={<HomeOutlined />} title="Type Room">
-                            <Menu.Item key="1"><Checkbox onChange={onChange}>Apartamento</Checkbox></Menu.Item>
-                            <Menu.Item key="2"><Checkbox onChange={onChange}>Quarto</Checkbox></Menu.Item>
-                            <Menu.Item key="3"><Checkbox onChange={onChange}>Casa de Férias</Checkbox></Menu.Item>
-                            <Menu.Item key="4"><Checkbox onChange={onChange}>Hostel</Checkbox></Menu.Item>
-                            <Menu.Item key="5"><Checkbox onChange={onChange}>Casa de Campo</Checkbox></Menu.Item>
-                            <Menu.Item key="6"><Checkbox onChange={onChange}>Outro</Checkbox></Menu.Item>
+                            
+                            <Menu.Item className='subMenu-item' key="1"><Checkbox onChange={onChange}>Apartamento</Checkbox></Menu.Item>
+                            <Menu.Item className='subMenu-item' key="2"><Checkbox onChange={onChange}>Quarto</Checkbox></Menu.Item>
+                            <Menu.Item className='subMenu-item' key="3"><Checkbox onChange={onChange}>Casa de Férias</Checkbox></Menu.Item>
+                            <Menu.Item className='subMenu-item' key="4"><Checkbox onChange={onChange}>Hostel</Checkbox></Menu.Item>
+                            <Menu.Item className='subMenu-item' key="5"><Checkbox onChange={onChange}>Casa de Campo</Checkbox></Menu.Item>
+                            <Menu.Item className='subMenu-item' key="6"><Checkbox onChange={onChange}>Outro</Checkbox></Menu.Item>
                         </SubMenu>
                         <SubMenu key="sub2" icon={<EuroOutlined />} title="Price (per night)">
                             <Menu.Item key="7"><Checkbox onChange={onChange}>0€ - 50€</Checkbox></Menu.Item>
@@ -137,6 +186,11 @@ const Rooms = () => {
                 </Sider>
 
                 <Layout>
+                    <Header style={{ backgroundColor: "#f0f2f5", paddingLeft: 16, height: 52  }}>
+                        <Button onClick={toggle}>
+                            {React.createElement(state.collapsed ? MenuUnfoldOutlined : MenuFoldOutlined)}
+                        </Button>
+                    </Header>
                     <div className='room-container'>
                         <Dropdown overlay={menu}>
                             <Button> Order by <DownOutlined /></Button>
@@ -151,7 +205,7 @@ const Rooms = () => {
 
 
 
-        </>
+        </div>
     )
 }
 

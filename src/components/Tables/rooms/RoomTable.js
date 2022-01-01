@@ -2,7 +2,8 @@ import './RoomTable.css';
 import React, { useState, useEffect } from 'react';
 import Config from '../../../config';
 import { Table, Modal, Tag, Button, Row, Col } from 'antd';
-import { EditOutlined, DeleteOutlined, PlusOutlined } from '@ant-design/icons';
+import { EditOutlined, DeleteOutlined, PlusOutlined, ExclamationCircleOutlined } from '@ant-design/icons';
+import RoomsForm from './add/RoomsForm';
 
 const RoomTable = (props) => {
 
@@ -183,6 +184,16 @@ const RoomTable = (props) => {
         fetchApi(pagination.pageSize, pagination.current)
     };
 
+    function onAddRoom() {
+        Modal.confirm({
+            title: 'Add Room',
+            icon: <ExclamationCircleOutlined />,
+            content: <RoomsForm/>,
+            okText: 'Submit',
+            cancelText: 'Cancel',
+            width: 800
+          });
+    }
 
     const { rooms, pagination } = data;
 
@@ -192,7 +203,7 @@ const RoomTable = (props) => {
             <Row justify="end">
                 <Col>
                     <div style={{ margin: 8 }}>
-                        <Button loading={loading}>
+                        <Button onClick={onAddRoom} loading={loading}>
                             <PlusOutlined style={{ marginRight: 8 }} /> Add Room
                         </Button>
                     </div>
