@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import Config from '../../config';
-import { List, Card, Col, Row } from 'antd';
+import { List, Card, Col, Row, Button } from 'antd';
 import { useParams } from 'react-router-dom';
+import Modal from 'antd/lib/modal/Modal';
 const { Meta } = Card;
 
 
@@ -31,6 +32,20 @@ function useWindowSize() {
 
 
 const RoomDetails = (props) => {
+
+    const [isModalVisible, setIsModalVisible] = useState(false);
+
+    const showModal = () => {
+        setIsModalVisible(true);
+    };
+
+    const handleOk = () => {
+        setIsModalVisible(false);
+    };
+
+    const handleCancel = () => {
+        setIsModalVisible(false);
+    };
 
     const Size = useWindowSize();
     const [loading, setLoading] = useState(true);
@@ -142,19 +157,26 @@ const RoomDetails = (props) => {
 
 
     return (
-        <List grid={{ gutter: 16, column: ncolumn }} columns={columns}>
-            <Card key={roomId}
-                cover={<img alt="example" src="https://images.unsplash.com/photo-1618773928121-c32242e63f39?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80" />}>
-                <Meta
-                    title={<p><span style={{ fontWeight: 'bold' }}>{rooms.description}</span></p>}>
-                </Meta>
+        <>
+            <Modal title="Reserve this room" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
+                <p>date check in</p>
+                <p>date check out</p>
+            </Modal>
 
-                <p></p>
 
-                <div className="additional">
-                    <Row xs={24} xl={16}>
-                        <Col xs={24} xl={8}>
-                            {/* <div key={rooms._id}>
+            <List grid={{ gutter: 16, column: ncolumn }} columns={columns}>
+                <Card key={roomId}
+                    cover={<img alt="example" src="https://images.unsplash.com/photo-1618773928121-c32242e63f39?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80" />}>
+                    <Meta
+                        title={<p><span style={{ fontWeight: 'bold' }}>{rooms.description}</span></p>}>
+                    </Meta>
+
+                    <p></p>
+
+                    <div className="additional">
+                        <Row xs={24} xl={16}>
+                            <Col xs={24} xl={8}>
+                                {/* <div key={rooms._id}>
                                 {rooms.tags.map(tag => {
                                     return (
                                         <>{tag.nStars}</>
@@ -162,23 +184,32 @@ const RoomDetails = (props) => {
                                 })}
                             </div> */}
 
-                        </Col>
+                            </Col>
 
-                        <Col xs={20} xl={4}>
-                            {rooms.nAdult} <i class="fas fa-user-alt"></i>
-                        </Col>
+                            <Col xs={20} xl={4}>
+                                {rooms.nAdult} <i class="fas fa-user-alt"></i>
+                            </Col>
 
-                        <Col xs={24} xl={8}>
-                            {rooms.nChild} <i class="fas fa-child"></i>
-                        </Col>
+                            <Col xs={24} xl={8}>
+                                {rooms.nChild} <i class="fas fa-child"></i>
+                            </Col>
 
-                        <Col xs={20} xl={4}>
-                            {rooms.price} <i class="fas fa-euro-sign"></i>
-                        </Col>
-                    </Row>
-                </div>
-            </Card>
-        </List>
+                            <Col xs={20} xl={4}>
+                                {rooms.price} <i class="fas fa-euro-sign"></i>
+                            </Col>
+                        </Row>
+                    </div>
+
+                    <br></br>
+
+                    <div className="reserves">
+                        <Row xs={24} xl={16}>
+                            <Button onClick={showModal}>Reserve this room</Button>
+                        </Row>
+                    </div>
+                </Card>
+            </List>
+        </>
     )
 }
 

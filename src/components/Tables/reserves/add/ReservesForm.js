@@ -48,87 +48,86 @@ const ReservesForm = () => {
     function onChange(value, dateString) {
         console.log('Selected Time: ', value);
         console.log('Formatted Selected Time: ', dateString);
-      }
-      
-      function onOk(value) {
+    }
+
+    function onOk(value) {
         console.log('onOk: ', value);
-      }
-      
+    }
+
 
 
     return (
-        <div>
-            <Row justify="center">
-                <Col>
-                    <h2>Add Reserve Form</h2>
-                </Col>
-            </Row>
-            <Row>
-                <Col span={8}></Col>
-                <Col span={8}>
-                    <div>
-                        <Form form={reserveForm} onSubmit={handleSubmit(onSubmit)}>
-                            <Form.Item name="user" label="Id User:">
-                                <Input {...register('idUser')} />
-                            </Form.Item>
-                            <Form.Item name="room" label="Id Room:">
-                                <Input {...register('idRoom')} />
-                            </Form.Item>
-                            <Form.Item name="dateCheckInOut" label="Date Check In / Out">
-                                <RangePicker
-                                    format="DD-MM-YYYY"
-                                    onChange={onChange}
-                                    onOk={onOk}
-                                />
-                            </Form.Item>
-                            <Row justify="center">
-                                <Col >
-                                    <Form.Item >
-                                            <Button style={{ marginRight: 16 }} htmlType="button" onClick={onReset}>
-                                                Reset
-                                            </Button>
-                                            <Button size="large" type="primary" htmlType="submit">
-                                                Submit
-                                            </Button>
-                                    </Form.Item>
-                                </Col>
-                            </Row>
-                        </Form>
-                    </div>
-                </Col>
-                <Col span={8}></Col>
-            </Row>
+        /*  <div>
+             <Row justify="center">
+                 <Col>
+                     <h2>Add Reserve Form</h2>
+                 </Col>
+             </Row>
+             <Row>
+                 <Col span={8}></Col>
+                 <Col span={8}>
+                     <div>
+                         <Form form={reserveForm} onSubmit={handleSubmit(onSubmit)}>
+                             <Form.Item name="user" label="Id User:">
+                                 <Input {...register('idUser')} />
+                             </Form.Item>
+                             <Form.Item name="room" label="Id Room:">
+                                 <Input {...register('idRoom')} />
+                             </Form.Item>
+                             <Form.Item name="dateCheckInOut" label="Date Check In / Out">
+                                 <RangePicker
+                                     format="DD-MM-YYYY"
+                                     onChange={onChange}
+                                     onOk={onOk}
+                                 />
+                             </Form.Item>
+                             <Row justify="center">
+                                 <Col >
+                                     <Form.Item >
+                                             <Button style={{ marginRight: 16 }} htmlType="button" onClick={onReset}>
+                                                 Reset
+                                             </Button>
+                                             <Button size="large" type="primary" htmlType="submit">
+                                                 Submit
+                                             </Button>
+                                     </Form.Item>
+                                 </Col>
+                             </Row>
+                         </Form>
+                     </div>
+                 </Col>
+                 <Col span={8}></Col>
+             </Row> */
 
 
-            {/* <form className="form-Reserves" onSubmit={handleSubmit(onSubmit)}>
-                <div className="field">
-                    <label>Date Check In: </label>
-                    <input {...register('dateCheckIn')}></input>
-                </div>
+        <form className="form-Reserves" onSubmit={handleSubmit(onSubmit)}>
+            <div className="field">
+                <label>Date Check In: </label>
+                <input {...register('dateCheckIn')}></input>
+            </div>
 
-                <div className="field">
-                    <label>Date Check Out: </label>
-                    <input {...register('dateCheckOut')}></input>
-                </div>
+            <div className="field">
+                <label>Date Check Out: </label>
+                <input {...register('dateCheckOut')}></input>
+            </div>
 
-                <div className="field">
-                    <label>ID User: </label>
-                    <input {...register('idUser')}></input>
-                </div>
+            <div className="field">
+                <label>ID User: </label>
+                <input {...register('idUser')}></input>
+            </div>
 
-                <div className="field">
-                    <label>Name User: </label>
-                    <input {...register('nameUser')}></input>
-                </div>
+            <div className="field">
+                <label>Name User: </label>
+                <input {...register('nameUser')}></input>
+            </div>
 
-                <div className="field">
-                    <label>ID Room: </label>
-                    <input {...register('idRoom')}></input>
-                </div>
+            <div className="field">
+                <label>ID Room: </label>
+                <input {...register('idRoom')}></input>
+            </div>
 
-                <input className="submit" type="submit"></input>
-            </form> */}
-        </div>
+            <input className="submit" type="submit"></input>
+        </form>
     );
 }
 
