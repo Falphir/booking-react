@@ -17,11 +17,13 @@ const RegisterForm = () => {
 
             .then((response) => {
                 if (response.ok) {
+
                     console.log(response);
                     alert("User created");
                     return response.json();
 
                 } else {
+
                     console.log(response);
                     alert("User duplicate");
                 }
@@ -37,7 +39,7 @@ const RegisterForm = () => {
         return {
             ...data, role: {
 
-                name: data.nameRole,
+                nameRole: data.nameRole,
                 scopes: ["read-own-reserves"]
             }
         }

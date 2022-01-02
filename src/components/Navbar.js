@@ -111,8 +111,22 @@ function Navbar() {
       .then((response) => {
         //se scope do utilizador for == ao scope q tem permissão pra ver button
         setUserLogged(response.decoded);
+        console.log("scopes: " + response.decoded);
 
-        if (response.decoded == 'read-own-reserves' || response.decoded == 'create-reserve' || response.decoded == 'detail-reserve') {
+
+        if (response.decoded == 'undefined') {
+
+          setDashboardButton(false);
+          setReservesButton(false);
+          setSignUpButton(true);
+          setSignInButton(true);
+          setSignOutButton(false);
+          console.log("guest");
+
+
+        } else if (response.decoded == 'read-own-reserves' || response.decoded == 'create-reserve' || response.decoded == 'detail-reserve'
+          //response.decoded == 'read-own-reserves,create-reserve,detail-reserve'
+        ) {
 
           //window.location.reload(false);
 
@@ -124,9 +138,7 @@ function Navbar() {
           console.log("user");
 
 
-        } else if (response.decoded == 'create-reserve' || response.decoded == 'detail-reserve' || response.decoded == 'update-reserve' ||
-          response.decoded == 'read-reserves' || response.decoded == 'delete-reserve' || response.decoded == 'create-room' ||
-          response.decoded == 'update-room' || response.decoded == 'read-reserve-client' || response.decoded == 'delete-room' || response.decoded == 'read-users') {
+        } else if (response.decoded == 'create-reserve,detail-reserve,verify-logged-in,update-reserve,read-reserves,delete-reserve,create-room,update-room,read-reserve-client,delete-room,read-users') {
 
           setDashboardButton(true);
           setReservesButton(false);
@@ -136,9 +148,7 @@ function Navbar() {
           console.log("admin");
 
 
-        } else if (response.decoded == 'update-reserve' || response.decoded == 'read-reserves' || response.decoded == 'delete-reserve' || response.decoded == 'create-room' ||
-          response.decoded == 'update-room' || response.decoded == 'read-reserve-client' || response.decoded == 'delete-room' || response.decoded == 'create-reserve' ||
-          response.decoded == 'detail-reserve') {
+        } else if (response.decoded == 'update-reserve,read-reserves,delete-reserve,create-room,update-room,read-reserve-client,delete-room,create-reserve,detail-reserve') {
 
           setDashboardButton(true);
           setReservesButton(false);
@@ -147,6 +157,7 @@ function Navbar() {
           setSignOutButton(true);
           console.log("editor");
 
+
         } else {
 
           setDashboardButton(false);
@@ -154,6 +165,7 @@ function Navbar() {
           setSignUpButton(true);
           setSignInButton(true);
           setSignOutButton(false);
+          console.log("guest");
         }
       })
 
@@ -163,7 +175,8 @@ function Navbar() {
   }, [])
 
 
-  if (!userLogged) { }
+  if (!userLogged) {
+  }
 
 
   return (

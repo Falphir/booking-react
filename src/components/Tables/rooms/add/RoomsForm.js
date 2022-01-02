@@ -17,11 +17,13 @@ const RoomsForm = () => {
 
             .then((response) => {
                 if (response.ok) {
+
                     console.log(response);
                     alert("Room created");
                     return response.json();
 
                 } else {
+
                     console.log(response);
                     alert("Room duplicate");
                 }

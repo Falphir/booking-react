@@ -44,10 +44,18 @@ function Dashboard() {
 
             .then((response) => {
                 //se scope do utilizador for == ao scope q tem permissão pra aceder á dashboard, consegue aceder á dashboard
-                setUserLogged(response.decoded == 'create-reserve' || response.decoded == 'detail-reserve' || response.decoded == 'verify-logged-in' ||
-                    response.decoded == 'update-reserve' || response.decoded == 'read-reserves' || response.decoded == 'delete-reserve' || response.decoded == 'create-room' ||
-                    response.decoded == 'update-room' || response.decoded == 'read-reserve-client' || response.decoded == 'delete-room' || response.decoded == 'read-users');
 
+                console.log(response.decoded);
+
+                if (response.decoded == 'create-reserve,detail-reserve,verify-logged-in,update-reserve,read-reserves,delete-reserve,create-room,update-room,read-reserve-client,delete-room,read-users') {
+
+                    console.log("pode aceder ao dashboard");
+                    setUserLogged(response.decoded);
+
+                } else {
+
+                    console.log("nao pode aceder ao dashboard");
+                }
 
             })
 
