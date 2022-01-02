@@ -25,12 +25,13 @@ function Navbar() {
         setButton(false);
         setSignUpButton(false);
         setSignInButton(false);
-
+        setSignOutButton(true);
       }
 
       setButton(false);
       setSignUpButton(false);
       setSignInButton(false);
+      setSignOutButton(true);
 
     } else {
 
@@ -39,14 +40,15 @@ function Navbar() {
         setButton(false);
         setSignUpButton(false);
         setSignInButton(false);
+        setSignOutButton(true);
 
       } else {
 
         setButton(true);
         setSignUpButton(true);
         setSignInButton(true);
+        setSignOutButton(false);
       }
-
     }
   };
 
