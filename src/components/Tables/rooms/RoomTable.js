@@ -1,8 +1,9 @@
 import './RoomTable.css';
 import React, { useState, useEffect } from 'react';
 import Config from '../../../config';
-import { Table, Modal, Tag } from 'antd';
-import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
+import { Table, Modal, Tag, Button, Row, Col } from 'antd';
+import { EditOutlined, DeleteOutlined, PlusOutlined, ExclamationCircleOutlined } from '@ant-design/icons';
+import RoomsForm from './add/RoomsForm';
 
 const RoomTable = (props) => {
 
@@ -19,10 +20,7 @@ const RoomTable = (props) => {
     //Renderizar Imagem
     const renderImage = (text, record) => {
         return (
-            <img
-                src="https://images.unsplash.com/photo-1618773928121-c32242e63f39?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80"
-                // src={record.image} 
-                alt="Room Image" style={{ width: 150 }, { height: 75 }} />
+            <img src={record.image} alt="Room Image" style={{ width: 150, height: 75 }} />
         );
     }
 
@@ -89,7 +87,7 @@ const RoomTable = (props) => {
             title: 'Actions',
             render: (record) => {
                 return <>
-                    <EditOutlined />
+                    <EditOutlined onClick={() => { onEditRoom(record) }} />
                     <DeleteOutlined onClick={() => { onDeleteRoom(record) }} style={{ color: "red", marginLeft: 12 }} />
                 </>
             }
@@ -108,6 +106,32 @@ const RoomTable = (props) => {
                 });
             },
         });
+    };
+
+    const onEditRoom = (record) => {
+
+        // Modal.confirm({
+        //     title: 'Edit Room',
+        //     onOk={},
+        //     onCancel={},
+        //     footer={[
+        //         <Button key="back" onClick={ }>
+        //             Return
+        //         </Button>,
+        //         <Button key="submit" type="primary" loading={loading} onClick={this.handleOk}>
+        //             Submit
+        //         </Button>,
+        //         <Button
+        //             key="link"
+        //             href="https://google.com"
+        //             type="primary"
+        //             loading={loading}
+        //             onClick={this.handleOk}
+        //         >
+        //             Search on Google
+        //         </Button>
+        //         ]}
+        // });
     };
 
 
@@ -160,19 +184,42 @@ const RoomTable = (props) => {
         fetchApi(pagination.pageSize, pagination.current)
     };
 
+    function onAddRoom() {
+        Modal.confirm({
+            title: 'Add Room',
+            icon: <ExclamationCircleOutlined />,
+            content: <RoomsForm/>,
+            okText: 'Submit',
+            cancelText: 'Cancel',
+            width: 800
+          });
+    }
 
     const { rooms, pagination } = data;
 
 
     return (
-        <Table
-            columns={columns}
-            rowKey={record => record._id}
-            dataSource={rooms}
-            pagination={pagination}
-            loading={loading}
-            onChange={handleTableChange}
-        />
+        <div>
+            <Row justify="end">
+                <Col>
+                    <div style={{ margin: 8 }}>
+                        <Button onClick={onAddRoom} loading={loading}>
+                            <PlusOutlined style={{ marginRight: 8 }} /> Add Room
+                        </Button>
+                    </div>
+                </Col>
+            </Row>
+            <Table
+                columns={columns}
+                rowKey={record => record._id}
+                dataSource={rooms}
+                pagination={pagination}
+                loading={loading}
+                onChange={handleTableChange}
+            >
+                <Table.Footer></Table.Footer>
+            </Table>
+        </div>
     )
 }
 

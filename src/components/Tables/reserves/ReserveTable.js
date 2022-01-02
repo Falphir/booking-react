@@ -1,10 +1,16 @@
-import { Table, Modal } from 'antd';
-import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
+import { Pagination, Table, Modal, Button, Row, Col } from 'antd';
+import { EditOutlined, DeleteOutlined, PlusOutlined } from '@ant-design/icons';
 import { useState, useEffect } from 'react';
 import './ReserveTable.css';
 import Config from '../../../config';
 
 const ReserveTable = (props) => {
+
+    let a = new Date(props.dateCheckIn);
+    let dateCheckIn = a.toLocaleString();
+
+    let b = new Date(props.dateCheckOut);
+    let dateCheckOut = b.toLocaleString();
 
     const [loading, setLoading] = useState();
     const [data, setData] = useState({
@@ -16,27 +22,15 @@ const ReserveTable = (props) => {
         }
     });
 
-    const { reserves, pagination } = data;
-
-
-    reserves.map(el => {
-        let dateCheckIn = new Date(el.dateCheckIn)
-        el.dateCheckIn_printable = dateCheckIn.toLocaleString();
-
-        let dateCheckOut = new Date(el.dateCheckOut)
-        el.dateCheckOut_printable = dateCheckOut.toLocaleString();
-    })
-
-
 
     const columns = [
         {
             title: 'Date Check In',
-            dataIndex: 'dateCheckIn_printable'
+            dataIndex: 'dateCheckIn',
         },
         {
             title: 'Date Check Out',
-            dataIndex: 'dateCheckOut_printable',
+            dataIndex: 'dateCheckOut',
         },
         {
             title: 'Name User',
@@ -122,16 +116,28 @@ const ReserveTable = (props) => {
     };
 
 
+    const { reserves, pagination } = data;
 
     return (
-        <Table
-            columns={columns}
-            rowKey={record => record._id}
-            dataSource={reserves}
-            pagination={pagination}
-            loading={loading}
-            onChange={handleTableChange}
-        />
+        <div>
+            <Row justify="end">
+                <Col>
+                    <div style={{ margin: 8 }}>
+                        <Button loading={loading}>
+                            <PlusOutlined style={{ marginRight: 8 }} /> Add Reserve
+                        </Button>
+                    </div>
+                </Col>
+            </Row>
+            <Table
+                columns={columns}
+                rowKey={record => record._id}
+                dataSource={reserves}
+                pagination={pagination}
+                loading={loading}
+                onChange={handleTableChange}
+            />
+        </div>
     )
 }
 

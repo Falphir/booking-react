@@ -1,12 +1,65 @@
-import { useForm } from "react-hook-form";
+import { set, useForm } from "react-hook-form";
+import { useState } from "react";
 import './RoomsForm.css';
 import Config from '../../../../config';
+import { Form, Button, Checkbox, Input, Select, Row, Col, Upload, message } from "antd";
+import { InboxOutlined, UploadOutlined } from '@ant-design/icons';
+import axios from "axios"
+import { storage } from '../../../../firebase';
+
+const { Dragger } = Upload;
 
 
 const RoomsForm = () => {
 
     const { register, handleSubmit } = useForm();
+    const { state, setState } = useState({
+        selectedFile: null
+    });
     const onSubmit = data => postRoom(buildRooms(data));
+    const [roomForm] = Form.useForm();
+
+    const [image, setImage] = useState(null);
+    const [url, setUrl] = useState("");
+
+    const handleChange = e => {
+        if (e.target.files[0]) {
+            setImage(e.target.files[0]);
+        }
+    }
+
+    const handleUpload = () => {
+        const uploadTask = storage.ref(`images/${image.name}`).put(image);
+        uploadTask.on(
+            "state_changed",
+            snapshot => { },
+            error => {
+                console.log(error);
+            },
+            () => {
+                storage
+                    .ref("images")
+                    .child(image.name)
+                    .getDownloadURL()
+                    .then(url => {
+                        console.log(url);
+                        setUrl(url);
+                    });
+            }
+        )
+    }
+
+    const props = {
+        name: 'file',
+        multiple: true,
+        action: {handleUpload},
+        onChange: {handleChange}, 
+        onDrop(e) {
+          console.log('Dropped files', e.dataTransfer.files);
+        },
+      };
+
+    console.log("image: ", image);
 
     const postRoom = (data) => {
         fetch('/hotel/rooms', {
@@ -54,19 +107,122 @@ const RoomsForm = () => {
         }
     };
 
+    const onReset = () => {
+        roomForm.resetFields();
+    };
 
 
     return (
-        <>
-            <h2>Rooms Form</h2>
-            <form className="form-Rooms" onSubmit={handleSubmit(onSubmit)}>
-                {/* <div className="field">
-                    <label>Image: </label>
-                    <input id="" name="" type="file" onChange={this.handleSelectedFile} {...register('image')}></input>
-                    <button onClick={this.handleUpload}>Upload</button>
-                    <div> {Math.round(this.state.loaded, 2)} %</div>
-                </div> */}
+        <div>
+            <Row justify="center">
+                <Col>
+                    <h2>Add Room Form</h2>
+                </Col>
+            </Row>
+            <Row>
+                <Col span={8}></Col>
+                <Col span={8}>
+                    <div>
+                        <Form onSubmit={handleSubmit(onSubmit)}>
+                            <Form.Item form={roomForm} name="description" label="Description">
+                                <Input {...register('description')} placeholder="Type room description" />
+                            </Form.Item>
+                            <Form.Item name="nAdults" label="Number of Adults">
+                                <Input {...register('nAdult')} placeholder="Type adults capacity" />
+                            </Form.Item>
+                            <Form.Item name="nChildren" label="Number of Childrens">
+                                <Input {...register('nChild')} placeholder="Type children capacity" />
+                            </Form.Item>
+                            <Form.Item name="nRooms" label="Number of Rooms">
+                                <Input {...register('nRoom')} placeholder="Type number of Rooms" />
+                            </Form.Item>
+                            <Form.Item name="price" label="Price">
+                                <Input {...register('price')} placeholder="Type room price" />
+                            </Form.Item>
+                            <h3><b>Tags</b></h3>
+                            <Form.Item name="type-room" label="Type Room">
+                                <Select {...register('typeRoom')} defaultValue={"Apartamento"}>
+                                    <Select.Option value="Apartamento" />
+                                    <Select.Option value="Quarto" />
+                                    <Select.Option value="Casa de Férias" />
+                                    <Select.Option value="Hostel" />
+                                    <Select.Option value="Casa de Campo" />
+                                    <Select.Option value="Outro" />
+                                </Select>
+                            </Form.Item>
+                            <Form.Item name="nPool" label="Number of Pools">
+                                <Input placeholder="Type number of Pools" />
+                            </Form.Item>
+                            <Form.Item name="nSingleBed" label="Number of single beds">
+                                <Input placeholder="Type number of single beds" />
+                            </Form.Item>
+                            <Form.Item name="nDoubleBed" label="Number of double beds">
+                                <Input placeholder="Type number of double beds" />
+                            </Form.Item>
+                            <Form.Item name="nStars" label="Number of Stars">
+                                <Select {...register('nStars')}>
+                                    <Select.Option value="0" />
+                                    <Select.Option value="1" />
+                                    <Select.Option value="2" />
+                                    <Select.Option value="3" />
+                                    <Select.Option value="4" />
+                                    <Select.Option value="5" />
+                                </Select>
+                            </Form.Item>
+                            <Form.Item name="extras" label="Extras">
+                                <Checkbox.Group>
+                                    <Row>
+                                        <Col>
+                                            <Checkbox {...register('vip')} value="vip" style={{ lineHeight: '32px' }}>
+                                                VIP
+                                            </Checkbox>
+                                        </Col>
+                                        <Col>
+                                            <Checkbox {...register('carPark')} value="carPark" style={{ lineHeight: '32px' }}>
+                                                Car Park
+                                            </Checkbox>
+                                        </Col>
+                                        <Col>
+                                            <Checkbox {...register('breakfast')} value="breakfast" style={{ lineHeight: '32px' }}>
+                                                Breakfast
+                                            </Checkbox>
+                                        </Col>
+                                        <Col>
+                                            <Checkbox {...register('lunch')} value="lunch" style={{ lineHeight: '32px' }}>
+                                                Lunch
+                                            </Checkbox>
+                                        </Col>
+                                        <Col>
+                                            <Checkbox {...register('spa')} value="spa" style={{ lineHeight: '32px' }}>
+                                                Spa
+                                            </Checkbox>
+                                        </Col>
+                                    </Row>
+                                </Checkbox.Group>
+                            </Form.Item>
+                            <input type="file" onChange={handleChange} />
+                            <button onClick={handleUpload}>Upload</button>
 
+                            <Row justify="center">
+                                <Col >
+                                    <Form.Item >
+                                        <Button style={{ marginRight: 16 }} htmlType="button" onClick={onReset}>
+                                            Reset
+                                        </Button>
+                                        <Button size="large" type="primary" htmlType="submit">
+                                            Submit
+                                        </Button>
+                                    </Form.Item>
+                                </Col>
+                            </Row>
+                        </Form>
+                        {url}
+                    </div>
+                </Col>
+                <Col span={8}></Col>
+            </Row>
+
+            {/* <form id="add-room-form" className="form-Rooms" onSubmit={handleSubmit(onSubmit)}>
                 <div className="field">
                     <label>Description: </label>
                     <input {...register('description')}></input>
@@ -177,8 +333,16 @@ const RoomsForm = () => {
 
 
                 <input className="submit" type="submit"></input>
-            </form>
-        </>
+            </form> */}
+
+
+            {/* <div className="field">
+                    <label>Image: </label>
+                    <input id="" name="" type="file" onChange={this.handleSelectedFile} {...register('image')}></input>
+                    <button onClick={this.handleUpload}>Upload</button>
+                    <div> {Math.round(this.state.loaded, 2)} %</div>
+                </div> */}
+        </div>
     );
 }
 
