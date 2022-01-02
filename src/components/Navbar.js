@@ -15,54 +15,40 @@ function Navbar() {
   const [reservesLink, setReservesButton] = useState(true);
   const handleClick = () => setClick(!click);
   const closeMobileMenu = () => setClick(false);
-  const [userLogged, setUserLogged] = useState(true);
-
-
+  const [userLogged, setUserLogged] = useState(true)
   const showButton = () => {
     if (window.innerWidth <= 960) {
-      if (login) {
-
+      if (userLogged) {
         setButton(false);
         setSignUpButton(false);
         setSignInButton(false);
-        setSignOutButton(true);
+        setSignOutButton(false);
       }
-
       setButton(false);
       setSignUpButton(false);
       setSignInButton(false);
-      setSignOutButton(true);
-
+      setSignOutButton(false)
+    } else if (window.innerWidth > 960 || userLogged) {
+      setButton(false);
+      setSignUpButton(false);
+      setSignInButton(false);
+      setSignOutButton(true)
     } else {
-
-      if (login) {
-
-        setButton(false);
-        setSignUpButton(false);
-        setSignInButton(false);
-        setSignOutButton(true);
-
-      } else {
-
-        setButton(true);
-        setSignUpButton(true);
-        setSignInButton(true);
-        setSignOutButton(false);
-      }
+      setButton(true);
+      setSignUpButton(true);
+      setSignInButton(true);
+      setSignOutButton(false);
     }
-  };
-
+  }
   const role = "admin";
-  const login = false;
-
+  //const login = false
   const showReservesButton = () => {
-    if (login) {
+    if (userLogged) {
       setReservesButton(true);
     } else {
       setReservesButton(false);
     }
-  };
-
+  }
   //Função detetar se tem perm para aceder dashboard
   const showDashboardButton = () => {
     if (role == "admin") {
@@ -70,13 +56,12 @@ function Navbar() {
     } else {
       setDashboardButton(false);
     }
-  };
-
-  /*   useEffect(() => {
-      showButton();
-      showDashboardButton();
-      showReservesButton();
-    }, []); */
+  }
+  useEffect(() => {
+    showButton();
+    showDashboardButton();
+    showReservesButton();
+  }, []);
 
   window.addEventListener('resize', showButton);
 
@@ -118,9 +103,9 @@ function Navbar() {
 
           setDashboardButton(false);
           setReservesButton(true);
-          setSignUpButton(false);
-          setSignInButton(false);
-          setSignOutButton(true);
+          //setSignUpButton(false);
+          //setSignInButton(false);
+          //setSignOutButton(true);
           console.log("user");
 
 
@@ -130,9 +115,9 @@ function Navbar() {
 
           setDashboardButton(true);
           setReservesButton(false);
-          setSignUpButton(false);
-          setSignInButton(false);
-          setSignOutButton(true);
+          //setSignUpButton(false);
+          //setSignInButton(false);
+          //setSignOutButton(true);
           console.log("admin");
 
 
@@ -142,18 +127,18 @@ function Navbar() {
 
           setDashboardButton(true);
           setReservesButton(false);
-          setSignUpButton(false);
-          setSignInButton(false);
-          setSignOutButton(true);
+          //setSignUpButton(false);
+          //setSignInButton(false);
+          //setSignOutButton(true);
           console.log("editor");
 
         } else {
 
           setDashboardButton(false);
           setReservesButton(false);
-          setSignUpButton(true);
-          setSignInButton(true);
-          setSignOutButton(false);
+          //setSignUpButton(true);
+          //setSignInButton(true);
+          //setSignOutButton(false);
         }
       })
 
@@ -211,7 +196,7 @@ function Navbar() {
                   Dashboard
                 </Link>
               </li>}
-            <li hidden={login}>
+            <li hidden={userLogged}>
               <Link
                 to='/register'
                 className='nav-links-mobile'
@@ -220,7 +205,7 @@ function Navbar() {
                 Sign Up
               </Link>
             </li>
-            <li hidden={login} >
+            <li hidden={userLogged} >
               <Link
                 to='/login'
                 className='nav-links-mobile'
