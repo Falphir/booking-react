@@ -21,14 +21,30 @@ function Navbar() {
   const showButton = () => {
     if (window.innerWidth <= 960) {
       if (login) {
+
         setButton(false);
+        setSignUpButton(false);
+        setSignInButton(false);
+
       }
+
       setButton(false);
+      setSignUpButton(false);
+      setSignInButton(false);
+
     } else {
+
       if (login) {
+
         setButton(false);
+        setSignUpButton(false);
+        setSignInButton(false);
+
       } else {
+
         setButton(true);
+        setSignUpButton(true);
+        setSignInButton(true);
       }
 
     }
