@@ -34,7 +34,7 @@ const RoomsForm = () => {
 
     const postRoom = (data) => {
         fetch('/hotel/rooms', {
-            headers: { 'Content-Type': 'application/json', 'x-access-token': Config.token },
+            headers: { 'Content-Type': 'application/json' },
             method: 'POST',
             body: JSON.stringify(data)
         })
