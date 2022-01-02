@@ -15,16 +15,15 @@ const UserTable = (props) => {
         }
     });
 
-    /* const renderRoles = (roles) => {
-        return roles.map((role) => {
+    /* const renderRole = (role) => {
+        return role.map((roles) => {
             return (
-                <label key={role._id}>
-                    Name: {role.name}
-                    Scopes: {renderScopes}
+                <label key={roles._id}>
+                    a
                 </label>
             )
         })
-    }
+    } */
 
     /* const renderScopes = (scopes) => {
         return scopes.map((scope) => {
@@ -46,17 +45,17 @@ const UserTable = (props) => {
         {
             title: 'Email',
             dataIndex: 'email',
-        },
+        }/* ,
 
         {
             title: 'Password',
             dataIndex: 'password',
-        },
+        } *//* ,
 
-        /* {
+        {
             title: 'Role',
             dataIndex: 'role',
-            render: renderRoles
+            render: renderRole
         } */
     ];
 

@@ -9,6 +9,7 @@ function Navbar() {
   const [click, setClick] = useState(false);
   const [button, setButton] = useState(true);
   const [dashboardLink, setDashboardButton] = useState(true);
+  const [dashboardeditorLink, setDashboardEditorButton] = useState(true);
   const [signUpLink, setSignUpButton] = useState(true);
   const [signInLink, setSignInButton] = useState(true);
   const [signOutLink, setSignOutButton] = useState(true);
@@ -117,6 +118,7 @@ function Navbar() {
         if (response.decoded == 'undefined') {
 
           setDashboardButton(false);
+          setDashboardEditorButton(false);
           setReservesButton(false);
           setSignUpButton(true);
           setSignInButton(true);
@@ -124,13 +126,12 @@ function Navbar() {
           console.log("guest");
 
 
-        } else if (response.decoded == 'read-own-reserves' || response.decoded == 'create-reserve' || response.decoded == 'detail-reserve'
-          //response.decoded == 'read-own-reserves,create-reserve,detail-reserve'
-        ) {
+        } else if (response.decoded == 'read-own-reserves,create-reserve,detail-reserve') {
 
           //window.location.reload(false);
 
           setDashboardButton(false);
+          setDashboardEditorButton(false);
           setReservesButton(true);
           setSignUpButton(false);
           setSignInButton(false);
@@ -138,9 +139,12 @@ function Navbar() {
           console.log("user");
 
 
-        } else if (response.decoded == 'create-reserve,detail-reserve,verify-logged-in,update-reserve,read-reserves,delete-reserve,create-room,update-room,read-reserve-client,delete-room,read-users') {
+        } else if (response.decoded == 'create-reserve,detail-reserve,verify-logged-in,update-reserve,read-reserves,delete-reserve,create-room,update-room,read-reserve-client,delete-room,read-users' ||
+          response.decoded == 'read-users, update-reserve, read-reserves, delete-reserve, create-room, update-room, read-reserve-client, delete-room, create-reserve, detail-reserve' ||
+          response.decoded == 'read-users,update-reserve,read-reserves,delete-reserve,create-room,update-room,read-reserve-client,delete-room,create-reserve,detail-reserve') {
 
           setDashboardButton(true);
+          setDashboardEditorButton(false);
           setReservesButton(false);
           setSignUpButton(false);
           setSignInButton(false);
@@ -150,7 +154,8 @@ function Navbar() {
 
         } else if (response.decoded == 'update-reserve,read-reserves,delete-reserve,create-room,update-room,read-reserve-client,delete-room,create-reserve,detail-reserve') {
 
-          setDashboardButton(true);
+          setDashboardButton(false);
+          setDashboardEditorButton(true);
           setReservesButton(false);
           setSignUpButton(false);
           setSignInButton(false);
@@ -161,6 +166,7 @@ function Navbar() {
         } else {
 
           setDashboardButton(false);
+          setDashboardEditorButton(false);
           setReservesButton(false);
           setSignUpButton(true);
           setSignInButton(true);
@@ -218,6 +224,15 @@ function Navbar() {
             {dashboardLink &&
               <li className='nav-item'>
                 <Link to='/dashboard'
+                  className='nav-links'
+                  onClick={closeMobileMenu}
+                >
+                  Dashboard
+                </Link>
+              </li>}
+            {dashboardeditorLink &&
+              <li className='nav-item'>
+                <Link to='/dashboardeditor'
                   className='nav-links'
                   onClick={closeMobileMenu}
                 >

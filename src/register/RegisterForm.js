@@ -40,7 +40,7 @@ const RegisterForm = () => {
             ...data, role: {
 
                 nameRole: data.nameRole,
-                scopes: ["read-own-reserves"]
+                scopes: ["read-own-reserves", "create-reserve", "detail-reserve"]
             }
         }
     };
@@ -76,7 +76,7 @@ const RegisterForm = () => {
                 <div className='field'>
                     <label>Permission: </label>
                     <select {...register('scopes')}>
-                        <option value="read-own-reserves">Read Own Reserves</option>
+                        <option>Read Own Reserves</option>
                     </select>
                 </div>
 
