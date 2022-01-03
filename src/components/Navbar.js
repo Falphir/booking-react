@@ -10,9 +10,9 @@ function Navbar() {
   const [button, setButton] = useState(true);
   const [dashboardLink, setDashboardButton] = useState(true);
   const [dashboardeditorLink, setDashboardEditorButton] = useState(true);
-  const [signUpLink, setSignUpButton] = useState(true);
-  const [signInLink, setSignInButton] = useState(true);
-  const [signOutLink, setSignOutButton] = useState(true);
+  const [signUpLink, setSignUpButton] = useState();
+  const [signInLink, setSignInButton] = useState();
+  const [signOutLink, setSignOutButton] = useState();
   const [reservesLink, setReservesButton] = useState(true);
   const handleClick = () => setClick(!click);
   const closeMobileMenu = () => setClick(false);
@@ -20,23 +20,24 @@ function Navbar() {
 
 
   const showButton = () => {
+    
     if (window.innerWidth <= 960) {
-      if (login) {
+      if (userLogged) {
 
         setButton(false);
         setSignUpButton(false);
         setSignInButton(false);
-        setSignOutButton(true);
+        setSignOutButton(false);
       }
 
       setButton(false);
       setSignUpButton(false);
       setSignInButton(false);
-      setSignOutButton(true);
+      setSignOutButton(false);
 
     } else {
 
-      if (login) {
+      if (userLogged) {
 
         setButton(false);
         setSignUpButton(false);
@@ -54,15 +55,14 @@ function Navbar() {
   };
 
   const role = "admin";
-  const login = false;
 
-  const showReservesButton = () => {
-    if (login) {
-      setReservesButton(true);
-    } else {
-      setReservesButton(false);
-    }
-  };
+  // const showReservesButton = () => {
+  //   if (login) {
+  //     setReservesButton(true);
+  //   } else {
+  //     setReservesButton(false);
+  //   }
+  // };
 
   //Função detetar se tem perm para aceder dashboard
   const showDashboardButton = () => {
@@ -72,12 +72,6 @@ function Navbar() {
       setDashboardButton(false);
     }
   };
-
-  /*   useEffect(() => {
-      showButton();
-      showDashboardButton();
-      showReservesButton();
-    }, []); */
 
   window.addEventListener('resize', showButton);
 
@@ -121,9 +115,10 @@ function Navbar() {
           setDashboardButton(false);
           setDashboardEditorButton(false);
           setReservesButton(false);
-          setSignUpButton(true);
-          setSignInButton(true);
-          setSignOutButton(false);
+          // setSignUpButton(true);
+          // setSignInButton(true);
+          // setSignOutButton(false);
+          showButton()
           console.log("guest");
 
 
@@ -134,9 +129,10 @@ function Navbar() {
           setDashboardButton(false);
           setDashboardEditorButton(false);
           setReservesButton(true);
-          setSignUpButton(false);
-          setSignInButton(false);
-          setSignOutButton(true);
+          // setSignUpButton(false);
+          // setSignInButton(false);
+          // setSignOutButton(true);
+          showButton()
           console.log("user");
 
 
@@ -147,9 +143,10 @@ function Navbar() {
           setDashboardButton(true);
           setDashboardEditorButton(false);
           setReservesButton(false);
-          setSignUpButton(false);
-          setSignInButton(false);
-          setSignOutButton(true);
+          // setSignUpButton(false);
+          // setSignInButton(false);
+          // setSignOutButton(true);
+          showButton()
           console.log("admin");
 
 
@@ -158,9 +155,10 @@ function Navbar() {
           setDashboardButton(false);
           setDashboardEditorButton(true);
           setReservesButton(false);
-          setSignUpButton(false);
-          setSignInButton(false);
-          setSignOutButton(true);
+          // setSignUpButton(false);
+          // setSignInButton(false);
+          // setSignOutButton(true);
+          showButton()
           console.log("editor");
 
 
@@ -169,9 +167,10 @@ function Navbar() {
           setDashboardButton(false);
           setDashboardEditorButton(false);
           setReservesButton(false);
-          setSignUpButton(true);
-          setSignInButton(true);
-          setSignOutButton(false);
+          // setSignUpButton(true);
+          // setSignInButton(true);
+          // setSignOutButton(false);
+          showButton()
           console.log("guest");
         }
       })
@@ -197,11 +196,11 @@ function Navbar() {
             <i className={click ? 'fas fa-times' : 'fas fa-bars'} />
           </div>
           <ul className={click ? 'nav-menu active' : 'nav-menu'}>
-            <li className='nav-item'>
+            {/* <li className='nav-item'>
               <Link to='/' className='nav-links' onClick={closeMobileMenu}>
                 Home
               </Link>
-            </li>
+            </li> */}
 
             <li className='nav-item'>
               <Link to='/roomList'
@@ -240,7 +239,7 @@ function Navbar() {
                   Dashboard
                 </Link>
               </li>}
-            <li hidden={login}>
+            <li hidden={userLogged}>
               <Link
                 to='/register'
                 className='nav-links-mobile'
@@ -249,13 +248,22 @@ function Navbar() {
                 Sign Up
               </Link>
             </li>
-            <li hidden={login} >
+            <li hidden={userLogged} >
               <Link
                 to='/login'
                 className='nav-links-mobile'
                 onClick={closeMobileMenu}
               >
                 Sign In
+              </Link>
+            </li>
+            <li hidden={!userLogged} >
+              <Link
+                to='/'
+                className='nav-links-mobile'
+                onClick={closeMobileMenu, onClickLogout}
+              >
+                Sign Out
               </Link>
             </li>
           </ul>
