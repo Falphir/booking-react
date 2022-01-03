@@ -4,76 +4,47 @@ import { Link, Navigate } from 'react-router-dom';
 import './Navbar.css';
 import logo from '../assets/logo/logo_simples.png'
 
+function UseWindowSize() {
+  // Initialize state with undefined width/height so server and client renders match
+  // Learn more here: https://joshwcomeau.com/react/the-perils-of-rehydration/
+  const [windowSize, setWindowSize] = useState({
+    width: undefined,
+  });
+  useEffect(() => {
+    // Handler to call on window resize
+    function handleResize() {
+      // Set window width/height to state
+      setWindowSize({
+        width: window.innerWidth,
+      });
+    }
+    // Add event listener
+    window.addEventListener("resize", handleResize);
+    // Call handler right away so state gets updated with initial window size
+    handleResize();
+    // Remove event listener on cleanup
+    return () => window.removeEventListener("resize", handleResize);
+  }, []); // Empty array ensures that effect is only run on mount
+  return windowSize;
+}
+
+
 function Navbar() {
 
   const [click, setClick] = useState(false);
   const [button, setButton] = useState(true);
-  const [dashboardLink, setDashboardButton] = useState(true);
-  const [dashboardeditorLink, setDashboardEditorButton] = useState(true);
+  const [dashboardLink, setDashboardButton] = useState();
+  const [dashboardeditorLink, setDashboardEditorButton] = useState();
   const [signUpLink, setSignUpButton] = useState();
   const [signInLink, setSignInButton] = useState();
   const [signOutLink, setSignOutButton] = useState();
-  const [reservesLink, setReservesButton] = useState(true);
+  const [MobilesignUpLink, setMobileSignUpButton] = useState();
+  const [MobilesignInLink, setMobileSignInButton] = useState();
+  const [MobilesignOutLink, setMobileSignOutButton] = useState();
+  const [reservesLink, setReservesButton] = useState();
   const handleClick = () => setClick(!click);
   const closeMobileMenu = () => setClick(false);
-  const [userLogged, setUserLogged] = useState(true);
-
-
-  const showButton = () => {
-
-    if (window.innerWidth <= 960) {
-      if (userLogged) {
-
-        setButton(false);
-        setSignUpButton(false);
-        setSignInButton(false);
-        setSignOutButton(false);
-      }
-
-      setButton(false);
-      setSignUpButton(false);
-      setSignInButton(false);
-      setSignOutButton(false);
-
-    } else {
-
-      if (userLogged) {
-
-        setButton(false);
-        setSignUpButton(false);
-        setSignInButton(false);
-        setSignOutButton(true);
-
-      } else {
-
-        setButton(true);
-        setSignUpButton(true);
-        setSignInButton(true);
-        setSignOutButton(false);
-      }
-    }
-  };
-
-  const role = "admin";
-
-  // const showReservesButton = () => {
-  //   if (login) {
-  //     setReservesButton(true);
-  //   } else {
-  //     setReservesButton(false);
-  //   }
-  // };
-
-  //Função detetar se tem perm para aceder dashboard
-  const showDashboardButton = () => {
-    if (role == "admin") {
-      setDashboardButton(true);
-    } else {
-      setDashboardButton(false);
-    }
-  };
-
-  window.addEventListener('resize', showButton);
+  const [userLogged, setUserLogged] = useState();
 
   const onClickLogout = () => {
     fetch('/auth/logout', {
@@ -105,74 +76,82 @@ function Navbar() {
 
       .then((response) => {
         //se scope do utilizador for == ao scope q tem permissão pra ver button
-        setUserLogged(response.decoded);
-        //console.log(response);
-        //console.log("scopes: " + response.decoded[0]);
-        //console.log("idUser: " + response.decoded[1]);
-        ///console.log("role: " + response.decoded[2]);
-        //console.log("auth: " + response.auth);
+        setUserLogged(response.auth);
+        console.log("stuff: " + response.auth);
+        console.log("scopes: " + response.decoded);
 
+        function showButtons() {
+          if (window.innerWidth <= 960) {
+            setSignInButton(false);
+            setSignUpButton(false);
+            setSignOutButton(false);
+            if (response.auth) {
+              setMobileSignInButton(false);
+              setMobileSignUpButton(false);
+              setMobileSignOutButton(true);
+            } else {
+              setMobileSignInButton(true);
+              setMobileSignUpButton(true);
+              setMobileSignOutButton(false);
+            }
+          } else {
+            if (response.auth) {
+              setSignInButton(false);
+              setSignUpButton(false);
+              setSignOutButton(true);
+            } else {
+              setSignInButton(true);
+              setSignUpButton(true);
+              setSignOutButton(false);
+            }
+          }
+        }
+        window.addEventListener('resize', showButtons);
 
-
-        if (response.decoded[2] == 'undefined') {
+        if (response.decoded == 'undefined') {
 
           setDashboardButton(false);
           setDashboardEditorButton(false);
           setReservesButton(false);
-          // setSignUpButton(true);
-          // setSignInButton(true);
-          // setSignOutButton(false);
-          showButton()
+          showButtons();
           console.log("guest");
 
 
-        } else if (response.decoded[2] == 'user') {
-
-          //window.location.reload(false);
+        } else if (response.decoded == 'read-own-reserves,create-reserve,detail-reserve') {
 
           setDashboardButton(false);
           setDashboardEditorButton(false);
           setReservesButton(true);
-          // setSignUpButton(false);
-          // setSignInButton(false);
-          // setSignOutButton(true);
-          showButton()
+          showButtons();
           console.log("user");
 
 
-        } else if (response.decoded[2] == 'admin') {
+        } else if (response.decoded == 'create-reserve,detail-reserve,verify-logged-in,update-reserve,read-reserves,delete-reserve,create-room,update-room,read-reserve-client,delete-room,read-users' ||
+          response.decoded == 'read-users, update-reserve, read-reserves, delete-reserve, create-room, update-room, read-reserve-client, delete-room, create-reserve, detail-reserve' ||
+          response.decoded == 'read-users,update-reserve,read-reserves,delete-reserve,create-room,update-room,read-reserve-client,delete-room,create-reserve,detail-reserve') {
 
           setDashboardButton(true);
           setDashboardEditorButton(false);
           setReservesButton(false);
-          // setSignUpButton(false);
-          // setSignInButton(false);
-          // setSignOutButton(true);
-          showButton()
+          showButtons();
           console.log("admin");
 
 
-        } else if (response.decoded[2] == 'editor') {
+        } else if (response.decoded == 'update-reserve,read-reserves,delete-reserve,create-room,update-room,read-reserve-client,delete-room,create-reserve,detail-reserve') {
 
           setDashboardButton(false);
           setDashboardEditorButton(true);
           setReservesButton(false);
-          // setSignUpButton(false);
-          // setSignInButton(false);
-          // setSignOutButton(true);
-          showButton()
+          showButtons();
           console.log("editor");
 
 
         } else {
-
+          
           setDashboardButton(false);
           setDashboardEditorButton(false);
           setReservesButton(false);
-          // setSignUpButton(true);
-          // setSignInButton(true);
-          // setSignOutButton(false);
-          showButton()
+          showButtons();
           console.log("guest");
         }
       })
@@ -241,33 +220,39 @@ function Navbar() {
                   Dashboard
                 </Link>
               </li>}
-            <li hidden={userLogged}>
-              <Link
-                to='/register'
-                className='nav-links-mobile'
-                onClick={closeMobileMenu}
-              >
-                Sign Up
-              </Link>
-            </li>
-            <li hidden={userLogged} >
-              <Link
-                to='/login'
-                className='nav-links-mobile'
-                onClick={closeMobileMenu}
-              >
-                Sign In
-              </Link>
-            </li>
-            <li hidden={!userLogged} >
-              <Link
-                to='/'
-                className='nav-links-mobile'
-                onClick={closeMobileMenu, onClickLogout}
-              >
-                Sign Out
-              </Link>
-            </li>
+            {MobilesignUpLink &&
+              <li>
+                <Link
+                  to='/register'
+                  className='nav-links-mobile'
+                  onClick={closeMobileMenu}
+                >
+                  Sign Up
+                </Link>
+              </li>
+            }
+            {MobilesignInLink &&
+              <li>
+                <Link
+                  to='/login'
+                  className='nav-links-mobile'
+                  onClick={closeMobileMenu}
+                >
+                  Sign In
+                </Link>
+              </li>
+            }
+            {MobilesignOutLink &&
+              <li >
+                <Link
+                  to='/'
+                  className='nav-links-mobile'
+                  onClick={closeMobileMenu, onClickLogout}
+                >
+                  Sign Out
+                </Link>
+              </li>
+            }
           </ul>
 
 

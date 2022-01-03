@@ -49,16 +49,6 @@ const RoomsForm = () => {
         )
     }
 
-    const props = {
-        name: 'file',
-        multiple: true,
-        action: { handleUpload },
-        onChange: { handleChange },
-        onDrop(e) {
-            console.log('Dropped files', e.dataTransfer.files);
-        },
-    };
-
     console.log("image: ", image);
 
     const postRoom = (data) => {
@@ -107,127 +97,137 @@ const RoomsForm = () => {
         }
     };
 
-    const onReset = () => {
-        roomForm.resetFields();
-    };
-
 
     return (
-        <form id="add-room-form" className="form-Rooms" onSubmit={handleSubmit(onSubmit)}>
-            <div className="field">
-                <label>Description: </label>
-                <input {...register('description')}></input>
-            </div>
+        <div>
+            <Row justify="center">
+                <Col>
+                    <h2>Add Room Form</h2>
+                </Col>
+            </Row>
+            <Row>
+                <Col span={8}></Col>
+                <Col span={8}>
+                    <div>
+                        <form id="add-room-form" className="form-Rooms" onSubmit={handleSubmit(onSubmit)}>
+                            <div className="field">
+                                <label>Description: </label>
+                                <input {...register('description')}></input>
+                            </div>
 
-            <div className="field">
-                <label>Nº Adults: </label>
-                <input {...register('nAdult')}></input>
-            </div>
+                            <div className="field">
+                                <label>Nº Adults: </label>
+                                <input {...register('nAdult')}></input>
+                            </div>
 
-            <div className="field">
-                <label>Nº Children: </label>
-                <input {...register('nChild')}></input>
-            </div>
+                            <div className="field">
+                                <label>Nº Children: </label>
+                                <input {...register('nChild')}></input>
+                            </div>
 
-            <div className="field">
-                <label>Nº Rooms: </label>
-                <input {...register('nRoom')}></input>
-            </div>
+                            <div className="field">
+                                <label>Nº Rooms: </label>
+                                <input {...register('nRoom')}></input>
+                            </div>
 
-            <div className="field">
-                <label>Price: </label>
-                <input {...register('price')}></input>
-            </div>
+                            <div className="field">
+                                <label>Price: </label>
+                                <input {...register('price')}></input>
+                            </div>
 
-            <div className="field">
-                <label>Tags: </label>
+                            <div className="field">
+                                <label>Tags: </label>
 
-                <br></br>
+                                <br></br>
 
-                <label>Type Room: </label>
-                <select {...register('typeRoom')}>
-                    <option value="Apartamento">Apartamento</option>
-                    <option value="Quarto">Quarto</option>
-                    <option value="Casa de Férias">Casa de Férias</option>
-                    <option value="Hostel">Hostel</option>
-                    <option value="Casa de Campo">Casa de Campo</option>
-                    <option value="Outro">Outro</option>
-                </select>
+                                <label>Type Room: </label>
+                                <select {...register('typeRoom')}>
+                                    <option value="Apartamento">Apartamento</option>
+                                    <option value="Quarto">Quarto</option>
+                                    <option value="Casa de Férias">Casa de Férias</option>
+                                    <option value="Hostel">Hostel</option>
+                                    <option value="Casa de Campo">Casa de Campo</option>
+                                    <option value="Outro">Outro</option>
+                                </select>
 
-                <br></br>
+                                <br></br>
 
-                <label>Vip: </label>
-                <select {...register('vip')}>
-                    <option value="yes">Yes</option>
-                    <option value="no">No</option>
-                </select>
+                                <label>Vip: </label>
+                                <select {...register('vip')}>
+                                    <option value="yes">Yes</option>
+                                    <option value="no">No</option>
+                                </select>
 
-                <br></br>
+                                <br></br>
 
-                <label>Nº Pool: </label>
-                <input {...register('nPool')}></input>
+                                <label>Nº Pool: </label>
+                                <input {...register('nPool')}></input>
 
-                <br></br>
+                                <br></br>
 
-                <label>Car Park: </label>
-                <select {...register('carPark')}>
-                    <option value="yes">Yes</option>
-                    <option value="no">No</option>
-                </select>
+                                <label>Car Park: </label>
+                                <select {...register('carPark')}>
+                                    <option value="yes">Yes</option>
+                                    <option value="no">No</option>
+                                </select>
 
-                <br></br>
+                                <br></br>
 
-                <label>BreakFast: </label>
-                <select {...register('breakfast')}>
-                    <option value="yes">Yes</option>
-                    <option value="no">No</option>
-                </select>
+                                <label>BreakFast: </label>
+                                <select {...register('breakfast')}>
+                                    <option value="yes">Yes</option>
+                                    <option value="no">No</option>
+                                </select>
 
-                <br></br>
+                                <br></br>
 
-                <label>Lunch: </label>
-                <select {...register('lunch')}>
-                    <option value="yes">Yes</option>
-                    <option value="no">No</option>
-                </select>
+                                <label>Lunch: </label>
+                                <select {...register('lunch')}>
+                                    <option value="yes">Yes</option>
+                                    <option value="no">No</option>
+                                </select>
 
-                <br></br>
+                                <br></br>
 
-                <label>Spa: </label>
-                <select {...register('spa')}>
-                    <option value="yes">Yes</option>
-                    <option value="no">No</option>
-                </select>
+                                <label>Spa: </label>
+                                <select {...register('spa')}>
+                                    <option value="yes">Yes</option>
+                                    <option value="no">No</option>
+                                </select>
 
-                <br></br>
+                                <br></br>
 
-                <label>Nº Stars: </label>
-                <select {...register('nStars')}>
-                    <option value="0">0</option>
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                </select>
+                                <label>Nº Stars: </label>
+                                <select {...register('nStars')}>
+                                    <option value="0">0</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                </select>
 
-                <br></br>
+                                <br></br>
 
-                <label>Nº Single Bed: </label>
-                <input {...register('nSingleBed')}></input>
+                                <label>Nº Single Bed: </label>
+                                <input {...register('nSingleBed')}></input>
 
-                <br></br>
+                                <br></br>
 
-                <label>Nº Double Bed: </label>
-                <input {...register('nDoubleBed')}></input>
-            </div>
+                                <label>Nº Double Bed: </label>
+                                <input {...register('nDoubleBed')}></input>
+                            </div>
 
-            <input type="file" onChange={handleChange} />
-            <button >Upload</button>
+                            <input type="file" onChange={handleChange} />
+                            <button >Upload</button>
 
-
-            <input className="submit" type="submit" onClick={handleUpload}></input>
-        </form>
+                            <input className="submit" type="submit" onClick={handleUpload}></input>
+                        </form>
+                    </div>
+                </Col>
+                <Col span={8}></Col>
+            </Row>
+        </div>
     );
 }
 

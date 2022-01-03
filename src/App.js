@@ -37,7 +37,6 @@ function App() {
         <Route path='/reservesform' exact element={<ReservesForm></ReservesForm>}></Route>
         <Route path='/roomList' exact element={<AllRoomsList></AllRoomsList>}></Route>
       </Routes>
-      <Footer />
     </>
   );
 }
