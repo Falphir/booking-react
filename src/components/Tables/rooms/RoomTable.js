@@ -4,6 +4,7 @@ import Config from '../../../config';
 import { Table, Modal, Tag, Button, Row, Col } from 'antd';
 import { EditOutlined, DeleteOutlined, PlusOutlined, ExclamationCircleOutlined } from '@ant-design/icons';
 import RoomsForm from './add/RoomsForm';
+import { Link } from 'react-router-dom';
 
 const RoomTable = (props) => {
 
@@ -96,14 +97,13 @@ const RoomTable = (props) => {
     ];
 
     const onDeleteRoom = (record) => {
-
         Modal.confirm({
             title: 'Are you sure, you want to delete this room?',
             onOk: () => {
-                setData((pre) => {
-                    return pre.filter((room) => room.id !== record.id);
-                    //pre.filter((rooms.map((room) => { return room._id }) !== record._id))
-                });
+                    fetch(`/hotel/rooms/${record._id}`, {
+                        method: 'DELETE',
+                    })
+                    window.location.reload(false)
             },
         });
     };
@@ -184,6 +184,8 @@ const RoomTable = (props) => {
         fetchApi(pagination.pageSize, pagination.current)
     };
 
+    const { rooms, pagination } = data;
+
     function onAddRoom() {
         Modal.confirm({
             title: 'Add Room',
@@ -195,17 +197,17 @@ const RoomTable = (props) => {
           });
     }
 
-    const { rooms, pagination } = data;
-
 
     return (
         <div>
             <Row justify="end">
                 <Col>
                     <div style={{ margin: 8 }}>
-                        <Button onClick={onAddRoom} loading={loading}>
+                        <Link to='/roomsForm'>
+                        <Button  loading={loading}>
                             <PlusOutlined style={{ marginRight: 8 }} /> Add Room
                         </Button>
+                        </Link>
                     </div>
                 </Col>
             </Row>

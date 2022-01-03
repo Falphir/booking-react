@@ -46,7 +46,7 @@ function DashboardEditor() {
 
                 console.log(response.decoded);
 
-                if (response.decoded == 'update-reserve,read-reserves,delete-reserve,create-room,update-room,read-reserve-client,delete-room,create-reserve,detail-reserve') {
+                if (response.decoded[2] == 'editor') {
 
                     console.log("pode aceder ao dashboard");
                     setUserLogged(response.decoded);

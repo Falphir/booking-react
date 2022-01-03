@@ -38,7 +38,7 @@ const RoomsCard = (props) => {
         rooms: [],
         pagination: {
             current: 1,
-            pageSize: 10,
+            pageSize: 5,
             total: 0
         }
     });
@@ -120,6 +120,12 @@ const RoomsCard = (props) => {
         });
     }, []);
 
+    const onChange = (pagination) => {
+        fetchApi(pagination.pageSize, pagination.current);
+        console.log(pagination.page)
+    };
+
+
 
     const { rooms, pagination } = data;
 
@@ -137,7 +143,7 @@ const RoomsCard = (props) => {
 
 
     return (
-        <List grid={{ gutter: 16, column: ncolumn }} dataSource={rooms} pagination={pagination} columns={columns} rowKey={record => record._id} loading={loading}
+        <List grid={{ gutter: 16, column: ncolumn }} dataSource={rooms} pagination={pagination} onChange={onChange} columns={columns} rowKey={record => record._id} loading={loading}
             renderItem={item => (
                 <List.Item>
                     <Link to={`/rooms/${item._id}`}>
