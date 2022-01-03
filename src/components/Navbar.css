@@ -43,7 +43,7 @@
 }
 
 .nav-item {
-    height: 80px;
+    height: 100px;
 }
 
 .nav-links {
@@ -55,7 +55,7 @@
     align-items: center;
     text-decoration: none;
     margin: 0.6rem;
-    padding:  1rem ;
+    padding:  1.5rem ;
     height: 100%;
 }
 
@@ -63,7 +63,7 @@
     background-image: var(--gold);
     color: transparent;
     -webkit-background-clip: text;
-    box-shadow: inset 0px -10px 4px -7px var(--gold-shadow);
+    box-shadow: inset -0px -10px 4px -7px var(--gold-shadow);
     transition: all 0.2s ease-out;
 }
 

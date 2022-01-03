@@ -80,7 +80,9 @@ const RoomsForm = () => {
 
     const buildRooms = (data) => {
         return {
-            ...data, tags: [
+            ...data,
+                image: url,
+                tags: [
                 {
                     typeRoom: data.typeRoom,
                     vip: data.vip,
@@ -219,7 +221,6 @@ const RoomsForm = () => {
                             </div>
 
                             <input type="file" onChange={handleChange} />
-                            <button >Upload</button>
 
                             <input className="submit" type="submit" onClick={handleUpload}></input>
                         </form>
