@@ -51,11 +51,6 @@
     font-size: 16px;
 }
 
-.banner-search .check-in-out {
-    border-radius: 0px 0px 0px 0px;
-    height: 60px;
-}
-
 .banner-search .btn-search {
     border-radius: 0px 4px 4px 0px;
     height: 60px;
@@ -92,7 +87,7 @@
     }
 
     .banner-search .input {
-        width: 100%;
+        width: 400px;
     }
 
     .banner-search .btn-search {
@@ -120,14 +115,8 @@
     }
 
     .banner-search .input {
-        width: 80%;
+        width: 300px;
         height: 40px;
-    }
-
-    .banner-search .check-in-out {
-        width: 45%;
-        height: 40px;
-        
     }
 
     .banner-search .btn-search {
