@@ -8,12 +8,12 @@ function Navbar() {
 
   const [click, setClick] = useState(false);
   const [button, setButton] = useState(true);
-  const [dashboardLink, setDashboardButton] = useState(true);
-  const [dashboardeditorLink, setDashboardEditorButton] = useState(true);
+  const [dashboardLink, setDashboardButton] = useState();
+  const [dashboardeditorLink, setDashboardEditorButton] = useState();
   const [signUpLink, setSignUpButton] = useState();
   const [signInLink, setSignInButton] = useState();
   const [signOutLink, setSignOutButton] = useState();
-  const [reservesLink, setReservesButton] = useState(true);
+  const [reservesLink, setReservesButton] = useState();
   const handleClick = () => setClick(!click);
   const closeMobileMenu = () => setClick(false);
   const [userLogged, setUserLogged] = useState(true);

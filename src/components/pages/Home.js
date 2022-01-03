@@ -4,6 +4,7 @@ import '../../App.css'
 import BannerSection from '../BannerSection'
 import RoomsCard from '../Cards/allRooms/Rooms'
 import { Navigate } from 'react-router-dom';
+import Footer from '../Footer';
 
 
 
@@ -13,6 +14,7 @@ function Home() {
         <>
             <BannerSection />
             <RoomsCard></RoomsCard>
+            <Footer />
         </>
     )
 }
