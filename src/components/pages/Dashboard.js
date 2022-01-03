@@ -76,11 +76,6 @@ function Dashboard() {
     return (
         <Layout>
             <Layout>
-                <div className='links'>
-                    <button className='buttons' onClick={onClickLogout}>Logout</button>
-                </div>
-            </Layout>
-            <Layout>
                 <Content style={{ padding: '0 50px' }}>
                     <Breadcrumb style={{ margin: '16px 0' }}>
                         <Breadcrumb.Item><Link to="/">Home</Link></Breadcrumb.Item>
