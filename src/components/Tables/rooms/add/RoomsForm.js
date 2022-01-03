@@ -78,11 +78,12 @@ const RoomsForm = () => {
     }
 
 
+
     const buildRooms = (data) => {
         return {
             ...data,
-                image: url,
-                tags: [
+            image: url,
+            tags: [
                 {
                     typeRoom: data.typeRoom,
                     vip: data.vip,
@@ -98,6 +99,9 @@ const RoomsForm = () => {
             ]
         }
     };
+
+
+
 
 
     return (
