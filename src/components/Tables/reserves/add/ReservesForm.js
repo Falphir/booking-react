@@ -14,26 +14,13 @@ const ReservesForm = () => {
     const [userLogged, setUserLogged] = useState();
     const { RangePicker } = DatePicker;
     const [loading, setLoading] = useState(true);
-    const [data, setData] = useState({
-        reserves: [],
-        pagination: {
-            current: 1,
-            pageSize: 10,
-            total: 0
-        }
-    });
     var DCI, DCO, userId;
 
 
-    const postReserve = (pageSize, current, data) => {
+    const postReserve = (data) => {
         console.error("entrou no postReserve");
 
-        const url = '/reserve/reserves/' + roomId + '?' + new URLSearchParams({
-            limit: pageSize,
-            skip: current - 1
-        })
-
-        fetch(url, {
+        fetch('/reserve/reserves/:roomId', {
             headers: { 'Content-Type': 'application/json' },
             method: 'POST',
             body: JSON.stringify(data)
@@ -46,31 +33,13 @@ const ReservesForm = () => {
                     alert("Reserve created");
                     return (
                         <>
-                            response.json();
+                            {response.json()}
                         </>
                     )
 
                 } else {
                     console.log(response);
                     alert("Reserve duplicate");
-                }
-            })
-
-
-            .then((response) => {
-                const { auth, reserves = [], pagination } = response;
-
-
-                if (auth) {
-                    setLoading(false);
-                    setData({
-                        reserves,
-                        pagination: {
-                            current: pagination.page + 1 || 1,
-                            pageSize: pagination.pageSize || 10,
-                            total: pagination.total || 5
-                        }
-                    })
                 }
             })
 
@@ -98,49 +67,7 @@ const ReservesForm = () => {
             .catch(() => {
                 setUserLogged(false);
             })
-
-
-        postReserve(data.pagination.pageSize, data.pagination.current);
-
-        return () => setData({
-            rooms: [],
-            pagination: {
-                current: 1,
-                pageSize: 10
-            }
-        });
     }, [])
-
-
-    const buildReserves = (data) => {
-
-        console.log("entrou no buildReserves");
-        console.log("dCI: " + DCI);
-        console.log("dCO: " + DCO);
-        console.log("ROOMID: " + roomId);
-        console.log("userid: " + userId);
-
-        return {
-            ...data,
-            dCI: DCI,
-            dCO: DCO,
-            roomId: roomId,
-            userId: userId
-        }
-    };
-
-    const onReset = () => {
-        reserveForm.resetFields();
-    };
-
-    function onChange(value, dateString) {
-        console.log('Selected Time: ', value);
-        console.log('Formatted Selected Time: ', dateString);
-    }
-
-    function onOk(value) {
-        console.log('onOk: ', value);
-    }
 
     function onChangeDateCheckIn(date, DateCheckIn) {
         console.log("date check in: " + DateCheckIn);
@@ -162,8 +89,8 @@ const ReservesForm = () => {
         console.log("roomID: " + roomId);
 
         return {
-            DateCheckIn: DCI,
-            DateCheckOut: DCO,
+            dateCheckIn: DCI,
+            dateCheckOut: DCO,
             idUser: userId,
             idRoom: roomId
         }
