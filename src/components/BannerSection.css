@@ -95,10 +95,6 @@
         width: 100%;
     }
 
-    .banner-search .check-in-out {
-        width: 80%;
-    }
-
     .banner-search .btn-search {
         width: 100%;
     }
@@ -124,7 +120,7 @@
     }
 
     .banner-search .input {
-        width: 60%;
+        width: 80%;
         height: 40px;
     }
 

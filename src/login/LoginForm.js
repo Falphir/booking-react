@@ -22,6 +22,7 @@ const LoginForm = () => {
                 console.log(response);
 
                 if (response.auth) {
+                    window.location.href = '/'
                     setLoginSuccess(true);
 
                 } else {
@@ -35,9 +36,9 @@ const LoginForm = () => {
     }
 
 
-    if (loginSuccess) {
-        return <Navigate to='/' />
-    }
+    // if (loginSuccess) { 
+    //     return <Navigate to='/' />
+    // }
 
 
     return (

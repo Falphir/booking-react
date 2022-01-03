@@ -4,6 +4,31 @@ import { Link, Navigate } from 'react-router-dom';
 import './Navbar.css';
 import logo from '../assets/logo/logo_simples.png'
 
+function UseWindowSize() {
+  // Initialize state with undefined width/height so server and client renders match
+  // Learn more here: https://joshwcomeau.com/react/the-perils-of-rehydration/
+  const [windowSize, setWindowSize] = useState({
+    width: undefined,
+  });
+  useEffect(() => {
+    // Handler to call on window resize
+    function handleResize() {
+      // Set window width/height to state
+      setWindowSize({
+        width: window.innerWidth,
+      });
+    }
+    // Add event listener
+    window.addEventListener("resize", handleResize);
+    // Call handler right away so state gets updated with initial window size
+    handleResize();
+    // Remove event listener on cleanup
+    return () => window.removeEventListener("resize", handleResize);
+  }, []); // Empty array ensures that effect is only run on mount
+  return windowSize;
+}
+
+
 function Navbar() {
 
   const [click, setClick] = useState(false);
@@ -13,67 +38,13 @@ function Navbar() {
   const [signUpLink, setSignUpButton] = useState();
   const [signInLink, setSignInButton] = useState();
   const [signOutLink, setSignOutButton] = useState();
+  const [MobilesignUpLink, setMobileSignUpButton] = useState();
+  const [MobilesignInLink, setMobileSignInButton] = useState();
+  const [MobilesignOutLink, setMobileSignOutButton] = useState();
   const [reservesLink, setReservesButton] = useState();
   const handleClick = () => setClick(!click);
   const closeMobileMenu = () => setClick(false);
-  const [userLogged, setUserLogged] = useState(true);
-
-
-  const showButton = () => {
-    
-    if (window.innerWidth <= 960) {
-      if (userLogged) {
-
-        setButton(false);
-        setSignUpButton(false);
-        setSignInButton(false);
-        setSignOutButton(false);
-      }
-
-      setButton(false);
-      setSignUpButton(false);
-      setSignInButton(false);
-      setSignOutButton(false);
-
-    } else {
-
-      if (userLogged) {
-
-        setButton(false);
-        setSignUpButton(false);
-        setSignInButton(false);
-        setSignOutButton(true);
-
-      } else {
-
-        setButton(true);
-        setSignUpButton(true);
-        setSignInButton(true);
-        setSignOutButton(false);
-      }
-    }
-  };
-
-  const role = "admin";
-
-  // const showReservesButton = () => {
-  //   if (login) {
-  //     setReservesButton(true);
-  //   } else {
-  //     setReservesButton(false);
-  //   }
-  // };
-
-  //Função detetar se tem perm para aceder dashboard
-  const showDashboardButton = () => {
-    if (role == "admin") {
-      setDashboardButton(true);
-    } else {
-      setDashboardButton(false);
-    }
-  };
-
-  window.addEventListener('resize', showButton);
+  const [userLogged, setUserLogged] = useState();
 
   const onClickLogout = () => {
     fetch('/auth/logout', {
@@ -105,34 +76,53 @@ function Navbar() {
 
       .then((response) => {
         //se scope do utilizador for == ao scope q tem permissão pra ver button
-        setUserLogged(response.decoded);
+        setUserLogged(response.auth);
         console.log("stuff: " + response.auth);
         console.log("scopes: " + response.decoded);
 
+        function showButtons() {
+          if (window.innerWidth <= 960) {
+            setSignInButton(false);
+            setSignUpButton(false);
+            setSignOutButton(false);
+            if (response.auth) {
+              setMobileSignInButton(false);
+              setMobileSignUpButton(false);
+              setMobileSignOutButton(true);
+            } else {
+              setMobileSignInButton(true);
+              setMobileSignUpButton(true);
+              setMobileSignOutButton(false);
+            }
+          } else {
+            if (response.auth) {
+              setSignInButton(false);
+              setSignUpButton(false);
+              setSignOutButton(true);
+            } else {
+              setSignInButton(true);
+              setSignUpButton(true);
+              setSignOutButton(false);
+            }
+          }
+        }
+        window.addEventListener('resize', showButtons);
 
         if (response.decoded == 'undefined') {
 
           setDashboardButton(false);
           setDashboardEditorButton(false);
           setReservesButton(false);
-          // setSignUpButton(true);
-          // setSignInButton(true);
-          // setSignOutButton(false);
-          showButton()
+          showButtons();
           console.log("guest");
 
 
         } else if (response.decoded == 'read-own-reserves,create-reserve,detail-reserve') {
 
-          //window.location.reload(false);
-
           setDashboardButton(false);
           setDashboardEditorButton(false);
           setReservesButton(true);
-          // setSignUpButton(false);
-          // setSignInButton(false);
-          // setSignOutButton(true);
-          showButton()
+          showButtons();
           console.log("user");
 
 
@@ -143,10 +133,7 @@ function Navbar() {
           setDashboardButton(true);
           setDashboardEditorButton(false);
           setReservesButton(false);
-          // setSignUpButton(false);
-          // setSignInButton(false);
-          // setSignOutButton(true);
-          showButton()
+          showButtons();
           console.log("admin");
 
 
@@ -155,22 +142,16 @@ function Navbar() {
           setDashboardButton(false);
           setDashboardEditorButton(true);
           setReservesButton(false);
-          // setSignUpButton(false);
-          // setSignInButton(false);
-          // setSignOutButton(true);
-          showButton()
+          showButtons();
           console.log("editor");
 
 
         } else {
-
+          
           setDashboardButton(false);
           setDashboardEditorButton(false);
           setReservesButton(false);
-          // setSignUpButton(true);
-          // setSignInButton(true);
-          // setSignOutButton(false);
-          showButton()
+          showButtons();
           console.log("guest");
         }
       })
@@ -239,33 +220,39 @@ function Navbar() {
                   Dashboard
                 </Link>
               </li>}
-            <li hidden={userLogged}>
-              <Link
-                to='/register'
-                className='nav-links-mobile'
-                onClick={closeMobileMenu}
-              >
-                Sign Up
-              </Link>
-            </li>
-            <li hidden={userLogged} >
-              <Link
-                to='/login'
-                className='nav-links-mobile'
-                onClick={closeMobileMenu}
-              >
-                Sign In
-              </Link>
-            </li>
-            <li hidden={!userLogged} >
-              <Link
-                to='/'
-                className='nav-links-mobile'
-                onClick={closeMobileMenu, onClickLogout}
-              >
-                Sign Out
-              </Link>
-            </li>
+            {MobilesignUpLink &&
+              <li>
+                <Link
+                  to='/register'
+                  className='nav-links-mobile'
+                  onClick={closeMobileMenu}
+                >
+                  Sign Up
+                </Link>
+              </li>
+            }
+            {MobilesignInLink &&
+              <li>
+                <Link
+                  to='/login'
+                  className='nav-links-mobile'
+                  onClick={closeMobileMenu}
+                >
+                  Sign In
+                </Link>
+              </li>
+            }
+            {MobilesignOutLink &&
+              <li >
+                <Link
+                  to='/'
+                  className='nav-links-mobile'
+                  onClick={closeMobileMenu, onClickLogout}
+                >
+                  Sign Out
+                </Link>
+              </li>
+            }
           </ul>
 
 
