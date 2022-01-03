@@ -113,9 +113,10 @@ function Navbar() {
         //se scope do utilizador for == ao scope q tem permissão pra ver button
         setUserLogged(response.decoded);
         //console.log(response);
-        //console.log("scopes: " + response.decoded[0]);
-        //console.log("idUser: " + response.decoded[1]);
-        //console.log("role: " + response.decoded[2]);
+        console.log("scopes: " + response.decoded[0]);
+        console.log("idUser: " + response.decoded[1]);
+        console.log("role: " + response.decoded[2]);
+        console.log("auth: " + response.auth);
 
 
 
