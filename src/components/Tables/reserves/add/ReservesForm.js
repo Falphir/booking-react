@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
 import './ReservesForm.css';
 import Config from "../../../../config";
-import { Form, Button, Checkbox, Input, Select, Row, Col, Upload, message, DatePicker, } from "antd";
+import { Form, Button, Checkbox, Input, Select, Row, Col, Upload, message, DatePicker } from "antd";
 
 
 const ReservesForm = () => {

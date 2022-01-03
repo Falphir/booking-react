@@ -2,13 +2,14 @@ import { set, useForm } from "react-hook-form";
 import { useState, useEffect } from "react";
 import './RoomsForm.css';
 import Config from '../../../../config';
-import { Form, Button, Checkbox, Input, Select, Row, Col, Upload, message } from "antd";
+import { Form, Button, Checkbox, Input, Select, Row, Col, Upload, message, Card, InputNumber } from "antd";
 import { InboxOutlined, UploadOutlined } from '@ant-design/icons';
 import axios from "axios"
 import { storage } from '../../../../firebase';
 import Modal from "antd/lib/modal/Modal";
 
 const { Dragger } = Upload;
+const { TextArea } = Input;
 
 
 const RoomsForm = () => {
@@ -20,6 +21,7 @@ const RoomsForm = () => {
     const onSubmit = e => postRoom(onFinish(e));
     // const onSubmit = data => postRoom(buildRooms(data));
     const [roomForm] = Form.useForm();
+    
 
     const [image, setImage] = useState(null);
     const [vip, setVip] = useState();
@@ -168,98 +170,108 @@ const RoomsForm = () => {
 
     return (
 
-        <div>
-            <Row justify="center">
-                <Col>
-                    <h2>Add Room Form</h2>
+        <div >
+            <Row style={{ paddingTop: 120 }}>
+                <Col span={8}></Col>
+                <Col span={8}>
+                    <Row justify="center">
+                        <div className="site-card-border-less-wrapper">
+                            <Card className="card" title="Add Room Form" bordered={true} style={{ width: 900, }}>
+                                <Form onFinish={onSubmit}>
+                                    <Form.Item name="description" label="Description">
+                                        <TextArea rows={4} placeholder="Description of the room"/>
+                                        {/* <Input placeholder="Type room description" /> */}
+                                    </Form.Item>
+                                    <Form.Item name="nAdults" label="Number of Adults">
+                                        <InputNumber  />
+                                    </Form.Item>
+                                    <Form.Item name="nChildren" label="Number of Childrens">
+                                        <InputNumber  />
+                                    </Form.Item>
+                                    <Form.Item name="nRooms" label="Number of Rooms">
+                                        <InputNumber  />
+                                    </Form.Item>
+                                    <Form.Item name="price" label="Price">
+                                        <InputNumber  />
+                                    </Form.Item>
+                                    <h3><b>Tags</b></h3>
+                                    <Form.Item name="typeRoom" label="Type Room">
+                                        <Select placeholder="Type of Room" >
+                                            <Select.Option value="Apartamento" />
+                                            <Select.Option value="Quarto" />
+                                            <Select.Option value="Casa de Férias" />
+                                            <Select.Option value="Hostel" />
+                                            <Select.Option value="Casa de Campo" />
+                                            <Select.Option value="Outro" />
+                                        </Select>
+                                    </Form.Item>
+                                    <Form.Item name="nPool" label="Number of Pools">
+                                        <InputNumber placeholder="Type number of Pools" />
+                                    </Form.Item>
+                                    <Form.Item name="nSingleBed" label="Number of single beds">
+                                        <InputNumber placeholder="Type number of single beds" />
+                                    </Form.Item>
+                                    <Form.Item name="nDoubleBed" label="Number of double beds">
+                                        <InputNumber placeholder="Type number of double beds" />
+                                    </Form.Item>
+                                    <Form.Item name="nStars" label="Number of Stars" style={{width:175}}>
+                                        <Select>
+                                            <Select.Option value="0" />
+                                            <Select.Option value="1" />
+                                            <Select.Option value="2" />
+                                            <Select.Option value="3" />
+                                            <Select.Option value="4" />
+                                            <Select.Option value="5" />
+                                        </Select>
+                                    </Form.Item>
+                                    <Form.Item name="extras" label="Extras">
+                                        <Checkbox.Group>
+                                            <Row>
+                                                <Col>
+                                                    <Checkbox value="vip" style={{ lineHeight: '32px' }}>
+                                                        VIP
+                                                    </Checkbox>
+                                                </Col>
+                                                <Col>
+                                                    <Checkbox value="carPark" style={{ lineHeight: '32px' }}>
+                                                        Car Park
+                                                    </Checkbox>
+                                                </Col>
+                                                <Col>
+                                                    <Checkbox value="breakfast" style={{ lineHeight: '32px' }}>
+                                                        Breakfast
+                                                    </Checkbox>
+                                                </Col>
+                                                <Col>
+                                                    <Checkbox value="lunch" style={{ lineHeight: '32px' }}>
+                                                        Lunch
+                                                    </Checkbox>
+                                                </Col>
+                                                <Col>
+                                                    <Checkbox value="spa" style={{ lineHeight: '32px' }}>
+                                                        Spa
+                                                    </Checkbox>
+                                                </Col>
+                                            </Row>
+                                        </Checkbox.Group>
+                                    </Form.Item>
+                                    <input type="file" onChange={handleChange} />
+                                    {/* <button onClick={handleUpload}>Upload</button> */}
+                                    <Form.Item style={{ paddingTop: 20 }}>
+                                        <Button block size="large" type="primary" htmlType="submit">
+                                            Submit
+                                        </Button>
+                                    </Form.Item>
+                                </Form>
+                            </Card>
+                        </div>
+                    </Row>
+
+                    {url}
                 </Col>
-            </Row>
-            <Form onFinish={onSubmit}>
-                <Form.Item name="description" label="Description">
-                    <Input placeholder="Type room description" />
-                </Form.Item>
-                <Form.Item name="nAdults" label="Number of Adults">
-                    <Input placeholder="Type adults capacity" />
-                </Form.Item>
-                <Form.Item name="nChildren" label="Number of Childrens">
-                    <Input placeholder="Type children capacity" />
-                </Form.Item>
-                <Form.Item name="nRooms" label="Number of Rooms">
-                    <Input placeholder="Type number of Rooms" />
-                </Form.Item>
-                <Form.Item name="price" label="Price">
-                    <Input placeholder="Type room price" />
-                </Form.Item>
-                <h3><b>Tags</b></h3>
-                <Form.Item name="typeRoom" label="Type Room">
-                    <Select defaultValue={"Apartamento"}>
-                        <Select.Option value="Apartamento" />
-                        <Select.Option value="Quarto" />
-                        <Select.Option value="Casa de Férias" />
-                        <Select.Option value="Hostel" />
-                        <Select.Option value="Casa de Campo" />
-                        <Select.Option value="Outro" />
-                    </Select>
-                </Form.Item>
-                <Form.Item name="nPool" label="Number of Pools">
-                    <Input placeholder="Type number of Pools" />
-                </Form.Item>
-                <Form.Item name="nSingleBed" label="Number of single beds">
-                    <Input placeholder="Type number of single beds" />
-                </Form.Item>
-                <Form.Item name="nDoubleBed" label="Number of double beds">
-                    <Input placeholder="Type number of double beds" />
-                </Form.Item>
-                <Form.Item name="nStars" label="Number of Stars">
-                    <Select>
-                        <Select.Option value="0" />
-                        <Select.Option value="1" />
-                        <Select.Option value="2" />
-                        <Select.Option value="3" />
-                        <Select.Option value="4" />
-                        <Select.Option value="5" />
-                    </Select>
-                </Form.Item>
-                <Form.Item name="extras" label="Extras">
-                    <Checkbox.Group>
-                        <Row>
-                            <Col>
-                                <Checkbox value="vip" style={{ lineHeight: '32px' }}>
-                                    VIP
-                                </Checkbox>
-                            </Col>
-                            <Col>
-                                <Checkbox value="carPark" style={{ lineHeight: '32px' }}>
-                                    Car Park
-                                </Checkbox>
-                            </Col>
-                            <Col>
-                                <Checkbox value="breakfast" style={{ lineHeight: '32px' }}>
-                                    Breakfast
-                                </Checkbox>
-                            </Col>
-                            <Col>
-                                <Checkbox value="lunch" style={{ lineHeight: '32px' }}>
-                                    Lunch
-                                </Checkbox>
-                            </Col>
-                            <Col>
-                                <Checkbox value="spa" style={{ lineHeight: '32px' }}>
-                                    Spa
-                                </Checkbox>
-                            </Col>
-                        </Row>
-                    </Checkbox.Group>
-                </Form.Item>
-                <input type="file" onChange={handleChange} />
-                <button onClick={handleUpload}>Upload</button>
-                <Form.Item>
-                    <Button size="large" type="primary" htmlType="submit">
-                        Submit
-                    </Button>
-                </Form.Item>
-            </Form>
-        </div>
+                <Col span={8}></Col>
+            </Row >
+        </div >
 
         // <div>
         //     <Row justify="center">
@@ -380,7 +392,7 @@ const RoomsForm = () => {
         //                         <input {...register('nDoubleBed')}></input>
         //                     </div>
 
-        //                     <input type="file" onChange={handleChange}  />
+        //                     <input type="file" onChange={handleChange} />
 
         //                     <input className="submit" type="submit"></input>
         //                 </form>
