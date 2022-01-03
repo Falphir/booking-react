@@ -112,11 +112,14 @@ function Navbar() {
       .then((response) => {
         //se scope do utilizador for == ao scope q tem permissão pra ver button
         setUserLogged(response.decoded);
-        console.log("stuff: " + response.auth);
-        console.log("scopes: " + response.decoded);
+        //console.log(response);
+        //console.log("scopes: " + response.decoded[0]);
+        //console.log("idUser: " + response.decoded[1]);
+        //console.log("role: " + response.decoded[2]);
 
 
-        if (response.decoded == 'undefined') {
+
+        if (response.decoded[2] == 'undefined') {
 
           setDashboardButton(false);
           setDashboardEditorButton(false);
@@ -127,7 +130,7 @@ function Navbar() {
           console.log("guest");
 
 
-        } else if (response.decoded == 'read-own-reserves,create-reserve,detail-reserve') {
+        } else if (response.decoded[2] == 'user') {
 
           //window.location.reload(false);
 
@@ -140,9 +143,7 @@ function Navbar() {
           console.log("user");
 
 
-        } else if (response.decoded == 'create-reserve,detail-reserve,verify-logged-in,update-reserve,read-reserves,delete-reserve,create-room,update-room,read-reserve-client,delete-room,read-users' ||
-          response.decoded == 'read-users, update-reserve, read-reserves, delete-reserve, create-room, update-room, read-reserve-client, delete-room, create-reserve, detail-reserve' ||
-          response.decoded == 'read-users,update-reserve,read-reserves,delete-reserve,create-room,update-room,read-reserve-client,delete-room,create-reserve,detail-reserve') {
+        } else if (response.decoded[2] == 'admin') {
 
           setDashboardButton(true);
           setDashboardEditorButton(false);
@@ -153,7 +154,7 @@ function Navbar() {
           console.log("admin");
 
 
-        } else if (response.decoded == 'update-reserve,read-reserves,delete-reserve,create-room,update-room,read-reserve-client,delete-room,create-reserve,detail-reserve') {
+        } else if (response.decoded[2] == 'editor') {
 
           setDashboardButton(false);
           setDashboardEditorButton(true);
