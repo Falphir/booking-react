@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import Config from '../../config';
-import { List, Card, Col, Row, Button, DatePicker } from 'antd';
-import { useParams } from 'react-router-dom';
+import { List, Card, Col, Row, Button, DatePicker, Form } from 'antd';
+import { useParams, Link } from 'react-router-dom';
 import Modal from 'antd/lib/modal/Modal';
+import { set, useForm } from "react-hook-form";
 const { Meta } = Card;
-const { RangePicker } = DatePicker;
 
 
 function useWindowSize() {
@@ -44,70 +44,7 @@ const RoomDetails = (props) => {
             total: 0
         }
     });
-
     const { roomId } = useParams();
-
-    const [isModalVisible, setIsModalVisible] = useState(false);
-
-
-    const postReserve = (data) => {
-        fetch('/reserves/:roomId', {
-            headers: { 'Content-Type': 'application/json' },
-            method: 'POST',
-            body: JSON.stringify(data)
-        })
-
-            .then((response) => {
-                if (response.ok) {
-
-                    console.log(response);
-                    alert("Reserve created");
-                    return response.json();
-
-                } else {
-
-                    console.log(response);
-                    alert("Reserve duplicate");
-                }
-            })
-
-            .catch((err) => {
-                console.error('error:', err);
-            });
-    }
-
-    const buildReserves = (data) => {
-        return {
-            ...data, tags: [
-                {
-                    typeRoom: data.typeRoom,
-                    vip: data.vip,
-                    nPool: data.nPool,
-                    carPark: data.carPark,
-                    breakfast: data.breakfast,
-                    lunch: data.lunch,
-                    spa: data.spa,
-                    nStars: data.nStars,
-                    nSingleBed: data.nSingleBed,
-                    nDoubleBed: data.nDoubleBed
-                }
-            ]
-        }
-    };
-
-    const showModal = () => {
-        setIsModalVisible(true);
-    };
-
-    const handleOk = () => {
-        setIsModalVisible(false);
-    };
-
-    const handleCancel = () => {
-        setIsModalVisible(false);
-    };
-
-
 
 
     //Renderizar Tags
@@ -190,7 +127,6 @@ const RoomDetails = (props) => {
     const { rooms, pagination } = data;
 
     var ncolumn = 5
-    var tagsA = rooms.tags;
 
     if (Size.width < 576) {
         ncolumn = 1
@@ -204,25 +140,9 @@ const RoomDetails = (props) => {
         ncolumn = 5
     }
 
-    function onChangeDateCheckIn(date, dateString) {
-        //console.log(dateString);
-        console.log("date check in: " + dateString);
-    }
-
-    function onChangeDateCheckOut(date, dateString) {
-        //console.log(dateString);
-        console.log("date check out: " + dateString);
-    }
-
-
 
     return (
         <>
-            <Modal title="Reserve this room" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
-                <DatePicker onChange={onChangeDateCheckIn} />
-                <DatePicker onChange={onChangeDateCheckOut} />
-            </Modal>
-
             <List grid={{ gutter: 16, column: ncolumn }} columns={columns}>
                 <Card key={roomId}
                     cover={<img alt="example" src="https://images.unsplash.com/photo-1618773928121-c32242e63f39?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80" />}>
@@ -263,7 +183,9 @@ const RoomDetails = (props) => {
 
                     <div className="reserves">
                         <Row xs={24} xl={16}>
-                            <Button onClick={showModal}>Reserve this room</Button>
+                            <Link to={`/reserves/${roomId}`}>
+                                <Button>Reserve this room</Button>
+                            </Link>
                         </Row>
                     </div>
                 </Card>

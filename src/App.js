@@ -34,7 +34,7 @@ function App() {
         <Route path='/users' exact element={<Users />}></Route>
         <Route path='/roomsform' exact element={<RoomsForm></RoomsForm>}></Route>
         <Route path='/reserves' exact element={<Reserves></Reserves>}></Route>
-        <Route path='/reservesform' exact element={<ReservesForm></ReservesForm>}></Route>
+        <Route path='/reserves/:roomId' exact element={<ReservesForm></ReservesForm>}></Route>
         <Route path='/roomList' exact element={<AllRoomsList></AllRoomsList>}></Route>
       </Routes>
     </>
