@@ -96,48 +96,6 @@ const RoomTable = (props) => {
 
     ];
 
-    const enterAnim = [
-        {
-          opacity: 0, x: 30, backgroundColor: '#fffeee', duration: 0,
-        },
-        {
-          height: 0,
-          duration: 200,
-          type: 'from',
-          delay: 250,
-          ease: 'easeOutQuad',
-          onComplete: this.onEnd,
-        },
-        {
-          opacity: 1, x: 0, duration: 250, ease: 'easeOutQuad',
-        },
-        { delay: 1000, backgroundColor: '#fff' },
-      ];
-      const pageEnterAnim = [
-        {
-          opacity: 0, duration: 0,
-        },
-        {
-          height: 0,
-          duration: 150,
-          type: 'from',
-          delay: 150,
-          ease: 'easeOutQuad',
-          onComplete: this.onEnd,
-        },
-        {
-          opacity: 1, duration: 150, ease: 'easeOutQuad',
-        },
-      ];
-      const leaveAnim = [
-        { duration: 250, opacity: 0 },
-        { height: 0, duration: 200, ease: 'easeOutQuad' },
-      ];
-      const pageLeaveAnim = [
-        { duration: 150, opacity: 0 },
-        { height: 0, duration: 150, ease: 'easeOutQuad' },
-      ];
-
     const onDeleteRoom = (record) => {
         Modal.confirm({
             title: 'Are you sure, you want to delete this room?',

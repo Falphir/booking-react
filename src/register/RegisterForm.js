@@ -2,11 +2,14 @@ import './RegisterForm.css';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Navigate } from 'react-router-dom';
+import { Col, Row, Card, Form, Input, Button, Checkbox } from 'antd';
+import { Link } from 'react-router-dom';
+import { LockOutlined, UserOutlined, MailOutlined } from '@ant-design/icons'
 
 const RegisterForm = () => {
 
     const { register, handleSubmit } = useForm();
-    const onSubmit = data => postUser(buildUsers(data));
+    const onSubmit = e => postUser(onFinish(e));
 
     const postUser = (data) => {
         fetch('/auth/user/register', {
@@ -35,20 +38,130 @@ const RegisterForm = () => {
     }
 
 
-    const buildUsers = (data) => {
-        return {
-            ...data, role: {
+    // const buildUsers = (data) => {
+    //     console.log(data);
+    //     return {
+    //         ...data, role: {
+    //             nameRole: data.nameRole,
+    //             scopes: ["read-own-reserves", "create-reserve", "detail-reserve"]
+    //         }
+    //     }
+    // };
 
-                nameRole: data.nameRole,
+    const onFinish = (e) => {
+        console.log(e);
+        return {
+            name: e.name,
+            email: e.email,
+            password: e.password,
+            role: {
+                nameRole: "user",
                 scopes: ["read-own-reserves", "create-reserve", "detail-reserve"]
             }
         }
-    };
+    }
 
 
     return (
         <div className='registerForm'>
-            <h2>Register Form</h2>
+
+            <Row style={{ paddingTop: 120 }}>
+                <Col span={8}></Col>
+                <Col span={8}>
+                    <Row justify="center">
+                        <div className="site-card-border-less-wrapper">
+                            <Card className="card" title={<Row justify='center'><h2 style={{ color: '#405fad', marginBottom: 0 }}><b>SIGN UP</b></h2></Row>} bordered={true} style={{ width: 450 }}>
+                                <Form layout='vertical' onFinish={onSubmit}>
+                                    <Form.Item name="name" rules={[
+                                        {
+                                            required: true,
+                                            message: 'Please input your username!',
+                                        },
+                                    ]} label={<h4 style={{ color: '#405fad' }}><b>Username</b></h4>} >
+                                        <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder='Username'  />
+                                    </Form.Item>
+                                    <Form.Item name="email" rules={[
+                                        {
+                                            type: 'email',
+                                            message: 'The input is not valid E-mail!',
+                                        },
+                                        {
+                                            required: true,
+                                            message: 'Please input your E-mail!',
+                                        },
+                                    ]}
+                                        label={<h4 style={{ color: '#405fad' }}><b>Email</b></h4>}
+                                    >
+                                        <Input prefix={<MailOutlined />} placeholder='Email' required />
+                                    </Form.Item>
+
+                                    <Form.Item
+                                        name="password"
+                                        label={<h4 style={{ color: '#405fad' }}><b>Password</b></h4>}
+                                        rules={[
+                                            {
+                                                required: true,
+                                                message: 'Please input your password!',
+                                            },
+                                        ]}
+                                        hasFeedback
+                                    >
+                                        <Input.Password prefix={<LockOutlined/>} placeholder='Password' required/>
+                                    </Form.Item>
+
+                                    <Form.Item
+                                        name="confirm"
+                                        label={<h4 style={{ color: '#405fad' }}><b>Confirm Password</b></h4>}
+                                        dependencies={['password']}
+                                        hasFeedback
+                                        rules={[
+                                            {
+                                                required: true,
+                                                message: 'Please confirm your password!',
+                                            },
+                                            ({ getFieldValue }) => ({
+                                                validator(_, value) {
+                                                    if (!value || getFieldValue('password') === value) {
+                                                        return Promise.resolve();
+                                                    }
+                                                    return Promise.reject(new Error('The two passwords that you entered do not match!'));
+                                                },
+                                            }),
+                                        ]}
+                                    >
+                                        <Input.Password prefix={<LockOutlined/>} placeholder='Confirm Password' required/>
+                                    </Form.Item>
+                                    <Form.Item style={{ marginTop: 10}}>
+                                        <Button size='large' block type='primary' htmlType='submit'> Register </Button>
+                                    </Form.Item>
+                                    <Row justify='center' style={{ marginTop: -15, marginBottom: -25 }}>
+                                        <Form.Item>
+                                            <Link to='/login'>Already have an Account? Sign in!</Link>
+                                        </Form.Item>
+                                    </Row>
+                                </Form>
+
+                                {/* <form className='form-login' onSubmit={handleSubmit(onSubmit)}>
+                                    <div className='field'>
+                                        <label>Name: </label>
+                                        <input {...register('name')}></input>
+                                    </div>
+
+                                    <div className='field'>
+                                        <label>Password: </label>
+                                        <input {...register('password')} type='password'></input>
+                                    </div>
+
+                                    <input className='submit' type='submit'></input>
+                                </form> */}
+                            </Card>
+                        </div>
+                    </Row>
+                </Col>
+                <Col span={8}></Col>
+            </Row >
+
+            {/* <h2>Register Form</h2>
 
             <form className='form-register' onSubmit={handleSubmit(onSubmit)}>
                 <div className='field'>
@@ -82,7 +195,7 @@ const RegisterForm = () => {
 
 
                 <input className='submit' type='submit'></input>
-            </form>
+            </form> */}
         </div>
     )
 }

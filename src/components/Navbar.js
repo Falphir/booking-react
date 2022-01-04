@@ -38,8 +38,8 @@ function Navbar() {
   const [signUpLink, setSignUpButton] = useState();
   const [signInLink, setSignInButton] = useState();
   const [signOutLink, setSignOutButton] = useState();
-  const [MobilesignUpLink, setMobileSignUpButton] = useState();
-  const [MobilesignInLink, setMobileSignInButton] = useState();
+  const [MobilesignUpLink, setMobileSignUpButton] = useState(true);
+  const [MobilesignInLink, setMobileSignInButton] = useState(true);
   const [MobilesignOutLink, setMobileSignOutButton] = useState();
   const [reservesLink, setReservesButton] = useState();
   const handleClick = () => setClick(!click);
@@ -107,6 +107,7 @@ function Navbar() {
           }
         }
         window.addEventListener('resize', showButtons);
+        window.addEventListener('load', showButtons);
 
         if (response.decoded[2] == 'undefined') {
 

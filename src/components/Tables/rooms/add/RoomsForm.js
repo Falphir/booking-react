@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import './RoomsForm.css';
 import Config from '../../../../config';
 import { Form, Button, Checkbox, Input, Select, Row, Col, Upload, message, Card, InputNumber } from "antd";
-import { InboxOutlined, UploadOutlined } from '@ant-design/icons';
+import { InboxOutlined, UploadOutlined, MinusCircleOutlined } from '@ant-design/icons';
 import axios from "axios"
 import { storage } from '../../../../firebase';
 import Modal from "antd/lib/modal/Modal";
@@ -21,7 +21,7 @@ const RoomsForm = () => {
     const onSubmit = e => postRoom(onFinish(e));
     // const onSubmit = data => postRoom(buildRooms(data));
     const [roomForm] = Form.useForm();
-    
+
 
     const [image, setImage] = useState(null);
     const [vip, setVip] = useState();
@@ -179,20 +179,20 @@ const RoomsForm = () => {
                             <Card className="card" title="Add Room Form" bordered={true} style={{ width: 900, }}>
                                 <Form onFinish={onSubmit}>
                                     <Form.Item name="description" label="Description">
-                                        <TextArea rows={4} placeholder="Description of the room"/>
+                                        <TextArea rows={4} placeholder="Description of the room" />
                                         {/* <Input placeholder="Type room description" /> */}
                                     </Form.Item>
                                     <Form.Item name="nAdults" label="Number of Adults">
-                                        <InputNumber  />
+                                        <InputNumber />
                                     </Form.Item>
                                     <Form.Item name="nChildren" label="Number of Childrens">
-                                        <InputNumber  />
+                                        <InputNumber />
                                     </Form.Item>
                                     <Form.Item name="nRooms" label="Number of Rooms">
-                                        <InputNumber  />
+                                        <InputNumber />
                                     </Form.Item>
                                     <Form.Item name="price" label="Price">
-                                        <InputNumber  />
+                                        <InputNumber />
                                     </Form.Item>
                                     <h3><b>Tags</b></h3>
                                     <Form.Item name="typeRoom" label="Type Room">
@@ -214,7 +214,7 @@ const RoomsForm = () => {
                                     <Form.Item name="nDoubleBed" label="Number of double beds">
                                         <InputNumber placeholder="Type number of double beds" />
                                     </Form.Item>
-                                    <Form.Item name="nStars" label="Number of Stars" style={{width:175}}>
+                                    <Form.Item name="nStars" label="Number of Stars" style={{ width: 175 }}>
                                         <Select>
                                             <Select.Option value="0" />
                                             <Select.Option value="1" />
@@ -252,6 +252,39 @@ const RoomsForm = () => {
                                                         Spa
                                                     </Checkbox>
                                                 </Col>
+                                                {/* {(fields, { add, remove }, { errors }) => (
+                                                    <Col>
+                                                        {fields.map((field, index) => (
+                                                            <Form.Item
+                                                                {...(index === 0) }
+                                                                label={index === 0 ? 'Passengers' : ''}
+                                                                required={false}
+                                                                key={field.key}
+                                                            >
+                                                                <Form.Item
+                                                                    {...field}
+                                                                    validateTrigger={['onChange', 'onBlur']}
+                                                                    rules={[
+                                                                        {
+                                                                            required: true,
+                                                                            whitespace: true,
+                                                                            message: "Please input passenger's name or delete this field.",
+                                                                        },
+                                                                    ]}
+                                                                    noStyle
+                                                                >
+                                                                    <Input placeholder="passenger name" style={{ width: '60%' }} />
+                                                                </Form.Item>
+                                                                {fields.length > 1 ? (
+                                                                    <MinusCircleOutlined
+                                                                        className="dynamic-delete-button"
+                                                                        onClick={() => remove(field.name)}
+                                                                    />
+                                                                ) : null}
+                                                            </Form.Item>
+                                                        ))}
+                                                    </Col>
+                                                )}; */}
                                             </Row>
                                         </Checkbox.Group>
                                     </Form.Item>
