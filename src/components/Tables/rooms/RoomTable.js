@@ -199,6 +199,17 @@ const RoomTable = (props) => {
 
     return (
         <div>
+            <Row justify="start">
+                <Col>
+                    <div style={{ margin: 8 }}>
+                        <Link to='/roomsForm'>
+                        <Button  loading={loading}>
+                            <PlusOutlined style={{ marginRight: 8 }} /> 
+                        </Button>
+                        </Link>
+                    </div>
+                </Col>
+            </Row>
             <Row justify="end">
                 <Col>
                     <div style={{ margin: 8 }}>

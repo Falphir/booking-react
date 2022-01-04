@@ -92,7 +92,7 @@ const LoginForm = () => {
                                     <Form.Item>
                                         <Form.Item>
                                             <Row justify='start' style={{ marginTop: -20 }}>
-                                                <Checkbox style={{ color: '#fff' }}> Remember Me</Checkbox>
+                                                <Checkbox value="lsRememberMe" style={{ color: '#fff' }}> Remember Me</Checkbox>
                                             </Row>
                                             <Row justify='end' style={{ marginTop: -20 }}>
                                                 <Link to='/' >Forgot your password?</Link>
