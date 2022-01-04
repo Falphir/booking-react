@@ -14,7 +14,7 @@ const ReservesForm = () => {
     const [userLogged, setUserLogged] = useState();
     const { RangePicker } = DatePicker;
     const [loading, setLoading] = useState(true);
-    var DCI, DCO, userId;
+    var DCI, DCO, userId, userName;
 
 
     const postReserve = (data) => {
@@ -61,7 +61,9 @@ const ReservesForm = () => {
 
                 setUserLogged(response.auth);
                 userId = response.decoded[1];
-                console.log("userId " + response.decoded[1])
+                userName = response.decoded[2];
+                console.log("userId " + response.decoded[1]);
+                console.log("userName " + response.decoded[2]);
             })
 
             .catch(() => {
