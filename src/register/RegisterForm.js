@@ -5,6 +5,7 @@ import { Navigate } from 'react-router-dom';
 import { Col, Row, Card, Form, Input, Button, Checkbox } from 'antd';
 import { Link } from 'react-router-dom';
 import { LockOutlined, UserOutlined, MailOutlined } from '@ant-design/icons'
+import logo from '../assets/logo/logo_simples.png'
 
 const RegisterForm = () => {
 
@@ -63,22 +64,33 @@ const RegisterForm = () => {
 
 
     return (
-        <div className='registerForm'>
-
+        <div>
             <Row style={{ paddingTop: 120 }}>
                 <Col span={8}></Col>
                 <Col span={8}>
                     <Row justify="center">
                         <div className="site-card-border-less-wrapper">
-                            <Card className="card" title={<Row justify='center'><h2 style={{ color: '#405fad', marginBottom: 0 }}><b>SIGN UP</b></h2></Row>} bordered={true} style={{ width: 450 }}>
+                            <Card headStyle={{ backgroundColor: "#242424" }} bodyStyle={{ backgroundColor: "#242424" }} className="login-card" title={
+                                <Row justify='center'>
+                                    <Col>
+                                        <div className='card-logo'>
+                                            <img className='register-Logo' src={logo} />
+                                        </div>
+                                        <Row justify='center'>
+                                            <h2 className='register-card-title-h2'>
+                                                <b>SIGN UP</b>
+                                            </h2>
+                                        </Row>
+                                    </Col>
+                                </Row>} bordered={false} style={{ width: 450 }}>
                                 <Form layout='vertical' onFinish={onSubmit}>
                                     <Form.Item name="name" rules={[
                                         {
                                             required: true,
                                             message: 'Please input your username!',
                                         },
-                                    ]} label={<h4 style={{ color: '#405fad' }}><b>Username</b></h4>} >
-                                        <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder='Username'  />
+                                    ]} label={<h4 className='register-form-label-h4'><b>Username</b></h4>} >
+                                        <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder='Username' />
                                     </Form.Item>
                                     <Form.Item name="email" rules={[
                                         {
@@ -90,14 +102,14 @@ const RegisterForm = () => {
                                             message: 'Please input your E-mail!',
                                         },
                                     ]}
-                                        label={<h4 style={{ color: '#405fad' }}><b>Email</b></h4>}
+                                        label={<h4 className='register-form-label-h4'><b>Email</b></h4>}
                                     >
                                         <Input prefix={<MailOutlined />} placeholder='Email' required />
                                     </Form.Item>
 
                                     <Form.Item
                                         name="password"
-                                        label={<h4 style={{ color: '#405fad' }}><b>Password</b></h4>}
+                                        label={<h4 className='register-form-label-h4'><b>Password</b></h4>}
                                         rules={[
                                             {
                                                 required: true,
@@ -106,12 +118,12 @@ const RegisterForm = () => {
                                         ]}
                                         hasFeedback
                                     >
-                                        <Input.Password prefix={<LockOutlined/>} placeholder='Password' required/>
+                                        <Input.Password prefix={<LockOutlined />} placeholder='Password' required />
                                     </Form.Item>
 
                                     <Form.Item
                                         name="confirm"
-                                        label={<h4 style={{ color: '#405fad' }}><b>Confirm Password</b></h4>}
+                                        label={<h4 className='register-form-label-h4'><b>Confirm Password</b></h4>}
                                         dependencies={['password']}
                                         hasFeedback
                                         rules={[
@@ -129,14 +141,14 @@ const RegisterForm = () => {
                                             }),
                                         ]}
                                     >
-                                        <Input.Password prefix={<LockOutlined/>} placeholder='Confirm Password' required/>
+                                        <Input.Password prefix={<LockOutlined />} placeholder='Confirm Password' required />
                                     </Form.Item>
-                                    <Form.Item style={{ marginTop: 10}}>
-                                        <Button size='large' block type='primary' htmlType='submit'> Register </Button>
+                                    <Form.Item style={{ marginTop: 10 }}>
+                                        <Button className='register-Button-Outlined' size='large' block type='primary' htmlType='submit'> <b>Register</b> </Button>
                                     </Form.Item>
                                     <Row justify='center' style={{ marginTop: -15, marginBottom: -25 }}>
                                         <Form.Item>
-                                            <Link to='/login'>Already have an Account? Sign in!</Link>
+                                        <div style={{ color: '#fff' }}>Already have an Account?<Link to='/login'> Sign in!</Link></div>
                                         </Form.Item>
                                     </Row>
                                 </Form>

@@ -1,22 +1,3 @@
-.form-Rooms {
-    display: flex;
-    flex-direction: column;
-    width: 350px;
-}
-
-.field {
-    margin-bottom: 5px;
-}
-
-.field label {
-    width: 100px;
-    margin-right: 5px;
-    display: inline-block;
-}
-
-.submit {
-    width: 150px;
-}
 
 .card {
     box-shadow: 0 6px 26px rgba(56, 125, 255, 0.17);

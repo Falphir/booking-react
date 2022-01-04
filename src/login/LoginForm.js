@@ -5,6 +5,7 @@ import { Navigate } from 'react-router-dom';
 import { Col, Row, Card, Form, Input, Button, Checkbox } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom'
+import logo from '../assets/logo/logo_simples.png'
 
 const LoginForm = () => {
 
@@ -52,10 +53,25 @@ const LoginForm = () => {
                 <Col span={8}></Col>
                 <Col span={8}>
                     <Row justify="center">
-                        <div className="site-card-border-less-wrapper">
-                            <Card className="card" title={<Row justify='center'><h2 style={{ color: '#405fad', marginBottom: 0 }}><b>SIGN IN</b></h2></Row>} bordered={true} style={{ width: 450 }}>
+                        <div >
+                            <Card headStyle={{ backgroundColor: "#242424" }} bodyStyle={{ backgroundColor: "#242424" }} className="login-card" title={
+
+                                <Row justify='center'>
+                                    <Col>
+                                        <div className='card-logo'>
+                                            <img className='login-Logo' src={logo} />
+                                        </div>
+                                        <Row justify='center'>
+                                            <h2 className='login-card-title-h2'>
+                                                <b>SIGN IN</b>
+                                            </h2>
+                                        </Row>
+                                    </Col>
+                                </Row>}
+                                bordered={false} style={{ width: 450 }}>
+
                                 <Form layout='vertical' onFinish={onSubmit}>
-                                    <Form.Item name="name" label={<h4 style={{ color: '#405fad' }}><b>Username</b></h4>}
+                                    <Form.Item name="name" label={<h4 className='login-form-label-h4'><b>Username</b></h4>}
                                         rules={[
                                             {
                                                 required: true,
@@ -64,7 +80,7 @@ const LoginForm = () => {
                                         ]} >
                                         <Input prefix={<UserOutlined />} placeholder='Username' required />
                                     </Form.Item>
-                                    <Form.Item name="password" label={<h4 style={{ color: '#405fad' }}><b>Password</b></h4>}
+                                    <Form.Item name="password" label={<h4 className='login-form-label-h4'><b>Password</b></h4>}
                                         rules={[
                                             {
                                                 required: true,
@@ -76,20 +92,20 @@ const LoginForm = () => {
                                     <Form.Item>
                                         <Form.Item>
                                             <Row justify='start' style={{ marginTop: -20 }}>
-                                                <Checkbox> Remember Me</Checkbox>
+                                                <Checkbox style={{ color: '#fff' }}> Remember Me</Checkbox>
                                             </Row>
                                             <Row justify='end' style={{ marginTop: -20 }}>
-                                                <Link to='/'>Forgot your password?</Link>
+                                                <Link to='/' >Forgot your password?</Link>
                                             </Row>
                                         </Form.Item>
                                     </Form.Item>
                                     <Form.Item style={{ marginTop: -40 }} t>
-                                        <Button size='large' block type='primary' htmlType='submit'> Login </Button>
+                                        <Button className='login-Button-Outlined' size='large' block  htmlType='submit'> <b>Login</b> </Button>
                                     </Form.Item>
 
                                     <Row justify='center' style={{ marginTop: -15, marginBottom: -30 }}>
                                         <Form.Item>
-                                            <Link to='/register'>Don't Have an Account? Sign Up!</Link>
+                                            <div style={{ color: '#fff' }}>Don't Have an Account?<Link to='/register' > Sign Up!</Link></div>
                                         </Form.Item>
                                     </Row>
                                 </Form>
@@ -109,8 +125,8 @@ const LoginForm = () => {
                                 </form> */}
                             </Card>
                         </div>
-                    </Row>
-                </Col>
+                    </Row >
+                </Col >
                 <Col span={8}></Col>
             </Row >
         </div >

@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import './ReservesForm.css';
 import React, { useState, useEffect } from 'react';
 import Config from "../../../../config";
-import { Form, Button, Checkbox, Input, Select, Row, Col, Upload, message, DatePicker } from "antd";
+import { Form, Button, Row, Col, DatePicker, Card } from "antd";
 
 
 const ReservesForm = () => {
@@ -100,19 +100,37 @@ const ReservesForm = () => {
 
 
     return (
-        <Form onFinish={onSubmit}>
-            <Form.Item label="Date Check In" name="dateCheckIn" >
-                <DatePicker onChange={onChangeDateCheckIn} />
-            </Form.Item>
+        <div>
+            <Row style={{ paddingTop: 120 }}>
+                <Col span={8}></Col>
+                <Col span={8}>
+                    <Row justify="center">
+                        <div className="site-card-border-less-wrapper">
+                            <Card className="card" title={<Row justify='center'><h2 style={{ color: '#405fad', marginBottom: 0 }}><b>RESERVE ROOM</b></h2></Row>} bordered={true} style={{ width: 350 }}>
+                                <Form layout='vertical' onFinish={onSubmit}>
+                                    <Form.Item label={<h4 style={{ color: '#405fad' }}><b>Date Check In</b></h4>} name="dateCheckIn" >
+                                        <Row justify="center">
+                                            <DatePicker onChange={onChangeDateCheckIn} style={{ width: 300 }} />
+                                        </Row>
+                                    </Form.Item>
 
-            <Form.Item label="Date Check Out" name="dateCheckOut">
-                <DatePicker onChange={onChangeDateCheckOut} />
-            </Form.Item>
+                                    <Form.Item label={<h4 style={{ color: '#405fad' }}><b>Date Check Out</b></h4>} name="dateCheckOut">
+                                        <Row justify="center">
+                                            <DatePicker onChange={onChangeDateCheckOut} style={{ width: 300 }} />
+                                        </Row>
+                                    </Form.Item>
 
-            <Form.Item>
-                <Button block type="primary" htmlType='submit' className='submit'>Reserve</Button>
-            </Form.Item>
-        </Form>
+                                    <Form.Item>
+                                        <Button block type="primary" htmlType='submit'>Reserve</Button>
+                                    </Form.Item>
+                                </Form>
+                            </Card>
+                        </div>
+                    </Row>
+                </Col>
+                <Col span={8}></Col>
+            </Row >
+        </div >
     );
 }
 

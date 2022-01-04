@@ -173,9 +173,8 @@ const RoomsForm = () => {
 
 
     return (
-
         <div >
-            <Row style={{ paddingTop: 120 }}>
+            <Row>
                 <Col span={8}></Col>
                 <Col span={8}>
                     <Row justify="center">

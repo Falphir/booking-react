@@ -8,13 +8,13 @@ import Dashboard from './components/pages/Dashboard';
 import RoomDetails from './components/pages/RoomDetails';
 import Rooms from './components/Tables/rooms/Rooms';
 import RoomsForm from './components/Tables/rooms/add/RoomsForm';
-import Login from './login/LoginForm';
+import Login from './components/pages/Login';
 import Users from './components/Tables/users/Users';
 import Reserves from './components/Tables/reserves/Reserves';
 import ReservesForm from './components/Tables/reserves/add/ReservesForm';
 import AllRoomsList from './components/Cards/allRoomsList/Rooms';
 import SearchRoomsList from './components/Cards/searchRoomsList/Rooms';
-import Register from './register/RegisterForm';
+import Register from './components/pages/Register';
 import DashboardEditor from './components/pages/DashboardEditor';
 import MyReserves from './components/Tables/reserves/MyReserves';
 
