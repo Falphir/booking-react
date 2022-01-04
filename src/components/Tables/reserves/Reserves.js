@@ -14,7 +14,6 @@ const Reserves = () => {
     return (
         <ReserveTable></ReserveTable>
     )
-
 }
 
 export default Reserves;

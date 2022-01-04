@@ -189,7 +189,7 @@ const RegisterForm = () => {
                 <div className='field'>
                     <label>Permission: </label>
                     <select {...register('scopes')}>
-                        <option>Read Own Reserves</option>
+                        <option>User</option>
                     </select>
                 </div>
 

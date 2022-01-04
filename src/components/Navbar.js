@@ -77,8 +77,8 @@ function Navbar() {
       .then((response) => {
         //se scope do utilizador for == ao scope q tem permissão pra ver button
         setUserLogged(response.auth);
-        console.log("stuff: " + response.auth);
-        console.log("scopes: " + response.decoded);
+        //console.log("stuff: " + response.auth);
+        //console.log("scopes: " + response.decoded);
 
         function showButtons() {
           if (window.innerWidth <= 960) {
@@ -193,7 +193,7 @@ function Navbar() {
 
             {reservesLink &&
               <li className='nav-item'>
-                <Link to='/reserves'
+                <Link to='/myreserves'
                   className='nav-links'
                   onClick={closeMobileMenu}
                 >

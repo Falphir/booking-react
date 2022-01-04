@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import Config from '../../config';
-import { List, Card, Col, Row, Button } from 'antd';
-import { useParams } from 'react-router-dom';
+import { List, Card, Col, Row, Button, DatePicker, Form } from 'antd';
+import { useParams, Link } from 'react-router-dom';
 import Modal from 'antd/lib/modal/Modal';
+import { set, useForm } from "react-hook-form";
 const { Meta } = Card;
 
 
@@ -33,20 +34,6 @@ function useWindowSize() {
 
 const RoomDetails = (props) => {
 
-    const [isModalVisible, setIsModalVisible] = useState(false);
-
-    const showModal = () => {
-        setIsModalVisible(true);
-    };
-
-    const handleOk = () => {
-        setIsModalVisible(false);
-    };
-
-    const handleCancel = () => {
-        setIsModalVisible(false);
-    };
-
     const Size = useWindowSize();
     const [loading, setLoading] = useState(true);
     const [data, setData] = useState({
@@ -57,7 +44,6 @@ const RoomDetails = (props) => {
             total: 0
         }
     });
-
     const { roomId } = useParams();
 
 
@@ -141,7 +127,6 @@ const RoomDetails = (props) => {
     const { rooms, pagination } = data;
 
     var ncolumn = 5
-    var tagsA = rooms.tags;
 
     if (Size.width < 576) {
         ncolumn = 1
@@ -158,12 +143,6 @@ const RoomDetails = (props) => {
 
     return (
         <>
-            <Modal title="Reserve this room" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
-                <p>date check in</p>
-                <p>date check out</p>
-            </Modal>
-
-
             <List grid={{ gutter: 16, column: ncolumn }} columns={columns}>
                 <Card key={roomId}
                     cover={<img alt="example" src="https://images.unsplash.com/photo-1618773928121-c32242e63f39?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80" />}>
@@ -204,7 +183,9 @@ const RoomDetails = (props) => {
 
                     <div className="reserves">
                         <Row xs={24} xl={16}>
-                            <Button onClick={showModal}>Reserve this room</Button>
+                            <Link to={`/reserves/${roomId}`}>
+                                <Button>Reserve this room</Button>
+                            </Link>
                         </Row>
                     </div>
                 </Card>

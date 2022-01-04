@@ -1,19 +1,26 @@
 import { useForm } from "react-hook-form";
+import { useParams } from 'react-router-dom';
 import './ReservesForm.css';
+import React, { useState, useEffect } from 'react';
 import Config from "../../../../config";
 import { Form, Button, Checkbox, Input, Select, Row, Col, Upload, message, DatePicker } from "antd";
 
 
 const ReservesForm = () => {
+    const { roomId } = useParams();
     const { register, handleSubmit } = useForm();
-    const onSubmit = data => postReserve(buildReserves(data));
+    const onSubmit = e => postReserve(onFinish(e));
     const [reserveForm] = Form.useForm();
-
+    const [userLogged, setUserLogged] = useState();
     const { RangePicker } = DatePicker;
+    const [loading, setLoading] = useState(true);
+    var DCI, DCO, userId, userName;
 
 
     const postReserve = (data) => {
-        fetch('/reserve/reserves', {
+        console.error("entrou no postReserve");
+
+        fetch('/reserve/reserves/:roomId', {
             headers: { 'Content-Type': 'application/json' },
             method: 'POST',
             body: JSON.stringify(data)
@@ -21,9 +28,14 @@ const ReservesForm = () => {
 
             .then((response) => {
                 if (response.ok) {
+
                     console.log(response);
                     alert("Reserve created");
-                    return response.json();
+                    return (
+                        <>
+                            {response.json()}
+                        </>
+                    )
 
                 } else {
                     console.log(response);
@@ -37,97 +49,70 @@ const ReservesForm = () => {
     }
 
 
-    const buildReserves = (data) => {
-        return { ...data }
-    };
+    useEffect(() => {
 
-    const onReset = () => {
-        reserveForm.resetFields();
-    };
+        fetch('/auth/me', {
+            headers: { 'Accept': 'application/json' }
+        })
 
-    function onChange(value, dateString) {
-        console.log('Selected Time: ', value);
-        console.log('Formatted Selected Time: ', dateString);
+            .then((response) => response.json())
+
+            .then((response) => {
+
+                setUserLogged(response.auth);
+                userId = response.decoded[1];
+                userName = response.decoded[2];
+                console.log("userId " + response.decoded[1]);
+                console.log("userName " + response.decoded[2]);
+            })
+
+            .catch(() => {
+                setUserLogged(false);
+            })
+    }, [])
+
+    function onChangeDateCheckIn(date, DateCheckIn) {
+        console.log("date check in: " + DateCheckIn);
+        DCI = DateCheckIn;
     }
 
-    function onOk(value) {
-        console.log('onOk: ', value);
+    function onChangeDateCheckOut(date, DateCheckOut) {
+        console.log("date check out: " + DateCheckOut);
+        DCO = DateCheckOut;
     }
 
+
+    const onFinish = (e) => {
+
+        console.log(e);
+        console.log("userID: " + userId);
+        console.log("DCI: " + DCI);
+        console.log("DCO: " + DCO);
+        console.log("roomID: " + roomId);
+
+        return {
+            dateCheckIn: DCI,
+            dateCheckOut: DCO,
+            idUser: userId,
+            idRoom: roomId
+        }
+    }
 
 
     return (
-        /*  <div>
-             <Row justify="center">
-                 <Col>
-                     <h2>Add Reserve Form</h2>
-                 </Col>
-             </Row>
-             <Row>
-                 <Col span={8}></Col>
-                 <Col span={8}>
-                     <div>
-                         <Form form={reserveForm} onSubmit={handleSubmit(onSubmit)}>
-                             <Form.Item name="user" label="Id User:">
-                                 <Input {...register('idUser')} />
-                             </Form.Item>
-                             <Form.Item name="room" label="Id Room:">
-                                 <Input {...register('idRoom')} />
-                             </Form.Item>
-                             <Form.Item name="dateCheckInOut" label="Date Check In / Out">
-                                 <RangePicker
-                                     format="DD-MM-YYYY"
-                                     onChange={onChange}
-                                     onOk={onOk}
-                                 />
-                             </Form.Item>
-                             <Row justify="center">
-                                 <Col >
-                                     <Form.Item >
-                                             <Button style={{ marginRight: 16 }} htmlType="button" onClick={onReset}>
-                                                 Reset
-                                             </Button>
-                                             <Button size="large" type="primary" htmlType="submit">
-                                                 Submit
-                                             </Button>
-                                     </Form.Item>
-                                 </Col>
-                             </Row>
-                         </Form>
-                     </div>
-                 </Col>
-                 <Col span={8}></Col>
-             </Row> */
+        <Form onFinish={onSubmit}>
+            <Form.Item label="Date Check In" name="dateCheckIn" >
+                <DatePicker onChange={onChangeDateCheckIn} />
+            </Form.Item>
 
+            <Form.Item label="Date Check Out" name="dateCheckOut">
+                <DatePicker onChange={onChangeDateCheckOut} />
+            </Form.Item>
 
-        <form className="form-Reserves" onSubmit={handleSubmit(onSubmit)}>
-            <div className="field">
-                <label>Date Check In: </label>
-                <input {...register('dateCheckIn')}></input>
-            </div>
-
-            <div className="field">
-                <label>Date Check Out: </label>
-                <input {...register('dateCheckOut')}></input>
-            </div>
-
-            <div className="field">
-                <label>ID User: </label>
-                <input {...register('idUser')}></input>
-            </div>
-
-            <div className="field">
-                <label>Name User: </label>
-                <input {...register('nameUser')}></input>
-            </div>
-
-            <div className="field">
-                <label>ID Room: </label>
-                <input {...register('idRoom')}></input>
-            </div>
-
-            <input className="submit" type="submit"></input>
-        </form>
+            <Form.Item>
+                <Button block type="primary" htmlType='submit' className='submit'>Reserve</Button>
+            </Form.Item>
+        </Form>
     );
 }
 

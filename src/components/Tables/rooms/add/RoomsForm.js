@@ -96,6 +96,7 @@ const RoomsForm = () => {
     }
 
 
+
     const buildRooms = (data) => {
         return {
             ...data,
@@ -167,6 +168,9 @@ const RoomsForm = () => {
             ]
         }
     }
+
+
+
 
     return (
 
