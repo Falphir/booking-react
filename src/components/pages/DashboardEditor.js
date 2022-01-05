@@ -84,7 +84,7 @@ function DashboardEditor() {
                         <Sider className="site-layout-background" width={200} style={{ marginRight: '10px' }}>
                             <Menu
                                 mode="inline"
-                                defaultSelectedKeys={['2']}
+                                defaultSelectedKeys={['1']}
                                 style={{ height: '100%' }}
                             >
                                 <Menu.Item key="2" onClick={() => setMenu(1)}>Rooms</Menu.Item>
@@ -95,8 +95,8 @@ function DashboardEditor() {
                             {(() => {
                                 switch (menu) {
                                     case 1: return <Rooms />;
-                                    case 2: return <Reserves></Reserves>;
-                                    default: return <Reserves />;
+                                    case 2: return <Reserves />;
+                                    default: return <Rooms />;
                                 }
                             })()}
                         </Content>

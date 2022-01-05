@@ -1,7 +1,9 @@
 import './UserTable.css';
 import { useState, useEffect } from 'react';
 import Config from '../../../config';
-import { Table } from 'antd';
+import { Table, Row, Col, Button } from 'antd';
+import { PlusOutlined } from '@ant-design/icons';
+import { Link } from 'react-router-dom';
 
 const UserTable = (props) => {
 
@@ -114,15 +116,27 @@ const UserTable = (props) => {
 
 
     return (
-
-        <Table
-            columns={columns}
-            rowKey={record => record._id}
-            dataSource={users}
-            pagination={pagination}
-            loading={loading}
-            onChange={handleTableChange}
-        />
+        <div>
+            <Row justify="end">
+                <Col>
+                    <div style={{ margin: 8 }}>
+                        <Link to='/admin/register'>
+                            <Button loading={loading}>
+                                <PlusOutlined style={{ marginRight: 8 }} /> Add User
+                            </Button>
+                        </Link>
+                    </div>
+                </Col>
+            </Row>
+            <Table
+                columns={columns}
+                rowKey={record => record._id}
+                dataSource={users}
+                pagination={pagination}
+                loading={loading}
+                onChange={handleTableChange}
+            />
+        </div>
     )
 }
 

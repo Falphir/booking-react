@@ -72,7 +72,8 @@ const RoomsCard = (props) => {
         { title: 'Nº Children', value: 'nChild', },
         { title: 'Nº Rooms', value: 'nRoom', },
         { title: 'Price (€)', value: 'price', },
-        { title: 'Tags', value: 'tags', render: renderTags }
+        { title: 'Nº Stars', value: 'nStars',},
+        //{ title: 'Tags', value: 'tags', render: renderTags }
     ];
 
 
@@ -143,6 +144,7 @@ const RoomsCard = (props) => {
 
 
     return (
+        <>
         <List grid={{ gutter: 16, column: ncolumn }} dataSource={rooms} pagination={pagination} onChange={onChange} columns={columns} rowKey={record => record._id} loading={loading}
             renderItem={item => (
                 <List.Item>
@@ -158,13 +160,8 @@ const RoomsCard = (props) => {
                                 <Row >
                                     <Col span={6}>
                                         <div key={item._id}>
-                                            {item.tags.map(tag => {
-                                                return (
-                                                    <>{tag.nStars} <i class="fas fa-star"></i></>
-                                                );
-                                            })}
+                                            {item.nStars} <i class="fas fa-star"></i>
                                         </div>
-
                                     </Col>
 
                                     <Col span={6}>
@@ -185,6 +182,8 @@ const RoomsCard = (props) => {
                 </List.Item >
             )}>
         </List >
+        
+        </>
     )
 }
 

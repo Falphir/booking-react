@@ -10,6 +10,7 @@ import LessStarsRoomsCard from './LessStarsRoomsCard';
 import MostRecentRoomsCard from './MostRecentRoomsCard';
 import { Layout, Menu, Dropdown, Button, Checkbox } from 'antd';
 import { DownOutlined, EuroOutlined, UserOutlined, StarOutlined, FilterOutlined, HomeOutlined, MenuUnfoldOutlined, MenuFoldOutlined } from '@ant-design/icons';
+import Footer from '../../Footer';
 
 const { SubMenu } = Menu;
 
@@ -205,6 +206,7 @@ const Rooms = () => {
                     </div>
                 </Layout>
             </Layout>
+            <Footer/>
         </div>
     )
 }

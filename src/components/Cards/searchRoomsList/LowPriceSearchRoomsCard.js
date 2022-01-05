@@ -49,7 +49,8 @@ const LowPriceSearchRoomsCard = (props) => {
         { title: 'Nº Children', value: 'nChild', },
         { title: 'Nº Rooms', value: 'nRoom', },
         { title: 'Price (€)', value: 'price', },
-        { title: 'Tags', value: 'tags', render: renderTags }
+        { title: 'Nº Stars', value: 'nStars', },
+        //{ title: 'Tags', value: 'tags', render: renderTags }
     ];
 
 
@@ -116,14 +117,7 @@ const LowPriceSearchRoomsCard = (props) => {
                             <div className="additional">
                                 <Row xs={24} xl={16}>
                                     <Col xs={24} xl={8}>
-                                        <div key={item._id}>
-                                            {item.tags.map(tag => {
-                                                return (
-                                                    <>{tag.nStars} <i class="fas fa-star"></i></>
-                                                );
-                                            })}
-                                        </div>
-
+                                        {item.nStars} <i class="fas fa-star"></i>
                                     </Col>
 
                                     <Col xs={20} xl={4}>

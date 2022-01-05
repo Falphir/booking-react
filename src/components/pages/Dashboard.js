@@ -13,7 +13,7 @@ const { Content, Sider } = Layout;
 
 function Dashboard() {
 
-    const [menu, setMenu] = useState(2);
+    const [menu, setMenu] = useState(1);
     const [userLogged, setUserLogged] = useState(true);
 
     const onClickLogout = () => {
@@ -85,7 +85,7 @@ function Dashboard() {
                         <Sider className="site-layout-background" width={200} style={{ marginRight: '10px' }}>
                             <Menu
                                 mode="inline"
-                                defaultSelectedKeys={['2']}
+                                defaultSelectedKeys={['1']}
                                 style={{ height: '100%' }}
                             >
                                 <Menu.Item key="1" onClick={() => setMenu(1)}>Users</Menu.Item>
@@ -98,7 +98,7 @@ function Dashboard() {
                                 switch (menu) {
                                     case 1: return <Users />;
                                     case 2: return <Rooms />;
-                                    case 3: return <Reserves></Reserves>;
+                                    case 3: return <Reserves />;
                                     default: return <Users />;
                                 }
                             })()}

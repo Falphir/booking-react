@@ -47,7 +47,8 @@ const HighPriceRoomsCard = (props) => {
         { title: 'Nº Children', value: 'nChild', },
         { title: 'Nº Rooms', value: 'nRoom', },
         { title: 'Price (€)', value: 'price', },
-        { title: 'Tags', value: 'tags', render: renderTags }
+        { title: 'Nº Stars', value: 'nStars',},
+        //{ title: 'Tags', value: 'tags', render: renderTags }
     ];
 
 
@@ -104,7 +105,7 @@ const HighPriceRoomsCard = (props) => {
             renderItem={item => (
                 <List.Item>
                     <Link to={`/rooms/${item._id}`}>
-                        <Card key={item._id} cover={<img alt="example" src="https://images.unsplash.com/photo-1618773928121-c32242e63f39?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80" />}>
+                        <Card key={item._id} cover={<img alt="example" src={item.image} />}>
                             <Meta
                                 title={<p><span style={{ fontWeight: 'bold' }}>{item.description}</span></p>}>
                             </Meta>
@@ -114,14 +115,7 @@ const HighPriceRoomsCard = (props) => {
                             <div className="additional">
                                 <Row xs={24} xl={16}>
                                     <Col xs={24} xl={8}>
-                                        <div key={item._id}>
-                                            {item.tags.map(tag => {
-                                                return (
-                                                    <>{tag.nStars} <i class="fas fa-star"></i></>
-                                                );
-                                            })}
-                                        </div>
-
+                                        {item.nStars} <i class="fas fa-star"></i>
                                     </Col>
 
                                     <Col xs={20} xl={4}>

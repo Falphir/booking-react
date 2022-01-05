@@ -25,23 +25,29 @@ const RoomTable = (props) => {
         );
     }
 
-    //Renderizar Tags
-    const renderTags = (tags) => {
-        return tags.map((tag) => {
-            return (
-                <label key={tag._id}>
+    //Renderizar Imagem
+    const renderFacilities = (text, record) => {
+        console.log("facilities: " + record)
+        return (
+            <label key={record._id}>
+                <Tag color="blue">Type Room: {record.typeRoom} </Tag>
+                <Tag color="blue">Nº Stars: {record.nStars}</Tag>
+                <Tag color="blue">Nº Single Bed: {record.nSingleBed}</Tag>
+                <Tag color="blue">Nº Double Bed: {record.nDoubleBed}</Tag>
+            </label>
 
-                    <Tag color="blue">Type Room: {tag.typeRoom} </Tag>
-                    <Tag color="blue">VIP: {tag.vip.toString()}</Tag>
-                    <Tag color="blue">Nº Pool: {tag.nPool}</Tag>
-                    <Tag color="blue">Car Park: {tag.carPark.toString()}</Tag>
-                    <Tag color="blue">Breakfast: {tag.breakfast.toString()}</Tag>
-                    <Tag color="blue">Lunch: {tag.lunch.toString()}</Tag>
-                    <Tag color="blue">Spa: {tag.spa.toString()}</Tag>
-                    <Tag color="blue">Nº Stars: {tag.nStars}</Tag>
-                    <Tag color="blue">Nº Single Bed: {tag.nSingleBed}</Tag>
-                    <Tag color="blue">Nº Double Bed: {tag.nDoubleBed}</Tag>
-                </label>
+        );
+    }
+
+
+    //Renderizar Tags
+    const renderExtras = (extras) => {
+        console.log(extras)
+        return extras.map((extra) => {
+            return (
+                <label key={extra._id} >
+                    <Tag color="blue">{extra}</Tag>
+                </label >
             )
         })
     }
@@ -80,9 +86,15 @@ const RoomTable = (props) => {
         },
 
         {
-            title: 'Tags',
-            dataIndex: 'tags',
-            render: renderTags,
+            title: 'Facilities',
+            dataIndex: 'facilities',
+            render: renderFacilities,
+
+        },
+        {
+            title: 'Extras',
+            dataIndex: 'extras',
+            render: renderExtras,
         },
         {
             title: 'Actions',
@@ -100,10 +112,10 @@ const RoomTable = (props) => {
         Modal.confirm({
             title: 'Are you sure, you want to delete this room?',
             onOk: () => {
-                    fetch(`/hotel/rooms/${record._id}`, {
-                        method: 'DELETE',
-                    })
-                    window.location.reload(false)
+                fetch(`/hotel/rooms/${record._id}`, {
+                    method: 'DELETE',
+                })
+                window.location.reload(false)
             },
         });
     };
@@ -190,11 +202,11 @@ const RoomTable = (props) => {
         Modal.confirm({
             title: 'Add Room',
             icon: <ExclamationCircleOutlined />,
-            content: <RoomsForm/>,
+            content: <RoomsForm />,
             okText: 'Submit',
             cancelText: 'Cancel',
             width: 800
-          });
+        });
     }
 
     return (
@@ -203,9 +215,9 @@ const RoomTable = (props) => {
                 <Col>
                     <div style={{ margin: 8 }}>
                         <Link to='/roomsForm'>
-                        <Button  loading={loading}>
-                            <PlusOutlined style={{ marginRight: 8 }} /> 
-                        </Button>
+                            <Button loading={loading}>
+                                <PlusOutlined style={{ marginRight: 8 }} />
+                            </Button>
                         </Link>
                     </div>
                 </Col>
@@ -214,9 +226,9 @@ const RoomTable = (props) => {
                 <Col>
                     <div style={{ margin: 8 }}>
                         <Link to='/roomsForm'>
-                        <Button  loading={loading}>
-                            <PlusOutlined style={{ marginRight: 8 }} /> Add Room
-                        </Button>
+                            <Button loading={loading}>
+                                <PlusOutlined style={{ marginRight: 8 }} /> Add Room
+                            </Button>
                         </Link>
                     </div>
                 </Col>

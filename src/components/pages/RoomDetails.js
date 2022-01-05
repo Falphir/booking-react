@@ -4,6 +4,7 @@ import { List, Card, Col, Row, Button, DatePicker, Form } from 'antd';
 import { useParams, Link } from 'react-router-dom';
 import Modal from 'antd/lib/modal/Modal';
 import { set, useForm } from "react-hook-form";
+import Footer from '../Footer';
 const { Meta } = Card;
 
 
@@ -190,6 +191,7 @@ const RoomDetails = (props) => {
                     </div>
                 </Card>
             </List>
+            <Footer/>
         </>
     )
 }

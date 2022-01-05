@@ -15,6 +15,7 @@ import ReservesForm from './components/Tables/reserves/add/ReservesForm';
 import AllRoomsList from './components/Cards/allRoomsList/Rooms';
 import SearchRoomsList from './components/Cards/searchRoomsList/Rooms';
 import Register from './components/pages/Register';
+import AdminRegister from './components/pages/AdminRegister';
 import DashboardEditor from './components/pages/DashboardEditor';
 import MyReserves from './components/Tables/reserves/MyReserves';
 
@@ -27,6 +28,7 @@ function App() {
         <Route path='/' exact element={<Home />} />
         <Route path='/login' exact element={<Login />}></Route>
         <Route path='/register' exact element={<Register />}></Route>
+        <Route path='/admin/register' exact element={<AdminRegister />}></Route>
         <Route path='/dashboard' exact element={<Dashboard />} />
         <Route path='/dashboardeditor' exact element={<DashboardEditor />} />
         <Route path='/rooms' exact element={<Rooms />}></Route>
