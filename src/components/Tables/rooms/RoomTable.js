@@ -211,26 +211,18 @@ const RoomTable = (props) => {
 
     return (
         <div>
-            <Row justify="start">
-                <Col>
-                    <div style={{ margin: 8 }}>
-                        <Link to='/roomsForm'>
-                            <Button loading={loading}>
-                                <PlusOutlined style={{ marginRight: 8 }} />
-                            </Button>
-                        </Link>
-                    </div>
-                </Col>
-            </Row>
             <Row justify="end">
-                <Col>
-                    <div style={{ margin: 8 }}>
-                        <Link to='/roomsForm'>
-                            <Button loading={loading}>
-                                <PlusOutlined style={{ marginRight: 8 }} /> Add Room
-                            </Button>
-                        </Link>
-                    </div>
+                <Col style={{ margin: 8 }}> 
+                    <Link to='/roomsForm'>
+                        <Button loading={loading}>
+                            <PlusOutlined style={{ marginRight: 8 }} />
+                        </Button>
+                    </Link>
+                    <Link to='/roomsForm' style={{ marginLeft: 8 }}>
+                        <Button loading={loading}>
+                            <PlusOutlined style={{ marginRight: 8 }} /> Add Room
+                        </Button>
+                    </Link>
                 </Col>
             </Row>
             <Table
@@ -243,7 +235,7 @@ const RoomTable = (props) => {
             >
                 <Table.Footer></Table.Footer>
             </Table>
-        </div>
+        </div >
     )
 }
 
