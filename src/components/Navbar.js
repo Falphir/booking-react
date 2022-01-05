@@ -193,7 +193,7 @@ function Navbar() {
 
             {reservesLink &&
               <li className='nav-item'>
-                <Link to='/reserves'
+                <Link to='/myreserves'
                   className='nav-links'
                   onClick={closeMobileMenu}
                 >

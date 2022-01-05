@@ -2,7 +2,7 @@ import { set, useForm } from "react-hook-form";
 import { useState, useEffect } from "react";
 import './RoomsForm.css';
 import Config from '../../../../config';
-import { Form, Button, Checkbox, Input, Select, Row, Col, Upload, message, Card, InputNumber } from "antd";
+import { Form, Button, Checkbox, Input, Select, Row, Col, Upload, message, Card, InputNumber, Tooltip } from "antd";
 import { InboxOutlined, UploadOutlined, MinusCircleOutlined } from '@ant-design/icons';
 import axios from "axios"
 import { storage } from '../../../../firebase';
@@ -24,14 +24,11 @@ const RoomsForm = () => {
 
 
     const [image, setImage] = useState(null);
-    const [vip, setVip] = useState();
-    const [carPark, setCarPark] = useState();
-    const [breakfast, setBreakfast] = useState();
-    const [lunch, setLunch] = useState();
-    const [spa, setSpa] = useState();
     const [url, setUrl] = useState("");
+    const [submit, setSubmit] = useState();
 
     const handleChange = e => {
+        console.log(e)
         if (e.target.files[0]) {
             setImage(e.target.files[0]);
         }
@@ -54,9 +51,16 @@ const RoomsForm = () => {
                         .then(url => {
                             console.log(url);
                             setUrl(url);
+                            if (url = null) {
+                                setSubmit(false);
+                            } else {
+                                setSubmit(true);
+                            }
+
                         });
                 }
             )
+
         }
 
     }
@@ -96,7 +100,6 @@ const RoomsForm = () => {
     }
 
 
-
     const buildRooms = (data) => {
         return {
             ...data,
@@ -125,26 +128,6 @@ const RoomsForm = () => {
     const onFinish = (e) => {
         console.log(e);
 
-        setSpa(false);
-        setVip(false);
-        setBreakfast(false);
-        setCarPark(false);
-        setLunch(false);
-
-        for (var i = 0; i < e.extras.length; i++) {
-            // switch (e.extras[i]) {
-            //     case 'vip': setVip(true);
-            //         break;
-            //     case 'breakfast': setBreakfast(true);
-            //         break;
-            //     case 'lunch': setLunch(true);
-            //         break;
-            //     case 'carPark': setCarPark(true);
-            //         break;
-            //     case 'spa': setSpa(true);
-            //         break;
-            // }
-        }
         return {
             image: url,
             description: e.description,
@@ -152,20 +135,11 @@ const RoomsForm = () => {
             nChild: e.nChildren,
             nRoom: e.nRooms,
             price: e.price,
-            tags: [
-                {
-                    typeRoom: e.typeRoom,
-                    nPool: e.nPool,
-                    nSingleBed: e.nSingleBed,
-                    nDoubleBed: e.nDoubleBed,
-                    nStars: e.nStars,
-                    vip: vip,
-                    carPark: carPark,
-                    breakfast: breakfast,
-                    lunch: lunch,
-                    spa: spa
-                }
-            ]
+            typeRoom: e.typeRoom,
+            nSingleBed: e.nSingleBed,
+            nDoubleBed: e.nDoubleBed,
+            nStars: e.nStars,
+            extras: e.extras
         }
     }
 
@@ -179,7 +153,7 @@ const RoomsForm = () => {
                 <Col span={8}>
                     <Row justify="center">
                         <div className="site-card-border-less-wrapper">
-                            <Card className="card" title="Add Room Form" bordered={true} style={{ width: 900, }}>
+                            <Card className="card" title="Add Room Form" bordered={true} style={{ width: 600, }}>
                                 <Form onFinish={onSubmit}>
                                     <Form.Item name="description" label="Description">
                                         <TextArea rows={4} placeholder="Description of the room" />
@@ -197,8 +171,7 @@ const RoomsForm = () => {
                                     <Form.Item name="price" label="Price">
                                         <InputNumber />
                                     </Form.Item>
-                                    <h3><b>Tags</b></h3>
-                                    <Form.Item name="typeRoom" label="Type Room">
+                                    <Form.Item name="typeRoom" label="Type Room" style={{ width: 400 }}>
                                         <Select placeholder="Type of Room" >
                                             <Select.Option value="Apartamento" />
                                             <Select.Option value="Quarto" />
@@ -207,9 +180,6 @@ const RoomsForm = () => {
                                             <Select.Option value="Casa de Campo" />
                                             <Select.Option value="Outro" />
                                         </Select>
-                                    </Form.Item>
-                                    <Form.Item name="nPool" label="Number of Pools">
-                                        <InputNumber placeholder="Type number of Pools" />
                                     </Form.Item>
                                     <Form.Item name="nSingleBed" label="Number of single beds">
                                         <InputNumber placeholder="Type number of single beds" />
@@ -227,7 +197,8 @@ const RoomsForm = () => {
                                             <Select.Option value="5" />
                                         </Select>
                                     </Form.Item>
-                                    <Form.Item name="extras" label="Extras">
+                                    <h3><b>Extras</b></h3>
+                                    <Form.Item name="extras">
                                         <Checkbox.Group>
                                             <Row>
                                                 <Col>
@@ -253,6 +224,11 @@ const RoomsForm = () => {
                                                 <Col>
                                                     <Checkbox value="spa" style={{ lineHeight: '32px' }}>
                                                         Spa
+                                                    </Checkbox>
+                                                </Col>
+                                                <Col>
+                                                    <Checkbox value="pool" style={{ lineHeight: '32px' }}>
+                                                        Pool
                                                     </Checkbox>
                                                 </Col>
                                                 {/* {(fields, { add, remove }, { errors }) => (
@@ -294,16 +270,21 @@ const RoomsForm = () => {
                                     <input type="file" onChange={handleChange} />
                                     {/* <button onClick={handleUpload}>Upload</button> */}
                                     <Form.Item style={{ paddingTop: 20 }}>
-                                        <Button block size="large" type="primary" htmlType="submit">
-                                            Submit
-                                        </Button>
+                                        {submit &&
+                                            <Button block size="large" type="primary" htmlType="submit">
+                                                Submit
+                                            </Button>}
+                                        {!submit &&
+                                            <Tooltip placement="top" title={<span>Image not uploaded</span>}>
+                                                <Button disabled block size="large" type="primary" htmlType="submit">
+                                                    Submit
+                                                </Button>
+                                            </Tooltip>}
                                     </Form.Item>
                                 </Form>
                             </Card>
                         </div>
                     </Row>
-
-                    {url}
                 </Col>
                 <Col span={8}></Col>
             </Row >
