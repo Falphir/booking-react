@@ -1,6 +1,5 @@
 import './RoomsCard.css';
 import React, { useState, useEffect } from 'react';
-import Config from '../../../config';
 import { List, Card, Col, Row } from 'antd';
 import { Link } from 'react-router-dom'
 
@@ -45,27 +44,6 @@ const RoomsCard = (props) => {
         }
     });
 
-
-    //Renderizar Tags
-    const renderTags = (tags) => {
-        return tags.map((tag) => {
-            return (
-                <label key={tag._id}>
-
-                    Type Room: {tag.typeRoom},
-                    VIP: {tag.vip.toString()},
-                    Nº Pool: {tag.nPool},
-                    Car Park: {tag.carPark.toString()},
-                    Breakfast: {tag.breakfast.toString()},
-                    Lunch: {tag.lunch.toString()},
-                    Spa: {tag.spa.toString()},
-                    Nº Stars: {tag.nStars},
-                    Nº Single Bed: {tag.nSingleBed},
-                    Nº Double Bed: {tag.nDoubleBed}
-                </label>
-            )
-        })
-    }
 
 
     const columns = [
@@ -124,20 +102,20 @@ const RoomsCard = (props) => {
     }, []);
 
 
-    const { rooms, pagination } = data;
+    const { rooms } = data;
 
-    var ncolumn = 5
+    var ncolumn = 4
 
     if (Size.width < 576) {
         ncolumn = 1
     } else if (Size.width >= 576 && Size.width < 768) {
-        ncolumn = 2
+        ncolumn = 1
     } else if (Size.width >= 768 && Size.width < 992) {
-        ncolumn = 3
+        ncolumn = 2
     } else if (Size.width >= 992 && Size.width < 1200) {
-        ncolumn = 4
+        ncolumn = 3
     } else if (Size.width >= 1200) {
-        ncolumn = 5
+        ncolumn = 4
     }
 
     return (

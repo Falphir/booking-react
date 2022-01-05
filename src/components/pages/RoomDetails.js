@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Config from '../../config';
-import { List, Card, Col, Row, Button, DatePicker, Form } from 'antd';
+import { List, Card, Col, Row, Button, DatePicker, Form, Tag } from 'antd';
 import { useParams, Link } from 'react-router-dom';
 import Modal from 'antd/lib/modal/Modal';
 import { set, useForm } from "react-hook-form";
@@ -195,7 +195,7 @@ const RoomDetails = (props) => {
                     <div className="additional">
                         <Row xs={24} xl={16}>
                             <Col xs={24} xl={8}>
-                                EXTRAS <i class="fas fa-long-arrow-alt-right"></i> {rooms.extras}
+                                EXTRAS <i class="fas fa-long-arrow-alt-right"></i> <Tag color="blue">{rooms.extras}</Tag>
                             </Col>
                         </Row>
                     </div>

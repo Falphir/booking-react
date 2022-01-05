@@ -30,7 +30,7 @@ const LoginForm = () => {
                     setLoginSuccess(true);
 
                 } else {
-                    alert('login errado');
+                    alert('ERROR! Your username or password is incorrect.');
                 }
             })
 
@@ -41,7 +41,7 @@ const LoginForm = () => {
 
 
     //remember me
-    const rmCheck = document.getElementById("rememberMe"), usernameInput = document.getElementById("username"), passwordInput = document.getElementById("password");
+    /* const rmCheck = document.getElementById("rememberMe"), usernameInput = document.getElementById("username"), passwordInput = document.getElementById("password");
 
     if (localStorage.checkbox && localStorage.checkbox != "") {
 
@@ -71,7 +71,7 @@ const LoginForm = () => {
             localStorage.password = "";
             localStorage.checkbox = "";
         }
-    }
+    } */
 
 
 
@@ -125,7 +125,9 @@ const LoginForm = () => {
                                     <Form.Item>
                                         <Form.Item>
                                             <Row justify='start' style={{ marginTop: -20 }}>
-                                                <Checkbox id="rememberMe" value={lsRememberMe} style={{ color: '#fff' }}> Remember Me</Checkbox>
+                                                <Checkbox id="rememberMe"
+                                                    // value={lsRememberMe} 
+                                                    style={{ color: '#fff' }}> Remember Me</Checkbox>
                                             </Row>
                                             <Row justify='end' style={{ marginTop: -20 }}>
                                                 <Link to='/' >Forgot your password?</Link>
@@ -133,7 +135,10 @@ const LoginForm = () => {
                                         </Form.Item>
                                     </Form.Item>
                                     <Form.Item style={{ marginTop: -40 }} t>
-                                        <Button className='login-Button-Outlined' size='large' block value="Login" htmlType='submit' onClick={lsRememberMe()}> <b>Login</b> </Button>
+                                        <Button className='login-Button-Outlined' size='large' block value="Login" htmlType='submit'
+                                        // onClick={lsRememberMe()}
+                                        >
+                                            <b>Login</b> </Button>
                                     </Form.Item>
 
                                     <Row justify='center' style={{ marginTop: -15, marginBottom: -30 }}>

@@ -72,7 +72,7 @@ const RoomsCard = (props) => {
         { title: 'Nº Children', value: 'nChild', },
         { title: 'Nº Rooms', value: 'nRoom', },
         { title: 'Price (€)', value: 'price', },
-        { title: 'Nº Stars', value: 'nStars',},
+        { title: 'Nº Stars', value: 'nStars', },
         //{ title: 'Tags', value: 'tags', render: renderTags }
     ];
 
@@ -133,56 +133,56 @@ const RoomsCard = (props) => {
     var ncolumn = 5
 
     if (Size.width < 576) {
-        ncolumn = 1
-    } else if (Size.width >= 576 && Size.width < 996) {
         ncolumn = 2
-    } else if (Size.width >= 996 && Size.width < 1920) {
+    } else if (Size.width >= 576 && Size.width < 996) {
         ncolumn = 3
-    } else if (Size.width >= 1920) {
+    } else if (Size.width >= 996 && Size.width < 1920) {
         ncolumn = 4
+    } else if (Size.width >= 1920) {
+        ncolumn = 5
     }
 
 
     return (
         <>
-        <List grid={{ gutter: 16, column: ncolumn }} dataSource={rooms} pagination={pagination} onChange={onChange} columns={columns} rowKey={record => record._id} loading={loading}
-            renderItem={item => (
-                <List.Item>
-                    <Link to={`/rooms/${item._id}`}>
-                        <Card key={item._id} cover={<img alt="example" src={item.image} />}>
-                            <Meta
-                                title={<p><span style={{ fontWeight: 'bold' }}>{item.description}</span></p>}>
-                            </Meta>
+            <List grid={{ gutter: 16, column: ncolumn }} dataSource={rooms} pagination={pagination} onChange={onChange} columns={columns} rowKey={record => record._id} loading={loading}
+                renderItem={item => (
+                    <List.Item>
+                        <Link to={`/rooms/${item._id}`}>
+                            <Card key={item._id} cover={<img alt="example" src={item.image} />}>
+                                <Meta
+                                    title={<p><span style={{ fontWeight: 'bold' }}>{item.description}</span></p>}>
+                                </Meta>
 
-                            <p></p>
+                                <p></p>
 
-                            <div className="additional">
-                                <Row >
-                                    <Col span={6}>
-                                        <div key={item._id}>
-                                            {item.nStars} <i class="fas fa-star"></i>
-                                        </div>
-                                    </Col>
+                                <div className="additional">
+                                    <Row >
+                                        <Col span={6}>
+                                            <div key={item._id}>
+                                                {item.nStars} <i class="fas fa-star"></i>
+                                            </div>
+                                        </Col>
 
-                                    <Col span={6}>
-                                        {item.nAdult} <i class="fas fa-user-alt"></i>
-                                    </Col>
+                                        <Col span={6}>
+                                            {item.nAdult} <i class="fas fa-user-alt"></i>
+                                        </Col>
 
-                                    <Col span={6}>
-                                        {item.nChild} <i class="fas fa-child"></i>
-                                    </Col>
+                                        <Col span={6}>
+                                            {item.nChild} <i class="fas fa-child"></i>
+                                        </Col>
 
-                                    <Col span={6}>
-                                        {item.price} <i class="fas fa-euro-sign"></i>
-                                    </Col>
-                                </Row>
-                            </div>
-                        </Card>
-                    </Link>
-                </List.Item >
-            )}>
-        </List >
-        
+                                        <Col span={6}>
+                                            {item.price} <i class="fas fa-euro-sign"></i>
+                                        </Col>
+                                    </Row>
+                                </div>
+                            </Card>
+                        </Link>
+                    </List.Item >
+                )}>
+            </List >
+
         </>
     )
 }

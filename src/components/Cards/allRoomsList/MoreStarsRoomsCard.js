@@ -6,9 +6,33 @@ import { Link } from 'react-router-dom'
 
 const { Meta } = Card;
 
+function useWindowSize() {
+    // Initialize state with undefined width/height so server and client renders match
+    // Learn more here: https://joshwcomeau.com/react/the-perils-of-rehydration/
+    const [windowSize, setWindowSize] = useState({
+        width: undefined,
+    });
+    useEffect(() => {
+        // Handler to call on window resize
+        function handleResize() {
+            // Set window width/height to state
+            setWindowSize({
+                width: window.innerWidth,
+            });
+        }
+        // Add event listener
+        window.addEventListener("resize", handleResize);
+        // Call handler right away so state gets updated with initial window size
+        handleResize();
+        // Remove event listener on cleanup
+        return () => window.removeEventListener("resize", handleResize);
+    }, []); // Empty array ensures that effect is only run on mount
+    return windowSize;
+}
 
 const MoreStarsRoomsCard = (props) => {
 
+    const Size = useWindowSize();
     const [loading, setLoading] = useState(true);
     const [data, setData] = useState({
         rooms: [],
@@ -48,7 +72,7 @@ const MoreStarsRoomsCard = (props) => {
         { title: 'Nº Children', value: 'nChild', },
         { title: 'Nº Rooms', value: 'nRoom', },
         { title: 'Price (€)', value: 'price', },
-        { title: 'Nº Stars', value: 'nStars',},
+        { title: 'Nº Stars', value: 'nStars', },
         //{ title: 'Tags', value: 'tags', render: renderTags }
     ];
 
@@ -100,9 +124,21 @@ const MoreStarsRoomsCard = (props) => {
 
     const { rooms, pagination } = data;
 
+    var ncolumn = 5
+
+    if (Size.width < 576) {
+        ncolumn = 2
+    } else if (Size.width >= 576 && Size.width < 996) {
+        ncolumn = 3
+    } else if (Size.width >= 996 && Size.width < 1920) {
+        ncolumn = 4
+    } else if (Size.width >= 1920) {
+        ncolumn = 5
+    }
+
 
     return (
-        <List grid={{ gutter: 16, column: 3 }} dataSource={rooms} pagination={pagination} columns={columns} rowKey={record => record._id} loading={loading}
+        <List grid={{ gutter: 16, column: ncolumn }} dataSource={rooms} pagination={pagination} columns={columns} rowKey={record => record._id} loading={loading}
             renderItem={item => (
                 <List.Item>
                     <Link to={`/rooms/${item._id}`}>

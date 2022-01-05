@@ -1,15 +1,11 @@
 import './RegisterForm.css';
-import { useState } from 'react';
-import { useForm } from 'react-hook-form';
-import { Navigate } from 'react-router-dom';
-import { Col, Row, Card, Form, Input, Button, Checkbox } from 'antd';
+import { Col, Row, Card, Form, Input, Button } from 'antd';
 import { Link } from 'react-router-dom';
 import { LockOutlined, UserOutlined, MailOutlined } from '@ant-design/icons'
 import logo from '../assets/logo/logo_simples.png'
 
 const RegisterForm = () => {
 
-    const { register, handleSubmit } = useForm();
     const onSubmit = e => postUser(onFinish(e));
 
     const postUser = (data) => {
@@ -148,7 +144,7 @@ const RegisterForm = () => {
                                     </Form.Item>
                                     <Row justify='center' style={{ marginTop: -15, marginBottom: -25 }}>
                                         <Form.Item>
-                                        <div style={{ color: '#fff' }}>Already have an Account?<Link to='/login'> Sign in!</Link></div>
+                                            <div style={{ color: '#fff' }}>Already have an Account?<Link to='/login'> Sign in!</Link></div>
                                         </Form.Item>
                                     </Row>
                                 </Form>
