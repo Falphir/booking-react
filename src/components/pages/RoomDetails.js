@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Config from '../../config';
-import { List, Card, Col, Row, Button, DatePicker, Form } from 'antd';
+import { List, Card, Col, Row, Button, DatePicker, Form, Image, Space, Rate } from 'antd';
 import { useParams, Link } from 'react-router-dom';
 import Modal from 'antd/lib/modal/Modal';
 import { set, useForm } from "react-hook-form";
@@ -139,7 +139,49 @@ const RoomDetails = (props) => {
 
     return (
         <>
-            <List grid={{ gutter: 16, column: ncolumn }} columns={columns}>
+
+            <Row style={{ padding: 30 }}>
+                <Col span={2}></Col>
+                <Col span={20}>
+                    <Card bordered={true}>
+                        <Row>
+                            <Col span={12}>
+                                <Image src={rooms.image}></Image>
+                            </Col>
+                            <Col span={12} style={{ paddingLeft: 8 }}>
+                                <List grid={{ gutter: 16, column: 1 }}>
+                                    <List.Item>
+                                        <Card bordered={false} title={<h2><b>{rooms.description}</b></h2>}>
+                                            <Row>
+                                                <Col span={20}>
+                                                    <Row justify='start'>
+                                                        <p style={{ fontSize: 20 }}><b style={{ fontSize: 32, color: 'red' }}>{rooms.price}€ </b>p/Pessoa</p>
+                                                        
+
+                                                    </Row>
+                                                </Col>
+                                                <Col span={4}>
+                                                    <Row justify='end'>
+                                                        <Rate value={rooms.nStars}></Rate>
+                                                    </Row>
+                                                </Col>
+                                            </Row>
+                                        </Card>
+                                    </List.Item>
+                                </List>
+                            </Col>
+                        </Row>
+                        <Row>
+                            <Col span={24}>
+                                Content
+                            </Col>
+                        </Row>
+                    </Card>
+                </Col>
+                <Col span={2}></Col>
+            </Row>
+
+            {/* <List grid={{ gutter: 16, column: ncolumn }} columns={columns}>
                 <Card key={roomId}
                     cover={<img alt="example" src={rooms.image} />}>
                     <Meta
@@ -210,7 +252,7 @@ const RoomDetails = (props) => {
                         </Row>
                     </div>
                 </Card>
-            </List>
+            </List> */}
             <Footer />
         </>
     )
