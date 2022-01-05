@@ -1,8 +1,8 @@
 import './UserTable.css';
 import { useState, useEffect } from 'react';
 import Config from '../../../config';
-import { Table, Row, Col, Button } from 'antd';
-import { PlusOutlined } from '@ant-design/icons';
+import { Table, Row, Col, Button, Tag, Modal } from 'antd';
+import { PlusOutlined, DeleteOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
 
 const UserTable = (props) => {
@@ -17,15 +17,37 @@ const UserTable = (props) => {
         }
     });
 
-    /* const renderRole = (role) => {
-        return role.map((roles) => {
+     const renderRole = (role) => {
+         console.log(role)
+         let color = 'geekblue';
+         if(role.nameRole === 'admin') {
+            color = 'green'
+        } else if(role.nameRole === 'editor') {
+            color = 'red'
+        } 
+         return (
+             <Tag color={color}>{role.nameRole}</Tag>
+         )
+        // return role.map((roles) => {
+        //     return (
+        //         <label key={roles._id}>
+        //             <Tag></Tag>
+        //         </label>
+        //     )
+        // })
+    }
+
+    //Renderizar Tags
+    const renderScopes = (role) => {
+        console.log(role)
+        return role.scopes.map((scope) => {
             return (
-                <label key={roles._id}>
-                    a
-                </label>
+                <label key={scope._id} >
+                    <Tag color="blue">{scope}</Tag>
+                </label >
             )
         })
-    } */
+    }
 
     /* const renderScopes = (scopes) => {
         return scopes.map((scope) => {
@@ -51,19 +73,44 @@ const UserTable = (props) => {
         {
             title: 'Email',
             dataIndex: 'email',
-        }/* ,
-
-        {
-            title: 'Password',
-            dataIndex: 'password',
-        } *//* ,
-
+        },
         {
             title: 'Role',
             dataIndex: 'role',
             render: renderRole
-        } */
+        },
+        {
+            title: 'Scopes',
+            dataIndex: 'role',
+            render: renderScopes,
+        },
+        {
+            title: 'Actions',
+            render: (record) => {
+                return <>
+                    <DeleteOutlined onClick={() => { onDeleteUser(record) }} style={{ color: "red", marginLeft: 12 }} />
+                </>
+            }
+        }
+
+        // {
+        //     title: 'Password',
+        //     dataIndex: 'password',
+        // } ,
+
     ];
+
+    const onDeleteUser = (record) => {
+        Modal.confirm({
+            title: 'Are you sure, you want to delete this user?',
+            onOk: () => {
+                fetch(`/auth/admin/users/${record._id}`, {
+                    method: 'DELETE',
+                })
+                window.location.reload(false)
+            },
+        });
+    };
 
 
     const fetchApi = (pageSize, current) => {

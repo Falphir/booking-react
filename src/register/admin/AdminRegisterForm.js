@@ -95,7 +95,7 @@ const RegisterForm = () => {
         } else if(radio.value == "editor") {
             setScopes(["read-own-reserves", "create-reserve", "detail-reserve", "update-reserve", "read-reserves", "delete-reserve", "create-room", "update-room", "read-reserve-client", "delete-room"])
         } if(radio.value == "admin") {
-            setScopes(["read-own-reserves", "create-reserve", "detail-reserve", "update-reserve", "read-reserves", "delete-reserve", "create-room", "update-room", "read-reserve-client", "delete-room", "read-users"])
+            setScopes(["read-own-reserves", "create-reserve", "detail-reserve", "update-reserve", "read-reserves", "delete-reserve", "create-room", "update-room", "read-reserve-client", "delete-room", "read-users", "delete-user"])
         }
 
         return {

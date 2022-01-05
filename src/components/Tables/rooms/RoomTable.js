@@ -21,7 +21,9 @@ const RoomTable = (props) => {
     //Renderizar Imagem
     const renderImage = (text, record) => {
         return (
+            <Link to={`/rooms/${record._id}`}>
             <img src={record.image} alt="Room Image" style={{ width: 150, height: 75 }} />
+            </Link>
         );
     }
 
@@ -40,7 +42,7 @@ const RoomTable = (props) => {
     }
 
 
-    //Renderizar Tags
+    //Renderizar Extras
     const renderExtras = (extras) => {
         console.log(extras)
         return extras.map((extra) => {
