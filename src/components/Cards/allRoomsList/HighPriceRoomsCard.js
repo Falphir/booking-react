@@ -101,6 +101,7 @@ const HighPriceRoomsCard = (props) => {
 
 
     return (
+        
         <List grid={{ gutter: 16, column: 3 }} dataSource={rooms} pagination={pagination} columns={columns} rowKey={record => record._id} loading={loading}
             renderItem={item => (
                 <List.Item>
