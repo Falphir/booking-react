@@ -4,6 +4,7 @@ import './ReservesForm.css';
 import React, { useState, useEffect } from 'react';
 import Config from "../../../../config";
 import { Form, Button, Row, Col, DatePicker, Card } from "antd";
+import logo from '../../../../assets/logo/logo_simples.png'
 
 
 const ReservesForm = () => {
@@ -100,28 +101,42 @@ const ReservesForm = () => {
 
 
     return (
-        <div>
+        <div >
             <Row style={{ paddingTop: 120 }}>
                 <Col span={8}></Col>
                 <Col span={8}>
                     <Row justify="center">
-                        <div className="site-card-border-less-wrapper">
-                            <Card className="card" title={<Row justify='center'><h2 style={{ color: '#405fad', marginBottom: 0 }}><b>RESERVE ROOM</b></h2></Row>} bordered={true} style={{ width: 350 }}>
+                        <div >
+                            <Card headStyle={{ backgroundColor: "#242424" }} bodyStyle={{ backgroundColor: "#242424" }} className="login-card" title={
+
+                                <Row justify='center'>
+                                    <Col>
+                                        <div className='card-logo'>
+                                            <img className='reserves-Logo' src={logo} />
+                                        </div>
+                                        <Row justify='center'>
+                                            <h2 className='reserves-card-title-h2'>
+                                                <b>Add Reserve</b>
+                                            </h2>
+                                        </Row>
+                                    </Col>
+                                </Row>}
+                                bordered={false} style={{ width: 350 }}>
                                 <Form layout='vertical' onFinish={onSubmit}>
-                                    <Form.Item label={<h4 style={{ color: '#405fad' }}><b>Date Check In</b></h4>} name="dateCheckIn" >
+                                    <Form.Item label={<h4 className='reserves-form-label-h4'><b>Date Check In</b></h4>} name="dateCheckIn">
                                         <Row justify="center">
-                                            <DatePicker onChange={onChangeDateCheckIn} style={{ width: 300 }} />
+                                            <DatePicker onChange={onChangeDateCheckIn} style={{ width: 300 }} required />
                                         </Row>
                                     </Form.Item>
 
-                                    <Form.Item label={<h4 style={{ color: '#405fad' }}><b>Date Check Out</b></h4>} name="dateCheckOut">
+                                    <Form.Item label={<h4 className='reserves-form-label-h4'><b>Date Check In</b></h4>} name="dateCheckOut">
                                         <Row justify="center">
-                                            <DatePicker onChange={onChangeDateCheckOut} style={{ width: 300 }} />
+                                            <DatePicker onChange={onChangeDateCheckOut} style={{ width: 300 }} required/>
                                         </Row>
                                     </Form.Item>
 
                                     <Form.Item>
-                                        <Button block type="primary" htmlType='submit'>Reserve</Button>
+                                        <Button block className='reserves-Button-Outlined' htmlType='submit'><b>Reserve</b></Button>
                                     </Form.Item>
                                 </Form>
                             </Card>

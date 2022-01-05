@@ -3,10 +3,11 @@ import { useState, useEffect } from "react";
 import './RoomsForm.css';
 import Config from '../../../../config';
 import { Form, Button, Checkbox, Input, Select, Row, Col, Upload, message, Card, InputNumber, Tooltip } from "antd";
-import { InboxOutlined, UploadOutlined, MinusCircleOutlined } from '@ant-design/icons';
-import axios from "axios"
+import { InboxOutlined, UploadOutlined, MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
 import { storage } from '../../../../firebase';
 import Modal from "antd/lib/modal/Modal";
+import logo from '../../../../assets/logo/logo_simples.png'
+
 
 const { Dragger } = Upload;
 const { TextArea } = Input;
@@ -15,6 +16,7 @@ const { TextArea } = Input;
 const RoomsForm = () => {
 
     const { register, handleSubmit } = useForm();
+    const [checkboxList, setCheckboxList] = useState([{ value: "" }]);
     const { state, setState } = useState({
         selectedFile: null
     });
@@ -26,6 +28,11 @@ const RoomsForm = () => {
     const [image, setImage] = useState(null);
     const [url, setUrl] = useState("");
     const [submit, setSubmit] = useState();
+    //const [isModalVisible, setIsModalVisible] = useState(false);
+
+    // const showModal = () => {
+    //   setIsModalVisible(true);
+    // };
 
     const handleChange = e => {
         console.log(e)
@@ -143,36 +150,119 @@ const RoomsForm = () => {
         }
     }
 
+    // // handle click event of the Remove button
+    // const handleRemoveClick = index => {
+    //     const list = [...checkboxList];
+    //     list.splice(index, 1);
+    //     setCheckboxList(list);
+    // };
 
+    // // handle click event of the Add button
+    // const handleAddClick = () => {
+    //     setCheckboxList([...checkboxList, { firstName: "", lastName: "" }]);
+    // };
+
+    // const onAddExtra = () => {
+    //     return (
+    //         <Modal title="Add Extra" footer={[
+    //             <Button form="addExtraForm" key="submit" htmlType="submit">
+    //                 Add Extra
+    //             </Button>
+    //         ]}>
+    //             <Form id="addExtraForm" onFinish={onAddExtraFormFinish} layout="vertical">
+    //                 <Form.Item name="new_checkbox" label="New Checkbox">
+    //                     <Input placeholder="Checkbox Value"></Input>
+    //                 </Form.Item>
+    //             </Form>
+    //         </Modal>
+    //     )
+    // }
+
+    // const onAddExtraFormFinish = (extra) => {
+    //     setIsModalVisible(false)
+    //     setCheckboxList({
+    //         value: extra.new_checkbox,
+    //     })
+    // }
 
 
     return (
         <div >
-            <Row>
+            <Row style={{ paddingTop: 120 }}>
                 <Col span={8}></Col>
                 <Col span={8}>
                     <Row justify="center">
-                        <div className="site-card-border-less-wrapper">
-                            <Card className="card" title="Add Room Form" bordered={true} style={{ width: 600, }}>
-                                <Form onFinish={onSubmit}>
-                                    <Form.Item name="description" label="Description">
-                                        <TextArea rows={4} placeholder="Description of the room" />
+                        <div >
+                            <Card headStyle={{ backgroundColor: "#242424" }} bodyStyle={{ backgroundColor: "#242424" }} className="login-card" title={
+
+                                <Row justify='center'>
+                                    <Col>
+                                        <div className='card-logo'>
+                                            <img className='rooms-Logo' src={logo} />
+                                        </div>
+                                        <Row justify='center'>
+                                            <h2 className='rooms-card-title-h2'>
+                                                <b>Add Room</b>
+                                            </h2>
+                                        </Row>
+                                    </Col>
+                                </Row>}
+                                bordered={false} style={{ width: 600 }}>
+                                <Form layout="vertical" onFinish={onSubmit}>
+                                    <Form.Item name="description" label={<h4 className='rooms-form-label-h4'><b>Description</b></h4>}
+                                        rules={[
+                                            {
+                                                required: true,
+                                                message: 'Please input a description!',
+                                            },
+                                        ]} >
+                                        <TextArea rows={4} placeholder="Description of the room" required />
                                         {/* <Input placeholder="Type room description" /> */}
                                     </Form.Item>
-                                    <Form.Item name="nAdults" label="Number of Adults">
-                                        <InputNumber />
+                                    <Form.Item name="nAdults" label={<h4 className='rooms-form-label-h4'><b>Number of Adults</b></h4>}
+                                        rules={[
+                                            {
+                                                required: true,
+                                                message: 'Please input the number of adults!',
+                                            },
+                                        ]} >
+                                        <InputNumber required />
                                     </Form.Item>
-                                    <Form.Item name="nChildren" label="Number of Childrens">
-                                        <InputNumber />
+                                    <Form.Item name="nChildren" label={<h4 className='rooms-form-label-h4'><b>Number of Childrens</b></h4>}
+                                        rules={[
+                                            {
+                                                required: true,
+                                                message: 'Please input the number of childrens!',
+                                            },
+                                        ]} >
+                                        <InputNumber required />
                                     </Form.Item>
-                                    <Form.Item name="nRooms" label="Number of Rooms">
-                                        <InputNumber />
+                                    <Form.Item name="nRooms" label={<h4 className='rooms-form-label-h4'><b>Number of Rooms</b></h4>}
+                                        rules={[
+                                            {
+                                                required: true,
+                                                message: 'Please input the number of rooms!',
+                                            },
+                                        ]} >
+                                        <InputNumber required />
                                     </Form.Item>
-                                    <Form.Item name="price" label="Price">
-                                        <InputNumber />
+                                    <Form.Item name="price" label={<h4 className='rooms-form-label-h4'><b>Price</b></h4>}
+                                        rules={[
+                                            {
+                                                required: true,
+                                                message: 'Please input a price!',
+                                            },
+                                        ]} >
+                                        <InputNumber required />
                                     </Form.Item>
-                                    <Form.Item name="typeRoom" label="Type Room" style={{ width: 400 }}>
-                                        <Select placeholder="Type of Room" >
+                                    <Form.Item name="typeRoom" label={<h4 className='rooms-form-label-h4'><b>Type of Room</b></h4>} style={{ width: 400 }}
+                                        rules={[
+                                            {
+                                                required: true,
+                                                message: 'Please choose a Type of room!',
+                                            },
+                                        ]}>
+                                        <Select placeholder="Type of Room" required>
                                             <Select.Option value="Apartamento" />
                                             <Select.Option value="Quarto" />
                                             <Select.Option value="Casa de Férias" />
@@ -181,14 +271,32 @@ const RoomsForm = () => {
                                             <Select.Option value="Outro" />
                                         </Select>
                                     </Form.Item>
-                                    <Form.Item name="nSingleBed" label="Number of single beds">
-                                        <InputNumber placeholder="Type number of single beds" />
+                                    <Form.Item name="nSingleBed" label={<h4 className='rooms-form-label-h4'><b>Number of Single Beds</b></h4>}
+                                        rules={[
+                                            {
+                                                required: true,
+                                                message: 'Please input the number of single Beds!',
+                                            },
+                                        ]}>
+                                        <InputNumber required/>
                                     </Form.Item>
-                                    <Form.Item name="nDoubleBed" label="Number of double beds">
-                                        <InputNumber placeholder="Type number of double beds" />
+                                    <Form.Item name="nDoubleBed" label={<h4 className='rooms-form-label-h4'><b>Number of Double Beds</b></h4>}
+                                        rules={[
+                                            {
+                                                required: true,
+                                                message: 'Please input the number of double beds!',
+                                            },
+                                        ]}>
+                                        <InputNumber required/>
                                     </Form.Item>
-                                    <Form.Item name="nStars" label="Number of Stars" style={{ width: 175 }}>
-                                        <Select>
+                                    <Form.Item name="nStars" label={<h4 className='rooms-form-label-h4'><b>Number of Stars</b></h4>} style={{ width: 175 }}
+                                        rules={[
+                                            {
+                                                required: true,
+                                                message: 'Please choose the number of stars',
+                                            },
+                                        ]}>
+                                        <Select required>
                                             <Select.Option value="0" />
                                             <Select.Option value="1" />
                                             <Select.Option value="2" />
@@ -197,87 +305,61 @@ const RoomsForm = () => {
                                             <Select.Option value="5" />
                                         </Select>
                                     </Form.Item>
-                                    <h3><b>Extras</b></h3>
+                                    <h3 className='rooms-extra-h3'><b>Extras</b></h3>
                                     <Form.Item name="extras">
                                         <Checkbox.Group>
                                             <Row>
                                                 <Col>
-                                                    <Checkbox value="vip" style={{ lineHeight: '32px' }}>
+                                                    <Checkbox value="vip" style={{ lineHeight: '32px', color: '#fff' }}>
                                                         VIP
                                                     </Checkbox>
                                                 </Col>
                                                 <Col>
-                                                    <Checkbox value="carPark" style={{ lineHeight: '32px' }}>
+                                                    <Checkbox value="carPark" style={{ lineHeight: '32px', color: '#fff' }}>
                                                         Car Park
                                                     </Checkbox>
                                                 </Col>
                                                 <Col>
-                                                    <Checkbox value="breakfast" style={{ lineHeight: '32px' }}>
+                                                    <Checkbox value="breakfast" style={{ lineHeight: '32px', color: '#fff' }}>
                                                         Breakfast
                                                     </Checkbox>
                                                 </Col>
                                                 <Col>
-                                                    <Checkbox value="lunch" style={{ lineHeight: '32px' }}>
+                                                    <Checkbox value="lunch" style={{ lineHeight: '32px', color: '#fff' }}>
                                                         Lunch
                                                     </Checkbox>
                                                 </Col>
                                                 <Col>
-                                                    <Checkbox value="spa" style={{ lineHeight: '32px' }}>
+                                                    <Checkbox value="spa" style={{ lineHeight: '32px', color: '#fff' }}>
                                                         Spa
                                                     </Checkbox>
                                                 </Col>
                                                 <Col>
-                                                    <Checkbox value="pool" style={{ lineHeight: '32px' }}>
+                                                    <Checkbox value="pool" style={{ lineHeight: '32px', color: '#fff' }}>
                                                         Pool
                                                     </Checkbox>
                                                 </Col>
-                                                {/* {(fields, { add, remove }, { errors }) => (
+                                                {/* {checkboxList.map((x, i) => {
                                                     <Col>
-                                                        {fields.map((field, index) => (
-                                                            <Form.Item
-                                                                {...(index === 0) }
-                                                                label={index === 0 ? 'Passengers' : ''}
-                                                                required={false}
-                                                                key={field.key}
-                                                            >
-                                                                <Form.Item
-                                                                    {...field}
-                                                                    validateTrigger={['onChange', 'onBlur']}
-                                                                    rules={[
-                                                                        {
-                                                                            required: true,
-                                                                            whitespace: true,
-                                                                            message: "Please input passenger's name or delete this field.",
-                                                                        },
-                                                                    ]}
-                                                                    noStyle
-                                                                >
-                                                                    <Input placeholder="passenger name" style={{ width: '60%' }} />
-                                                                </Form.Item>
-                                                                {fields.length > 1 ? (
-                                                                    <MinusCircleOutlined
-                                                                        className="dynamic-delete-button"
-                                                                        onClick={() => remove(field.name)}
-                                                                    />
-                                                                ) : null}
-                                                            </Form.Item>
-                                                        ))}
+                                                        <Checkbox value={x.value} style={{ lineHeight: '32px' }}>
+                                                            {x.value}
+                                                        </Checkbox>
                                                     </Col>
-                                                )}; */}
+                                                })} */}
                                             </Row>
                                         </Checkbox.Group>
                                     </Form.Item>
-                                    <input type="file" onChange={handleChange} />
+                                    <input style={{ color: '#fff' }} type="file" onChange={handleChange} />
                                     {/* <button onClick={handleUpload}>Upload</button> */}
                                     <Form.Item style={{ paddingTop: 20 }}>
                                         {submit &&
-                                            <Button block size="large" type="primary" htmlType="submit">
-                                                Submit
+                                            <Button block size="large" className='rooms-Button-Outlined' htmlType="submit">
+                                                <b>Submit</b>
                                             </Button>}
                                         {!submit &&
                                             <Tooltip placement="top" title={<span>Image not uploaded</span>}>
-                                                <Button disabled block size="large" type="primary" htmlType="submit">
-                                                    Submit
+                                                <Button disabled block size="large" htmlType="submit">
+                                                <b>Submit</b>
                                                 </Button>
                                             </Tooltip>}
                                     </Form.Item>

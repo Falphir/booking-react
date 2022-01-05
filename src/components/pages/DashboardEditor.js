@@ -7,6 +7,7 @@ import Reserves from '../Tables/reserves/Reserves';
 import { Link } from 'react-router-dom'
 import { Navigate } from 'react-router-dom';
 import Config from '../../config';
+import Footer from '../Footer';
 
 const { Content, Sider } = Layout;
 
@@ -73,6 +74,7 @@ function DashboardEditor() {
 
 
     return (
+        <>
         <Layout>
             <Layout>
                 <Content style={{ padding: '0 50px' }}>
@@ -104,7 +106,8 @@ function DashboardEditor() {
                 </Content>
             </Layout>
         </Layout>
-
+        <Footer />
+        </>
     )
 }
 
