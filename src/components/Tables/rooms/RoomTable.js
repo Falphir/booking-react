@@ -13,7 +13,7 @@ const RoomTable = (props) => {
         rooms: [],
         pagination: {
             current: 1,
-            pageSize: 10,
+            pageSize: 5,
             total: 0
         }
     });
@@ -212,7 +212,7 @@ const RoomTable = (props) => {
     return (
         <div>
             <Row justify="end">
-                <Col style={{ margin: 8 }}> 
+                <Col style={{ margin: 8 }}>
                     <Link to='/roomsForm'>
                         <Button loading={loading}>
                             <PlusOutlined style={{ marginRight: 8 }} />

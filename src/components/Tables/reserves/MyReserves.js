@@ -1,7 +1,8 @@
 import { Table } from 'antd';
 import { useState, useEffect } from 'react';
 import './ReserveTable.css';
-
+import { useLocalStorage } from 'react-use-storage';
+import { getPreferencesUrlStorage, preferencesToStorage } from "../../../utils/localStorage";
 
 const MyReserves = (props) => {
 
@@ -15,7 +16,7 @@ const MyReserves = (props) => {
             total: 0
         }
     });
-    let idUser, nameUser, a;
+    let idUser, nameUser, currentID;
 
 
 
@@ -33,7 +34,15 @@ const MyReserves = (props) => {
             .then((response) => {
 
                 setUserLogged(response.auth);
+
+                if (response.auth == false) {
+                    localStorage.removeItem('idUser');
+                }
+
                 idUser = response.decoded[1];
+
+                localStorage.setItem('idUser', response.decoded[1]);
+
                 nameUser = response.decoded[2];
                 console.log("idUser " + response.decoded[1]);
                 console.log("nameUser " + response.decoded[2]);
@@ -76,11 +85,11 @@ const MyReserves = (props) => {
 
     const fetchApi = (pageSize, current) => {
 
-        a = idUser;
+        currentID = localStorage.getItem('idUser');
 
-        console.log("FETCHAPI idUser " + idUser); //ERRO fica undefined
+        console.log("FETCHAPI idUser " + currentID); //ERRO fica undefined
 
-        const url = '/reserve/user/reserves/' + a + '?' + new URLSearchParams({
+        const url = '/reserve/user/reserves/' + currentID + '?' + new URLSearchParams({
             limit: pageSize,
             skip: current - 1
         })

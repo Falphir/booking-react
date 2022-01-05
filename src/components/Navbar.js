@@ -56,12 +56,14 @@ function Navbar() {
       .then((response) => {
         if (response.logout) {
 
+          localStorage.removeItem('idUser');
           setUserLogged(false);
           window.location.reload(false);
         }
       })
 
       .catch(() => {
+        localStorage.removeItem('idUser');
         setUserLogged(false);
       })
   }
@@ -115,6 +117,7 @@ function Navbar() {
           setDashboardEditorButton(false);
           setReservesButton(false);
           showButtons();
+          localStorage.removeItem('idUser');
           console.log("guest");
 
 
@@ -146,7 +149,7 @@ function Navbar() {
 
 
         } else {
-
+          localStorage.removeItem('idUser');
           setDashboardButton(false);
           setDashboardEditorButton(false);
           setReservesButton(false);
@@ -156,12 +159,14 @@ function Navbar() {
       })
 
       .catch(() => {
+        localStorage.removeItem('idUser');
         setUserLogged(false);
       })
   }, [])
 
 
   if (!userLogged) {
+    localStorage.removeItem('idUser');
   }
 
 
