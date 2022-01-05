@@ -25,14 +25,6 @@ const ReserveTable = (props) => {
 
     const columns = [
         {
-            title: 'Date Check In',
-            dataIndex: 'dateCheckIn',
-        },
-        {
-            title: 'Date Check Out',
-            dataIndex: 'dateCheckOut',
-        },
-        {
             title: 'ID User',
             dataIndex: 'idUser',
         },
@@ -41,10 +33,18 @@ const ReserveTable = (props) => {
             dataIndex: 'idRoom',
         },
         {
+            title: 'Date Check In',
+            dataIndex: 'dateCheckIn',
+        },
+        {
+            title: 'Date Check Out',
+            dataIndex: 'dateCheckOut',
+        },
+        
+        {
             title: 'Actions',
             render: (record) => {
                 return <>
-                    <EditOutlined />
                     <DeleteOutlined onClick={() => { onDeleteReserve(record) }} style={{ color: "red", marginLeft: 12 }} />
                 </>
             }
@@ -55,12 +55,12 @@ const ReserveTable = (props) => {
     const onDeleteReserve = (record) => {
 
         Modal.confirm({
-            title: 'Are you sure, you want to delete this reserve record?',
+            title: 'Are you sure, you want to delete this Reserve?',
             onOk: () => {
-                setData((pre) => {
-                    return pre.filter((reserve) => reserve._id !== record._id);
-                    //pre.filter((rooms.map((room) => { return room._id }) !== record._id))
-                });
+                fetch(`/reserve/reserves/${record._id}`, {
+                    method: 'DELETE',
+                })
+                window.location.reload(false)
             },
         });
     };
