@@ -33,11 +33,11 @@ const ReserveTable = (props) => {
             dataIndex: 'dateCheckOut',
         },
         {
-            title: 'Name User',
-            dataIndex: 'nameUser',
+            title: 'ID User',
+            dataIndex: 'idUser',
         },
         {
-            title: 'ID Rooms',
+            title: 'ID Room',
             dataIndex: 'idRoom',
         },
         {
