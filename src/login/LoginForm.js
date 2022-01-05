@@ -40,6 +40,39 @@ const LoginForm = () => {
     }
 
 
+    //remember me
+    const rmCheck = document.getElementById("rememberMe"), usernameInput = document.getElementById("username"), passwordInput = document.getElementById("password");
+
+    if (localStorage.checkbox && localStorage.checkbox != "") {
+
+        rmCheck.setAttribute("checked", "checked");
+        usernameInput.value = localStorage.username;
+        passwordInput.value = localStorage.password;
+
+    } else {
+
+        rmCheck.removeAttribute("checked");
+        usernameInput.value = "";
+        passwordInput.value = "";
+    }
+
+
+    function lsRememberMe() {
+
+        if (rmCheck.checked && usernameInput.value !== "" && passwordInput.value != "") {
+
+            localStorage.username = usernameInput.value;
+            localStorage.password = passwordInput.value;
+            localStorage.checkbox = rmCheck.value;
+
+        } else {
+
+            localStorage.username = "";
+            localStorage.password = "";
+            localStorage.checkbox = "";
+        }
+    }
+
 
 
     // if (loginSuccess) { 
@@ -78,7 +111,7 @@ const LoginForm = () => {
                                                 message: 'Please input your username!',
                                             },
                                         ]} >
-                                        <Input prefix={<UserOutlined />} placeholder='Username' required />
+                                        <Input id="username" prefix={<UserOutlined />} placeholder='Username' required />
                                     </Form.Item>
                                     <Form.Item name="password" label={<h4 className='login-form-label-h4'><b>Password</b></h4>}
                                         rules={[
@@ -87,12 +120,12 @@ const LoginForm = () => {
                                                 message: 'Please input your password!',
                                             },
                                         ]}>
-                                        <Input.Password prefix={<LockOutlined />} placeholder='Password' required />
+                                        <Input.Password id="password" prefix={<LockOutlined />} placeholder='Password' required />
                                     </Form.Item>
                                     <Form.Item>
                                         <Form.Item>
                                             <Row justify='start' style={{ marginTop: -20 }}>
-                                                <Checkbox value="lsRememberMe" style={{ color: '#fff' }}> Remember Me</Checkbox>
+                                                <Checkbox id="rememberMe" value={lsRememberMe} style={{ color: '#fff' }}> Remember Me</Checkbox>
                                             </Row>
                                             <Row justify='end' style={{ marginTop: -20 }}>
                                                 <Link to='/' >Forgot your password?</Link>
@@ -100,7 +133,7 @@ const LoginForm = () => {
                                         </Form.Item>
                                     </Form.Item>
                                     <Form.Item style={{ marginTop: -40 }} t>
-                                        <Button className='login-Button-Outlined' size='large' block  htmlType='submit'> <b>Login</b> </Button>
+                                        <Button className='login-Button-Outlined' size='large' block value="Login" htmlType='submit' onClick={lsRememberMe()}> <b>Login</b> </Button>
                                     </Form.Item>
 
                                     <Row justify='center' style={{ marginTop: -15, marginBottom: -30 }}>

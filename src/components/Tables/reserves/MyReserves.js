@@ -1,8 +1,6 @@
 import { Table } from 'antd';
 import { useState, useEffect } from 'react';
 import './ReserveTable.css';
-import { useLocalStorage } from 'react-use-storage';
-import { getPreferencesUrlStorage, preferencesToStorage } from "../../../utils/localStorage";
 
 const MyReserves = (props) => {
 
