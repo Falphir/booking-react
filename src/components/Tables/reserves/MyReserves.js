@@ -15,7 +15,7 @@ const MyReserves = (props) => {
             total: 0
         }
     });
-    let idUser, nameUser;
+    let idUser, nameUser, a;
 
 
 
@@ -56,10 +56,6 @@ const MyReserves = (props) => {
 
     const columns = [
         {
-            title: 'ID User',
-            dataIndex: 'idUser',
-        },
-        {
             title: 'Date Check In',
             dataIndex: 'dateCheckIn',
         },
@@ -80,9 +76,11 @@ const MyReserves = (props) => {
 
     const fetchApi = (pageSize, current) => {
 
+        a = idUser;
+
         console.log("FETCHAPI idUser " + idUser); //ERRO fica undefined
 
-        const url = '/reserve/user/reserves/' + idUser + '?' + new URLSearchParams({
+        const url = '/reserve/user/reserves/' + a + '?' + new URLSearchParams({
             limit: pageSize,
             skip: current - 1
         })

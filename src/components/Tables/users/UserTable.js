@@ -40,6 +40,10 @@ const UserTable = (props) => {
 
     const columns = [
         {
+            title: 'ID',
+            dataIndex: '_id',
+        },
+        {
             title: 'Name',
             dataIndex: 'name',
         },

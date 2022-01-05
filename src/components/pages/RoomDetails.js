@@ -49,21 +49,12 @@ const RoomDetails = (props) => {
 
 
     //Renderizar Tags
-    const renderTags = (tags) => {
-        return tags.map((tag) => {
+    const renderExtras = (extras) => {
+        return extras.map((extra) => {
             return (
-                <label key={tag._id}>
+                <label>
 
-                    Type Room: {tag.typeRoom},
-                    VIP: {tag.vip.toString()},
-                    Nº Pool: {tag.nPool},
-                    Car Park: {tag.carPark.toString()},
-                    Breakfast: {tag.breakfast.toString()},
-                    Lunch: {tag.lunch.toString()},
-                    Spa: {tag.spa.toString()},
-                    Nº Stars: {tag.nStars},
-                    Nº Single Bed: {tag.nSingleBed},
-                    Nº Double Bed: {tag.nDoubleBed}
+                    {extra.extras}
                 </label>
             )
         })
@@ -76,7 +67,11 @@ const RoomDetails = (props) => {
         { title: 'Nº Children', value: 'nChild', },
         { title: 'Nº Rooms', value: 'nRoom', },
         { title: 'Price (€)', value: 'price', },
-        { title: 'Tags', value: 'tags', render: renderTags }
+        { title: 'Type Room', value: 'typeRoom', },
+        { title: 'Nº Stars', value: 'nStars', },
+        { title: 'Nº Single Bed', value: 'nSingleBed', },
+        { title: 'Nº Double Bed', value: 'nDoubleBed', },
+        { title: 'Extras', value: 'extras', render: renderExtras }
     ];
 
 
@@ -146,7 +141,7 @@ const RoomDetails = (props) => {
         <>
             <List grid={{ gutter: 16, column: ncolumn }} columns={columns}>
                 <Card key={roomId}
-                    cover={<img alt="example" src="https://images.unsplash.com/photo-1618773928121-c32242e63f39?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80" />}>
+                    cover={<img alt="example" src={rooms.image} />}>
                     <Meta
                         title={<p><span style={{ fontWeight: 'bold' }}>{rooms.description}</span></p>}>
                     </Meta>
@@ -156,14 +151,7 @@ const RoomDetails = (props) => {
                     <div className="additional">
                         <Row xs={24} xl={16}>
                             <Col xs={24} xl={8}>
-                                {/* <div key={rooms._id}>
-                                {rooms.tags.map(tag => {
-                                    return (
-                                        <>{tag.nStars}</>
-                                    );
-                                })}
-                            </div> */}
-
+                                {rooms.nStars} <i class="fas fa-star"></i>
                             </Col>
 
                             <Col xs={20} xl={4}>
@@ -182,6 +170,38 @@ const RoomDetails = (props) => {
 
                     <br></br>
 
+                    <div className="additional">
+                        <Row xs={24} xl={16}>
+                            <Col xs={24} xl={8}>
+                                Nº Double Bed <i class="fas fa-long-arrow-alt-right"></i> {rooms.nDoubleBed} <i class="fas fa-bed"></i>
+                            </Col>
+
+                            <Col xs={24} xl={8}>
+                                Nº Single Bed <i class="fas fa-long-arrow-alt-right"></i> {rooms.nSingleBed} <i class="fas fa-bed"></i>
+                            </Col>
+
+                            <Col xs={24} xl={8}>
+                                Type Room <i class="fas fa-long-arrow-alt-right"></i> <i class="fas fa-home"></i> {rooms.typeRoom}
+                            </Col>
+
+                            <Col xs={24} xl={8}>
+                                Nº Rooms <i class="fas fa-long-arrow-alt-right"></i> {rooms.nRoom} <i class="fas fa-door"></i>
+                            </Col>
+                        </Row>
+                    </div>
+
+                    <br></br>
+
+                    <div className="additional">
+                        <Row xs={24} xl={16}>
+                            <Col xs={24} xl={8}>
+                                EXTRAS <i class="fas fa-long-arrow-alt-right"></i> {rooms.extras}
+                            </Col>
+                        </Row>
+                    </div>
+
+                    <br></br>
+
                     <div className="reserves">
                         <Row xs={24} xl={16}>
                             <Link to={`/reserves/${roomId}`}>
@@ -191,7 +211,7 @@ const RoomDetails = (props) => {
                     </div>
                 </Card>
             </List>
-            <Footer/>
+            <Footer />
         </>
     )
 }
