@@ -37,7 +37,7 @@ const UserTable = (props) => {
         // })
     }
 
-    //Renderizar Tags
+    //Renderizar Scopes
     const renderScopes = (role) => {
         console.log(role)
         return role.scopes.map((scope) => {

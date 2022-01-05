@@ -37,7 +37,6 @@ const RoomTable = (props) => {
                 <Tag color="blue">Nº Single Bed: {record.nSingleBed}</Tag>
                 <Tag color="blue">Nº Double Bed: {record.nDoubleBed}</Tag>
             </label>
-
         );
     }
 
