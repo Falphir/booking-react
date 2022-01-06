@@ -86,6 +86,7 @@ const ReservesForm = () => {
 
         console.log(e);
         console.log("userID: " + userId);
+        console.log("userName: " + userName);
         console.log("DCI: " + DCI);
         console.log("DCO: " + DCO);
         console.log("roomID: " + roomId);
@@ -94,6 +95,7 @@ const ReservesForm = () => {
             dateCheckIn: DCI,
             dateCheckOut: DCO,
             idUser: userId,
+            userName: userName,
             idRoom: roomId
         }
     }
