@@ -123,7 +123,7 @@ const RoomsCard = (props) => {
                     <Link to={`/rooms/${item._id}`}>
                         <Card className='card' key={item._id} cover={<img className='card-img' alt="example" src={item.image} />}>
                             <Meta
-                                title={<p><span style={{ fontWeight: 'bold' }}>{item.description}</span></p>}>
+                                title={<span style={{ fontWeight: 'bold' }}>{item.description}</span>}>
                             </Meta>
 
                             <p></p>
