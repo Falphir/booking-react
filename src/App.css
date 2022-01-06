@@ -32,7 +32,7 @@
 
 .rooms-banner-container {
   background: url('./assets/images/banner.jpg') center center/cover no-repeat;
-  height: 125vh;
+  height: 115vh;
   width: 100%;
   display: flex;
   position: sticky;
@@ -52,7 +52,7 @@
 }
 
 .roomsForm {
-  margin-top: -200px;
+  margin-top: -150px;
 }
 
 .reserveForm {

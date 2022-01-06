@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import './ReservesForm.css';
 import React, { useState, useEffect } from 'react';
 import Config from "../../../../config";
-import { Form, Button, Row, Col, DatePicker, Card } from "antd";
+import { Form, Button, Row, Col, DatePicker, Card, message } from "antd";
 import logo from '../../../../assets/logo/logo_simples.png'
 
 
@@ -31,7 +31,8 @@ const ReservesForm = () => {
                 if (response.ok) {
 
                     console.log(response);
-                    alert("Reserve created");
+                    message.success('Reserve Successfully created!');
+                    //alert("Reserve created");
                     return (
                         <>
                             {response.json()}
@@ -40,7 +41,8 @@ const ReservesForm = () => {
 
                 } else {
                     console.log(response);
-                    alert("Reserve duplicate");
+                    message.error('An Error Ocurred while reserving room! Try Again Later.');
+                    //alert("Reserve duplicate");
                 }
             })
 

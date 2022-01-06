@@ -86,7 +86,8 @@ const RoomsForm = () => {
                 if (response.ok) {
 
                     console.log(response);
-                    alert("Room created");
+                    message.success('Room Successfully created!');
+                    //alert("Room created");
                     return (
                         <>
                             {response.json()}
@@ -97,7 +98,8 @@ const RoomsForm = () => {
                 } else {
 
                     console.log(response);
-                    alert("Room duplicate");
+                    message.error('Room Duplicated!');
+                    //alert("Room duplicate");
                 }
             })
 

@@ -40,7 +40,7 @@ const RoomsCard = (props) => {
         rooms: [],
         pagination: {
             current: 1,
-            pageSize: 5,
+            pageSize: 20,
             total: 0
         }
     });

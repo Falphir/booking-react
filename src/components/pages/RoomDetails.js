@@ -174,7 +174,9 @@ const RoomDetails = (props) => {
                             column: 2,
                         }}>
                             <List.Item>
+                                <Row justify='center'>
                                 <Image src={rooms.image}></Image>
+                                </Row>
                             </List.Item>
                             <List.Item>
                                 <Card bordered={false} title={<h3><b>{rooms.description}</b></h3>}>
@@ -226,16 +228,6 @@ const RoomDetails = (props) => {
                                         <TabPane tab="Information" key="1">
                                             <Table columns={columns} dataSource={tableData} pagination={false} />
                                             <Table columns={Extracolumns} dataSource={ExtrastableData} pagination={false} />
-                                            <Row>
-                                                <Col span={24}>
-                                                    <Row>
-                                                        <h2><b>Extras</b></h2>
-                                                    </Row>
-                                                    <Row>
-                                                        {RenderExtras()}
-                                                    </Row>
-                                                </Col>
-                                            </Row>
                                         </TabPane>
                                         <TabPane tab="Comments" key="2">
                                             Content of Tab Pane 2

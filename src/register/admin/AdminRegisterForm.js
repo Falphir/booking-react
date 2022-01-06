@@ -2,7 +2,7 @@ import './AdminRegisterForm.css';
 import { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { Navigate } from 'react-router-dom';
-import { Col, Row, Card, Form, Input, Button, Checkbox, Radio } from 'antd';
+import { Col, Row, Card, Form, Input, Button, Checkbox, Radio, message } from 'antd';
 import { Link } from 'react-router-dom';
 import { LockOutlined, UserOutlined, MailOutlined } from '@ant-design/icons'
 import logo from '../../assets/logo/logo_simples.png'
@@ -22,20 +22,21 @@ const RegisterForm = () => {
             headers: { 'Content-Type': 'application/json' },
             method: 'POST',
             body: JSON.stringify(data),
-            timeout: 1000
         })
 
             .then((response) => {
                 if (response.ok) {
 
                     console.log(response);
-                    alert("User created");
+                    message.success('User Registered');
+                    //alert("User created");
                     return response.json();
 
                 } else {
 
                     console.log(response);
-                    alert("User duplicate");
+                    message.error('User duplicated');
+                    //alert("User duplicate");
                 }
             })
 
@@ -91,16 +92,15 @@ const RegisterForm = () => {
     const onFinish = (e) => {
         console.log(e);
 
-        if(radio.value == "user") {
+        if(radio.value == 'user') {
             setScopes(["read-own-reserves", "create-reserve", "detail-reserve"])
-        }
-         if(radio.value == "editor") {
+        } 
+        if(radio.value == 'editor') {
             setScopes(["read-own-reserves", "create-reserve", "detail-reserve", "update-reserve", "read-reserves", "delete-reserve", "create-room", "update-room", "read-reserve-client", "delete-room"])
-        }
-         if(radio.value == "admin") {
+        } 
+        if(radio.value == 'admin') {
             setScopes(["read-own-reserves", "create-reserve", "detail-reserve", "update-reserve", "read-reserves", "delete-reserve", "create-room", "update-room", "read-reserve-client", "delete-room", "read-users", "delete-user"])
         }
-
         return {
             name: e.name,
             email: e.email,

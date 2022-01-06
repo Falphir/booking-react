@@ -3,6 +3,8 @@ import { Button } from './Button';
 import { Link, Navigate } from 'react-router-dom';
 import './Navbar.css';
 import logo from '../assets/logo/logo_simples.png'
+import { Avatar, Popover, Row } from 'antd';
+import { UserOutlined } from '@ant-design/icons'
 
 function UseWindowSize() {
   // Initialize state with undefined width/height so server and client renders match
@@ -268,8 +270,16 @@ function Navbar() {
 
           {signOutLink &&
             <div className='btn-mobile'>
-              <Button buttonStyle='btn--gold--outline' onClick={onClickLogout}>SIGN OUT</Button>
-            </div>}
+              <Popover placement="bottom" color={"#242424"}  align='middle' content={
+                <Row justify='center' style={{marginBottom: -8}}>
+                  <Link to="" onClick={onClickLogout}><p style={{ color: '#fff' }}>Log Out</p></Link>
+                </Row>
+              } trigger="click">
+                <Avatar size={60} icon={<UserOutlined />} />
+              </Popover>
+
+            </div>
+          }
         </div>
       </nav>
     </>
