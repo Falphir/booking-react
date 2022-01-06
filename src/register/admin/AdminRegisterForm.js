@@ -2,7 +2,7 @@ import './AdminRegisterForm.css';
 import { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { Navigate } from 'react-router-dom';
-import { Col, Row, Card, Form, Input, Button, Checkbox, Radio, message } from 'antd';
+import { Col, Row, Card, Form, Input, Button, Checkbox, Radio, message, Tooltip } from 'antd';
 import { Link } from 'react-router-dom';
 import { LockOutlined, UserOutlined, MailOutlined } from '@ant-design/icons'
 import logo from '../../assets/logo/logo_simples.png'
@@ -12,7 +12,7 @@ const RegisterForm = () => {
     const { register, handleSubmit } = useForm();
     const onSubmit = e => postUser(onFinish(e));
     const [radio, setRadio] = useState({
-        value: ""
+        value: undefined
     });
     const [scopes, setScopes] = useState()
     const [userLogged, setUserLogged] = useState(true);
@@ -22,6 +22,7 @@ const RegisterForm = () => {
             headers: { 'Content-Type': 'application/json' },
             method: 'POST',
             body: JSON.stringify(data),
+            timeout: 5000
         })
 
             .then((response) => {
@@ -30,7 +31,10 @@ const RegisterForm = () => {
                     console.log(response);
                     message.success('User Registered');
                     //alert("User created");
-                    return response.json();
+                    return <>
+                        {response.json()}
+                        {/* {setScopes([])} */}
+                    </>
 
                 } else {
 
@@ -61,7 +65,6 @@ const RegisterForm = () => {
 
                     console.log("pode aceder a este register");
                     setUserLogged(response.decoded);
-
                 } else {
 
                     console.log("nao pode aceder a este register");
@@ -92,22 +95,35 @@ const RegisterForm = () => {
     const onFinish = (e) => {
         console.log(e);
 
-        if(radio.value == 'user') {
-            setScopes(["read-own-reserves", "create-reserve", "detail-reserve"])
-        } 
-        if(radio.value == 'editor') {
-            setScopes(["read-own-reserves", "create-reserve", "detail-reserve", "update-reserve", "read-reserves", "delete-reserve", "create-room", "update-room", "read-reserve-client", "delete-room"])
-        } 
-        if(radio.value == 'admin') {
-            setScopes(["read-own-reserves", "create-reserve", "detail-reserve", "update-reserve", "read-reserves", "delete-reserve", "create-room", "update-room", "read-reserve-client", "delete-room", "read-users", "delete-user"])
-        }
-        return {
-            name: e.name,
-            email: e.email,
-            password: e.password,
-            role: {
-                nameRole: radio.value,
-                scopes: scopes
+        if (radio.value == 'user') {
+            return {
+                name: e.name,
+                email: e.email,
+                password: e.password,
+                role: {
+                    nameRole: radio.value,
+                    scopes: ["read-own-reserves", "create-reserve", "detail-reserve"]
+                }
+            }
+        } else if (radio.value == 'editor') {
+            return {
+                name: e.name,
+                email: e.email,
+                password: e.password,
+                role: {
+                    nameRole: radio.value,
+                    scopes: ["read-own-reserves", "create-reserve", "detail-reserve", "update-reserve", "read-reserves", "delete-reserve", "create-room", "update-room", "read-reserve-client", "delete-room"]
+                }
+            }
+        } else if (radio.value == 'admin') {
+            return {
+                name: e.name,
+                email: e.email,
+                password: e.password,
+                role: {
+                    nameRole: radio.value,
+                    scopes: ["read-own-reserves", "create-reserve", "detail-reserve", "update-reserve", "read-reserves", "delete-reserve", "create-room", "update-room", "read-reserve-client", "delete-room", "read-users", "delete-user"]
+                }
             }
         }
     }
@@ -115,9 +131,9 @@ const RegisterForm = () => {
     const onChange = e => {
         console.log('radio checked', e.target.value);
         setRadio({
-          value: e.target.value,
+            value: e.target.value,
         });
-      };
+    };
 
 
     return (

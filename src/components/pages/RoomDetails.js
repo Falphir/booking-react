@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Config from '../../config';
-import { List, Card, Col, Row, Button, DatePicker, Form, Image, Space, Rate, Tabs, Table, Layout, Divider, Tag } from 'antd';
+import { List, Card, Col, Row, Button, DatePicker, Form, Image, Space, Rate, Tabs, Table, Layout, Divider, Tag, Tooltip } from 'antd';
 import { useParams, Link } from 'react-router-dom';
 import Modal from 'antd/lib/modal/Modal';
 import { set, useForm } from "react-hook-form";
@@ -40,6 +40,8 @@ const RoomDetails = (props) => {
 
     const Size = useWindowSize();
     const [loading, setLoading] = useState(true);
+    const [userLogged, setUserLogged] = useState();
+    const [reserve, setReserve] = useState();
     const [data, setData] = useState({
         rooms: [],
         pagination: {
@@ -58,7 +60,7 @@ const RoomDetails = (props) => {
             console.log("extras undefined")
         } else {
             console.log("extras ready")
-            return rooms.extras.map((extra) => <Tag  color="blue">{extra}</Tag>)
+            return rooms.extras.map((extra) => <Tag color="blue">{extra}</Tag>)
         }
 
     }
@@ -114,6 +116,19 @@ const RoomDetails = (props) => {
 
 
     useEffect(() => {
+        fetch('/auth/me', {
+            headers: { 'Accept': 'application/json' }
+        })
+
+            .then((response) => response.json())
+
+            .then((response) => {
+                //se scope do utilizador for == ao scope q tem permissão pra ver button
+                setUserLogged(response.auth);
+                console.log("stuff: " + response.auth);
+                console.log("scopes: " + response.decoded);
+            })
+
         fetchApi(data.pagination.pageSize, data.pagination.current);
 
         return () => setData({
@@ -125,8 +140,9 @@ const RoomDetails = (props) => {
         });
     }, []);
 
-
-
+    if (!userLogged) {
+        localStorage.removeItem('idUser');
+    }
 
 
     const { rooms, pagination } = data;
@@ -157,7 +173,7 @@ const RoomDetails = (props) => {
     const ExtrastableData = [
         {
             key: 1,
-            extras: {RenderExtras},
+            extras: { RenderExtras },
         },
     ]
 
@@ -175,11 +191,11 @@ const RoomDetails = (props) => {
                         }}>
                             <List.Item>
                                 <Row justify='center'>
-                                <Image src={rooms.image}></Image>
+                                    <Image src={rooms.image}></Image>
                                 </Row>
                             </List.Item>
                             <List.Item>
-                                <Card bordered={false} title={<h3><b>{rooms.description}</b></h3>}>
+                                <Card bordered={false} title={<h3><Tag color={"geekblue"}>{rooms.typeRoom}</Tag><b>{rooms.description}</b></h3>}>
                                     <Row>
                                         <Col span={16}>
                                             <Row justify='start'>
@@ -214,10 +230,17 @@ const RoomDetails = (props) => {
                                                 <div className='rooms-details-icons'><i class="fas fa-child"></i> {rooms.nChild}  </div>
                                             </Row>
                                             <Row style={{ paddingTop: 20 }}>
-                                                
-                                                <Link to={`/reserves/${roomId}`}>
-                                                    <Button type='primary'>Reserve This Room</Button>
-                                                </Link>
+                                                {!userLogged &&
+                                                    <Tooltip placement='top' title={"You need to have an Account in order to be able to reserve this room"}>
+                                                        <Button disabled type='primary'>Reserve This Room</Button>
+                                                    </Tooltip>
+                                                }
+                                                {userLogged &&
+                                                    <Link to={`/reserves/${roomId}`}>
+                                                        <Button type='primary'>Reserve This Room</Button>
+                                                    </Link>
+                                                }
+
                                             </Row>
                                         </Col>
                                     </Row>
