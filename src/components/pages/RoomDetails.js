@@ -214,6 +214,7 @@ const RoomDetails = (props) => {
                                                 <div className='rooms-details-icons'><i class="fas fa-child"></i> {rooms.nChild}  </div>
                                             </Row>
                                             <Row style={{ paddingTop: 20 }}>
+                                                
                                                 <Link to={`/reserves/${roomId}`}>
                                                     <Button type='primary'>Reserve This Room</Button>
                                                 </Link>

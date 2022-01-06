@@ -8,8 +8,7 @@ const { Meta } = Card;
 
 
 function useWindowSize() {
-    // Initialize state with undefined width/height so server and client renders match
-    // Learn more here: https://joshwcomeau.com/react/the-perils-of-rehydration/
+    // Initialize state with undefined width so server and client renders match
     const [windowSize, setWindowSize] = useState({
         width: undefined,
     });
@@ -130,7 +129,7 @@ const RoomsCard = (props) => {
                             <p></p>
 
                             <div className="additional">
-                                <Row gutter={16}>
+                                <Row justify='center'>
                                     <Col flex="auto">
                                         {item.nStars} <i class="fas fa-star"></i>
                                     </Col>

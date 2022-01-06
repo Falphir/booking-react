@@ -36,7 +36,7 @@ const MostRecentRoomsCard = (props) => {
         rooms: [],
         pagination: {
             current: 1,
-            pageSize: 20,
+            pageSize: 10,
             total: 0
         }
     });
@@ -102,16 +102,17 @@ const MostRecentRoomsCard = (props) => {
 
     var ncolumn = 5
 
-    if (Size.width < 576) {
+    if (Size.width < 650) {
+        ncolumn = 1
+    } else if (Size.width >= 650 && Size.width < 860) {
         ncolumn = 2
-    } else if (Size.width >= 576 && Size.width < 996) {
+    } else if (Size.width >= 860 && Size.width < 1066) {
         ncolumn = 3
-    } else if (Size.width >= 996 && Size.width < 1920) {
+    } else if (Size.width >= 1066 && Size.width < 1920) {
         ncolumn = 4
     } else if (Size.width >= 1920) {
         ncolumn = 5
     }
-
     return (
         <List grid={{ gutter: 16, column: ncolumn }} dataSource={rooms} pagination={pagination} columns={columns} rowKey={record => record._id} loading={loading}
             renderItem={item => (
@@ -125,20 +126,20 @@ const MostRecentRoomsCard = (props) => {
                             <p></p>
 
                             <div className="additional">
-                                <Row xs={24} xl={16}>
-                                    <Col xs={24} xl={8}>
+                                <Row justify='center'>
+                                    <Col flex="auto">
                                         {item.nStars} <i class="fas fa-star"></i>
                                     </Col>
 
-                                    <Col xs={20} xl={4}>
+                                    <Col flex="auto">
                                         {item.nAdult} <i class="fas fa-user-alt"></i>
                                     </Col>
 
-                                    <Col xs={24} xl={8}>
+                                    <Col flex="auto">
                                         {item.nChild} <i class="fas fa-child"></i>
                                     </Col>
 
-                                    <Col xs={20} xl={4}>
+                                    <Col flex="auto">
                                         {item.price} <i class="fas fa-euro-sign"></i>
                                     </Col>
                                 </Row>
