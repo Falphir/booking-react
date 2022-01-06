@@ -1,6 +1,5 @@
 import './SearchRoomsCard.css';
 import React, { useState, useEffect } from 'react';
-import Config from '../../../config';
 import { List, Card, Col, Row } from 'antd';
 import { Link, useParams } from 'react-router-dom'
 const { Meta } = Card;
@@ -45,37 +44,13 @@ const LowPriceSearchRoomsCard = (props) => {
     const { description } = useParams();
 
 
-
-    //Renderizar Tags
-    const renderTags = (tags) => {
-        return tags.map((tag) => {
-            return (
-                <label key={tag._id}>
-
-                    Type Room: {tag.typeRoom},
-                    VIP: {tag.vip.toString()},
-                    Nº Pool: {tag.nPool},
-                    Car Park: {tag.carPark.toString()},
-                    Breakfast: {tag.breakfast.toString()},
-                    Lunch: {tag.lunch.toString()},
-                    Spa: {tag.spa.toString()},
-                    Nº Stars: {tag.nStars},
-                    Nº Single Bed: {tag.nSingleBed},
-                    Nº Double Bed: {tag.nDoubleBed}
-                </label>
-            )
-        })
-    }
-
-
     const columns = [
         { title: 'Description', value: 'description', },
         { title: 'Nº Adults', value: 'nAdult', },
         { title: 'Nº Children', value: 'nChild', },
         { title: 'Nº Rooms', value: 'nRoom', },
         { title: 'Price (€)', value: 'price', },
-        { title: 'Nº Stars', value: 'nStars', },
-        //{ title: 'Tags', value: 'tags', render: renderTags }
+        { title: 'Nº Stars', value: 'nStars', }
     ];
 
 

@@ -2,7 +2,6 @@ import { useForm } from "react-hook-form";
 import { useParams } from 'react-router-dom';
 import './ReservesForm.css';
 import React, { useState, useEffect } from 'react';
-import Config from "../../../../config";
 import { Form, Button, Row, Col, DatePicker, Card } from "antd";
 import logo from '../../../../assets/logo/logo_simples.png'
 
@@ -131,7 +130,7 @@ const ReservesForm = () => {
 
                                     <Form.Item label={<h4 className='reserves-form-label-h4'><b>Date Check In</b></h4>} name="dateCheckOut">
                                         <Row justify="center">
-                                            <DatePicker onChange={onChangeDateCheckOut} style={{ width: 300 }} required/>
+                                            <DatePicker onChange={onChangeDateCheckOut} style={{ width: 300 }} required />
                                         </Row>
                                     </Form.Item>
 

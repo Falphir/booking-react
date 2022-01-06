@@ -85,7 +85,7 @@ const MyReserves = (props) => {
 
         currentID = localStorage.getItem('idUser');
 
-        console.log("FETCHAPI idUser " + currentID); //ERRO fica undefined
+        console.log("FETCHAPI idUser " + currentID);
 
         const url = '/reserve/user/reserves/' + currentID + '?' + new URLSearchParams({
             limit: pageSize,

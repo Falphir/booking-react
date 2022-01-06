@@ -1,6 +1,5 @@
 import './SearchRoomsCard.css';
 import React, { useState, useEffect } from 'react';
-import Config from '../../../config';
 import { List, Card, Col, Row } from 'antd';
 import { Link, useParams } from 'react-router-dom'
 const { Meta } = Card;

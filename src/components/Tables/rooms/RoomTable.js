@@ -1,6 +1,5 @@
 import './RoomTable.css';
 import React, { useState, useEffect } from 'react';
-import Config from '../../../config';
 import { Table, Modal, Tag, Button, Row, Col } from 'antd';
 import { EditOutlined, DeleteOutlined, PlusOutlined, ExclamationCircleOutlined } from '@ant-design/icons';
 import RoomsForm from './add/RoomsForm';
@@ -22,7 +21,7 @@ const RoomTable = (props) => {
     const renderImage = (text, record) => {
         return (
             <Link to={`/rooms/${record._id}`}>
-            <img src={record.image} alt="Room Image" style={{ width: 150, height: 75 }} />
+                <img src={record.image} alt="Room Image" style={{ width: 150, height: 75 }} />
             </Link>
         );
     }
@@ -60,8 +59,6 @@ const RoomTable = (props) => {
             dataIndex: 'image',
             render: renderImage
         },
-        // render: () => <img src={`image`} style={{width: 100}, {height: 50}}/>
-        // <img src="images/room2.jpg" style={{width: 100}, {height: 50}}/>
         {
             title: 'Description',
             dataIndex: 'description',

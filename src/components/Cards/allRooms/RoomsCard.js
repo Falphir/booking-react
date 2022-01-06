@@ -52,8 +52,7 @@ const RoomsCard = (props) => {
         { title: 'Nº Children', value: 'nChild', },
         { title: 'Nº Rooms', value: 'nRoom', },
         { title: 'Price (€)', value: 'price', },
-        { title: 'Nº Stars', value: 'nStars', },
-        //{ title: 'Tags', value: 'tags', render: renderTags }
+        { title: 'Nº Stars', value: 'nStars', }
     ];
 
 
@@ -104,18 +103,18 @@ const RoomsCard = (props) => {
 
     const { rooms } = data;
 
-    var ncolumn = 4
+    var ncolumn = 5
 
     if (Size.width < 576) {
         ncolumn = 1
     } else if (Size.width >= 576 && Size.width < 768) {
-        ncolumn = 1
-    } else if (Size.width >= 768 && Size.width < 992) {
         ncolumn = 2
-    } else if (Size.width >= 992 && Size.width < 1200) {
+    } else if (Size.width >= 768 && Size.width < 992) {
         ncolumn = 3
-    } else if (Size.width >= 1200) {
+    } else if (Size.width >= 992 && Size.width < 1200) {
         ncolumn = 4
+    } else if (Size.width >= 1200) {
+        ncolumn = 5
     }
 
     return (

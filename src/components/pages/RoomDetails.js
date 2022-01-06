@@ -1,9 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import Config from '../../config';
-import { List, Card, Col, Row, Button, DatePicker, Form, Tag } from 'antd';
+import { List, Card, Col, Row, Button, Tag } from 'antd';
 import { useParams, Link } from 'react-router-dom';
-import Modal from 'antd/lib/modal/Modal';
-import { set, useForm } from "react-hook-form";
 import Footer from '../Footer';
 const { Meta } = Card;
 

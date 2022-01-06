@@ -2,7 +2,6 @@ import { Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Home from './components/pages/Home';
 import './App.css';
-import Footer from './components/Footer';
 import 'antd/dist/antd.css';
 import Dashboard from './components/pages/Dashboard';
 import RoomDetails from './components/pages/RoomDetails';

@@ -34,17 +34,6 @@ const RegisterForm = () => {
             });
     }
 
-
-    // const buildUsers = (data) => {
-    //     console.log(data);
-    //     return {
-    //         ...data, role: {
-    //             nameRole: data.nameRole,
-    //             scopes: ["read-own-reserves", "create-reserve", "detail-reserve"]
-    //         }
-    //     }
-    // };
-
     const onFinish = (e) => {
         console.log(e);
         return {
@@ -148,62 +137,12 @@ const RegisterForm = () => {
                                         </Form.Item>
                                     </Row>
                                 </Form>
-
-                                {/* <form className='form-login' onSubmit={handleSubmit(onSubmit)}>
-                                    <div className='field'>
-                                        <label>Name: </label>
-                                        <input {...register('name')}></input>
-                                    </div>
-
-                                    <div className='field'>
-                                        <label>Password: </label>
-                                        <input {...register('password')} type='password'></input>
-                                    </div>
-
-                                    <input className='submit' type='submit'></input>
-                                </form> */}
                             </Card>
                         </div>
                     </Row>
                 </Col>
                 <Col span={8}></Col>
             </Row >
-
-            {/* <h2>Register Form</h2>
-
-            <form className='form-register' onSubmit={handleSubmit(onSubmit)}>
-                <div className='field'>
-                    <label>Name: </label>
-                    <input {...register('name')}></input>
-                </div>
-
-                <div className='field'>
-                    <label>Email: </label>
-                    <input {...register('email')}></input>
-                </div>
-
-                <div className='field'>
-                    <label>Password: </label>
-                    <input {...register('password')} type='password'></input>
-                </div>
-
-                <div className='field'>
-                    <label>Role: </label>
-                    <select {...register('nameRole')}>
-                        <option value="user">User</option>
-                    </select>
-                </div>
-
-                <div className='field'>
-                    <label>Permission: </label>
-                    <select {...register('scopes')}>
-                        <option>User</option>
-                    </select>
-                </div>
-
-
-                <input className='submit' type='submit'></input>
-            </form> */}
         </div>
     )
 }

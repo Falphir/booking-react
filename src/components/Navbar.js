@@ -1,38 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { Button } from './Button';
-import { Link, Navigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import './Navbar.css';
 import logo from '../assets/logo/logo_simples.png'
-
-function UseWindowSize() {
-  // Initialize state with undefined width/height so server and client renders match
-  // Learn more here: https://joshwcomeau.com/react/the-perils-of-rehydration/
-  const [windowSize, setWindowSize] = useState({
-    width: undefined,
-  });
-  useEffect(() => {
-    // Handler to call on window resize
-    function handleResize() {
-      // Set window width/height to state
-      setWindowSize({
-        width: window.innerWidth,
-      });
-    }
-    // Add event listener
-    window.addEventListener("resize", handleResize);
-    // Call handler right away so state gets updated with initial window size
-    handleResize();
-    // Remove event listener on cleanup
-    return () => window.removeEventListener("resize", handleResize);
-  }, []); // Empty array ensures that effect is only run on mount
-  return windowSize;
-}
 
 
 function Navbar() {
 
   const [click, setClick] = useState(false);
-  const [button, setButton] = useState(true);
   const [dashboardLink, setDashboardButton] = useState();
   const [dashboardeditorLink, setDashboardEditorButton] = useState();
   const [signUpLink, setSignUpButton] = useState();
@@ -181,11 +156,6 @@ function Navbar() {
             <i className={click ? 'fas fa-times' : 'fas fa-bars'} />
           </div>
           <ul className={click ? 'nav-menu active' : 'nav-menu'}>
-            {/* <li className='nav-item'>
-              <Link to='/' className='nav-links' onClick={closeMobileMenu}>
-                Home
-              </Link>
-            </li> */}
 
             <li className='nav-item'>
               <Link to='/roomList'

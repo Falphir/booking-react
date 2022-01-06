@@ -2,7 +2,6 @@ import { Pagination, Table, Modal, Button, Row, Col } from 'antd';
 import { EditOutlined, DeleteOutlined, PlusOutlined } from '@ant-design/icons';
 import { useState, useEffect } from 'react';
 import './ReserveTable.css';
-import Config from '../../../config';
 
 const ReserveTable = (props) => {
 
@@ -40,7 +39,7 @@ const ReserveTable = (props) => {
             title: 'Date Check Out',
             dataIndex: 'dateCheckOut',
         },
-        
+
         {
             title: 'Actions',
             render: (record) => {

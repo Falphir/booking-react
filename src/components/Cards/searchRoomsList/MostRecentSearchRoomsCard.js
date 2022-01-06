@@ -1,6 +1,5 @@
 import './SearchRoomsCard.css';
 import React, { useState, useEffect } from 'react';
-import Config from '../../../config';
 import { List, Card, Col, Row } from 'antd';
 import { Link, useParams } from 'react-router-dom'
 const { Meta } = Card;
@@ -45,16 +44,13 @@ const MostRecentSearchRoomsCard = (props) => {
     const { description } = useParams();
 
 
-
-
     const columns = [
         { title: 'Description', value: 'description', },
         { title: 'Nº Adults', value: 'nAdult', },
         { title: 'Nº Children', value: 'nChild', },
         { title: 'Nº Rooms', value: 'nRoom', },
         { title: 'Price (€)', value: 'price', },
-        { title: 'Nº Stars', value: 'nStars', },
-        //{ title: 'Tags', value: 'tags', render: renderTags }
+        { title: 'Nº Stars', value: 'nStars', }
     ];
 
 

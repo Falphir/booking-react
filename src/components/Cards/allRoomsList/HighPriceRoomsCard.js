@@ -1,6 +1,5 @@
 import './RoomsCard.css';
 import React, { useState, useEffect } from 'react';
-import Config from '../../../config';
 import { List, Card, Col, Row } from 'antd';
 import { Link } from 'react-router-dom'
 const { Meta } = Card;
@@ -51,8 +50,7 @@ const HighPriceRoomsCard = (props) => {
         { title: 'Nº Children', value: 'nChild', },
         { title: 'Nº Rooms', value: 'nRoom', },
         { title: 'Price (€)', value: 'price', },
-        { title: 'Nº Stars', value: 'nStars', },
-        //{ title: 'Tags', value: 'tags', render: renderTags }
+        { title: 'Nº Stars', value: 'nStars', }
     ];
 
 

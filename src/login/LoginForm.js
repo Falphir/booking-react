@@ -1,7 +1,6 @@
 import './LoginForm.css';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { Navigate } from 'react-router-dom';
 import { Col, Row, Card, Form, Input, Button, Checkbox } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom'
@@ -9,7 +8,6 @@ import logo from '../assets/logo/logo_simples.png'
 
 const LoginForm = () => {
 
-    const { register, handleSubmit } = useForm();
     const [loginSuccess, setLoginSuccess] = useState(false);
     const onSubmit = data => login(data);
 

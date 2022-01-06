@@ -16,38 +16,12 @@ const { SubMenu } = Menu;
 
 const { Header, Sider } = Layout;
 
-function useWindowSize() {
-    // Initialize state with undefined width/height so server and client renders match
-    // Learn more here: https://joshwcomeau.com/react/the-perils-of-rehydration/
-    const [windowSize, setWindowSize] = useState({
-        width: undefined,
-    });
-    useEffect(() => {
-        // Handler to call on window resize
-        function handleResize() {
-            // Set window width/height to state
-            setWindowSize({
-                width: window.innerWidth,
-            });
-        }
-        // Add event listener
-        window.addEventListener("resize", handleResize);
-        // Call handler right away so state gets updated with initial window size
-        handleResize();
-        // Remove event listener on cleanup
-        return () => window.removeEventListener("resize", handleResize);
-    }, []); // Empty array ensures that effect is only run on mount
-    return windowSize;
-}
-
 
 const Rooms = () => {
-    const Size = useWindowSize();
     const [active, setActive] = useState(true);
     const SetView = (active) => {
         setActive(active);
     };
-    const [collapsed, setCollapsed] = useState(true);
     const [state, setState] = useState({
         state: {
             collapsed: false
@@ -86,10 +60,10 @@ const Rooms = () => {
         }
     };
 
-        //se n tiver configurado o token no config.js, irá diretamente redirecionar para a homepage
-        if (!Config.token) {
-            return <Navigate to={'/'}></Navigate>
-        }
+    //se n tiver configurado o token no config.js, irá diretamente redirecionar para a homepage
+    if (!Config.token) {
+        return <Navigate to={'/'}></Navigate>
+    }
 
     const toggle = () => {
         setState({
@@ -190,7 +164,7 @@ const Rooms = () => {
                 </Sider>
 
                 <Layout>
-                <Header style={{ backgroundColor: "#f0f2f5", paddingLeft: 16, height: 52  }}>
+                    <Header style={{ backgroundColor: "#f0f2f5", paddingLeft: 16, height: 52 }}>
                         <Button onClick={toggle}>
                             {React.createElement(state.collapsed ? MenuUnfoldOutlined : MenuFoldOutlined)}
                         </Button>
@@ -206,7 +180,7 @@ const Rooms = () => {
                     </div>
                 </Layout>
             </Layout>
-            <Footer/>
+            <Footer />
         </div>
     )
 }
