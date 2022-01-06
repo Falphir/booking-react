@@ -102,7 +102,7 @@ const LoginForm = () => {
                                         </Form.Item>
                                     </Form.Item>
                                     <Form.Item style={{ marginTop: -40 }} t>
-                                        <Button className='login-Button-Outlined' size='large' block  htmlType='submit'> <b>Login</b> </Button>
+                                        <Button className='login-Button-Outlined' size='large' block htmlType='submit'> <b>Login</b> </Button>
                                     </Form.Item>
 
                                     <Row justify='center' style={{ marginTop: -15, marginBottom: -30 }}>
@@ -111,20 +111,6 @@ const LoginForm = () => {
                                         </Form.Item>
                                     </Row>
                                 </Form>
-
-                                {/* <form className='form-login' onSubmit={handleSubmit(onSubmit)}>
-                                    <div className='field'>
-                                        <label>Name: </label>
-                                        <input {...register('name')}></input>
-                                    </div>
-
-                                    <div className='field'>
-                                        <label>Password: </label>
-                                        <input {...register('password')} type='password'></input>
-                                    </div>
-
-                                    <input className='submit' type='submit'></input>
-                                </form> */}
                             </Card>
                         </div>
                     </Row >
