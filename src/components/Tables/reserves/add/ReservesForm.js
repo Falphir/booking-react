@@ -116,7 +116,7 @@ const ReservesForm = () => {
                                         </div>
                                         <Row justify='center'>
                                             <h2 className='reserves-card-title-h2'>
-                                                <b>Add Reserve</b>
+                                                <b>Reserve Room</b>
                                             </h2>
                                         </Row>
                                     </Col>

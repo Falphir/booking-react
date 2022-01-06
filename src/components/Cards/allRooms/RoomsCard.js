@@ -145,7 +145,7 @@ const RoomsCard = (props) => {
             renderItem={item => (
                 <List.Item>
                     <Link to={`/rooms/${item._id}`}>
-                        <Card className='card' key={item._id} cover={<img alt="example" src={item.image} />}>
+                        <Card className='card' key={item._id} cover={<img className='card-img' alt="example" src={item.image} />}>
                             <Meta
                                 title={<p><span style={{ fontWeight: 'bold' }}>{item.description}</span></p>}>
                             </Meta>
@@ -154,19 +154,19 @@ const RoomsCard = (props) => {
 
                             <div className="additional">
                                 <Row gutter={16}>
-                                    <Col span={6}>
+                                    <Col flex="auto">
                                         {item.nStars} <i class="fas fa-star"></i>
                                     </Col>
 
-                                    <Col span={6}>
+                                    <Col flex="auto">
                                         {item.nAdult} <i class="fas fa-user-alt"></i>
                                     </Col>
 
-                                    <Col span={6}>
+                                    <Col flex="auto">
                                         {item.nChild} <i class="fas fa-child"></i>
                                     </Col>
 
-                                    <Col span={6}>
+                                    <Col flex="auto">
                                         {item.price} <i class="fas fa-euro-sign"></i>
                                     </Col>
                                 </Row>

@@ -120,15 +120,6 @@ const ReserveTable = (props) => {
 
     return (
         <div>
-            <Row justify="end">
-                <Col>
-                    <div style={{ margin: 8 }}>
-                        <Button loading={loading}>
-                            <PlusOutlined style={{ marginRight: 8 }} /> Add Reserve
-                        </Button>
-                    </div>
-                </Col>
-            </Row>
             <Table
                 columns={columns}
                 rowKey={record => record._id}

@@ -21,7 +21,8 @@ const RegisterForm = () => {
         fetch('/auth/user/register', {
             headers: { 'Content-Type': 'application/json' },
             method: 'POST',
-            body: JSON.stringify(data)
+            body: JSON.stringify(data),
+            timeout: 1000
         })
 
             .then((response) => {
@@ -92,9 +93,11 @@ const RegisterForm = () => {
 
         if(radio.value == "user") {
             setScopes(["read-own-reserves", "create-reserve", "detail-reserve"])
-        } else if(radio.value == "editor") {
+        }
+         if(radio.value == "editor") {
             setScopes(["read-own-reserves", "create-reserve", "detail-reserve", "update-reserve", "read-reserves", "delete-reserve", "create-room", "update-room", "read-reserve-client", "delete-room"])
-        } if(radio.value == "admin") {
+        }
+         if(radio.value == "admin") {
             setScopes(["read-own-reserves", "create-reserve", "detail-reserve", "update-reserve", "read-reserves", "delete-reserve", "create-room", "update-room", "read-reserve-client", "delete-room", "read-users", "delete-user"])
         }
 

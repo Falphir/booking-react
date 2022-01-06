@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import Config from '../../config';
-import { List, Card, Col, Row, Button, DatePicker, Form, Image, Space, Rate } from 'antd';
+import { List, Card, Col, Row, Button, DatePicker, Form, Image, Space, Rate, Tabs, Table, Layout, Divider, Tag } from 'antd';
 import { useParams, Link } from 'react-router-dom';
 import Modal from 'antd/lib/modal/Modal';
 import { set, useForm } from "react-hook-form";
 import Footer from '../Footer';
+
+
+const { TabPane } = Tabs;
 const { Meta } = Card;
 
 
@@ -45,34 +48,37 @@ const RoomDetails = (props) => {
             total: 0
         }
     });
+
     const { roomId } = useParams();
 
+    // Renderizar Extras
+    const RenderExtras = () => {
+        console.log(rooms.extras)
+        if (rooms.extras == undefined) {
+            console.log("extras undefined")
+        } else {
+            console.log("extras ready")
+            return rooms.extras.map((extra) => <Tag  color="blue">{extra}</Tag>)
+        }
 
-    //Renderizar Tags
-    const renderExtras = (extras) => {
-        return extras.map((extra) => {
-            return (
-                <label>
-
-                    {extra.extras}
-                </label>
-            )
-        })
     }
 
 
+
+
+
+
     const columns = [
-        { title: 'Description', value: 'description', },
-        { title: 'Nº Adults', value: 'nAdult', },
-        { title: 'Nº Children', value: 'nChild', },
-        { title: 'Nº Rooms', value: 'nRoom', },
-        { title: 'Price (€)', value: 'price', },
-        { title: 'Type Room', value: 'typeRoom', },
-        { title: 'Nº Stars', value: 'nStars', },
-        { title: 'Nº Single Bed', value: 'nSingleBed', },
-        { title: 'Nº Double Bed', value: 'nDoubleBed', },
-        { title: 'Extras', value: 'extras', render: renderExtras }
+        { title: 'Facilities', dataIndex: 'facilities' },
+        { title: 'Quantity', dataIndex: 'quantity', width: '10%', align: 'center' },
     ];
+
+    const Extracolumns = [
+        { title: 'Extras', dataIndex: 'extras', render: RenderExtras },
+    ];
+
+
+
 
 
     const fetchApi = (pageSize, current) => {
@@ -120,22 +126,40 @@ const RoomDetails = (props) => {
     }, []);
 
 
+
+
+
     const { rooms, pagination } = data;
 
-    var ncolumn = 5
 
-    if (Size.width < 576) {
-        ncolumn = 1
-    } else if (Size.width >= 576 && Size.width < 768) {
-        ncolumn = 2
-    } else if (Size.width >= 768 && Size.width < 992) {
-        ncolumn = 3
-    } else if (Size.width >= 992 && Size.width < 1200) {
-        ncolumn = 4
-    } else if (Size.width >= 1200) {
-        ncolumn = 5
+    function callback(key) {
+        console.log(key);
     }
 
+    const tableData = [
+        {
+            key: 1,
+            facilities: 'Number of Double Bed',
+            quantity: rooms.nDoubleBed,
+        },
+        {
+            key: 2,
+            facilities: 'Number of Single Bed',
+            quantity: rooms.nSingleBed,
+        },
+        {
+            key: 3,
+            facilities: 'Number Rooms',
+            quantity: rooms.nRoom,
+        },
+    ]
+
+    const ExtrastableData = [
+        {
+            key: 1,
+            extras: {RenderExtras},
+        },
+    ]
 
     return (
         <>
@@ -144,38 +168,85 @@ const RoomDetails = (props) => {
                 <Col span={2}></Col>
                 <Col span={20}>
                     <Card bordered={true}>
-                        <Row>
-                            <Col span={12}>
+                        <List grid={{
+                            gutter: 8,
+                            itemLayout: 'horizontal',
+                            column: 2,
+                        }}>
+                            <List.Item>
                                 <Image src={rooms.image}></Image>
-                            </Col>
-                            <Col span={12} style={{ paddingLeft: 8 }}>
-                                <List grid={{ gutter: 16, column: 1 }}>
-                                    <List.Item>
-                                        <Card bordered={false} title={<h2><b>{rooms.description}</b></h2>}>
+                            </List.Item>
+                            <List.Item>
+                                <Card bordered={false} title={<h3><b>{rooms.description}</b></h3>}>
+                                    <Row>
+                                        <Col span={16}>
+                                            <Row justify='start'>
+                                                <p className='rooms-details-price-label'><b className='rooms-details-price'>{rooms.price}€ </b>p/Pessoa</p>
+                                            </Row>
+                                        </Col>
+                                        <Col span={8}>
+                                            <Row justify='end'>
+                                                <Rate disabled value={rooms.nStars}></Rate>
+                                            </Row>
+                                        </Col>
+                                    </Row>
+                                    <Row style={{ marginTop: 10 }}>
+                                        <Col span={24}>
                                             <Row>
-                                                <Col span={20}>
+                                                <Col span={24}>
+                                                    <h4><b> Type of Room </b></h4>
                                                     <Row justify='start'>
-                                                        <p style={{ fontSize: 20 }}><b style={{ fontSize: 32, color: 'red' }}>{rooms.price}€ </b>p/Pessoa</p>
-                                                        
-
-                                                    </Row>
-                                                </Col>
-                                                <Col span={4}>
-                                                    <Row justify='end'>
-                                                        <Rate value={rooms.nStars}></Rate>
+                                                        {rooms.typeRoom}
                                                     </Row>
                                                 </Col>
                                             </Row>
-                                        </Card>
-                                    </List.Item>
-                                </List>
-                            </Col>
-                        </Row>
-                        <Row>
-                            <Col span={24}>
-                                Content
-                            </Col>
-                        </Row>
+                                            <Divider style={{ marginTop: 0 }}></Divider>
+                                            <Row>
+                                                <h4><b> Capacity </b></h4>
+                                            </Row>
+                                            <Divider style={{ marginTop: 0 }}></Divider>
+                                            <Row justify='start'>
+                                                <div className='rooms-details-icons'><i class="fas fa-user-alt"></i> {rooms.nAdult} </div>
+                                            </Row>
+                                            <Row justify='start'>
+                                                <div className='rooms-details-icons'><i class="fas fa-child"></i> {rooms.nChild}  </div>
+                                            </Row>
+                                            <Row style={{ paddingTop: 20 }}>
+                                                <Link to={`/reserves/${roomId}`}>
+                                                    <Button type='primary'>Reserve This Room</Button>
+                                                </Link>
+                                            </Row>
+                                        </Col>
+                                    </Row>
+                                </Card>
+                            </List.Item>
+                            <Row>
+                                <Col span={24}>
+                                    <Tabs defaultActiveKey="1" onChange={callback}>
+                                        <TabPane tab="Information" key="1">
+                                            <Table columns={columns} dataSource={tableData} pagination={false} />
+                                            <Table columns={Extracolumns} dataSource={ExtrastableData} pagination={false} />
+                                            <Row>
+                                                <Col span={24}>
+                                                    <Row>
+                                                        <h2><b>Extras</b></h2>
+                                                    </Row>
+                                                    <Row>
+                                                        {RenderExtras()}
+                                                    </Row>
+                                                </Col>
+                                            </Row>
+                                        </TabPane>
+                                        <TabPane tab="Comments" key="2">
+                                            Content of Tab Pane 2
+                                        </TabPane>
+                                        <TabPane tab="Ratings" key="3">
+                                            Content of Tab Pane 3
+                                        </TabPane>
+                                    </Tabs>
+                                </Col>
+                            </Row>
+                        </List>
                     </Card>
                 </Col>
                 <Col span={2}></Col>

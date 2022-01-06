@@ -44,28 +44,6 @@ const RoomsCard = (props) => {
     });
 
 
-    //Renderizar Tags
-    const renderTags = (tags) => {
-        return tags.map((tag) => {
-            return (
-                <label key={tag._id}>
-
-                    Type Room: {tag.typeRoom},
-                    VIP: {tag.vip.toString()},
-                    Nº Pool: {tag.nPool},
-                    Car Park: {tag.carPark.toString()},
-                    Breakfast: {tag.breakfast.toString()},
-                    Lunch: {tag.lunch.toString()},
-                    Spa: {tag.spa.toString()},
-                    Nº Stars: {tag.nStars},
-                    Nº Single Bed: {tag.nSingleBed},
-                    Nº Double Bed: {tag.nDoubleBed}
-                </label>
-            )
-        })
-    }
-
-
     const columns = [
         { title: 'Description', value: 'description', },
         { title: 'Nº Adults', value: 'nAdult', },

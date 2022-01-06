@@ -32,9 +32,10 @@
 
 .rooms-banner-container {
   background: url('./assets/images/banner.jpg') center center/cover no-repeat;
-  height: 120vh;
+  height: 125vh;
   width: 100%;
   display: flex;
+  position: sticky;
   flex-direction: column;
   justify-content: center;
   align-items: center;
@@ -56,4 +57,52 @@
 
 .reserveForm {
   margin-top: -250px;
+}
+
+.rooms-details-icons {
+  font-size: 16px;
+}
+
+.rooms-details-price {
+  font-size: 20px;
+}
+
+.rooms-details-price {
+  font-size: 30px;
+}
+
+
+@media screen and (max-width: 1920px){
+  
+  .login-banner-container {
+    height: 90vh;
+  }
+
+  .register-banner-container {
+    height: 120vh;
+  }
+
+  .reserve-banner-container {
+    height: 90vh;
+  }
+
+  .rooms-banner-container {
+    height: 200vh;
+  }
+
+  .loginForm {
+    margin-top: -100px;
+  }
+  
+  .registerForm {
+    margin-top: -100px;
+  }
+  
+  .roomsForm {
+    margin-top: -100px;
+  }
+  
+  .reserveForm {
+    margin-top: -100px;
+  }
 }
