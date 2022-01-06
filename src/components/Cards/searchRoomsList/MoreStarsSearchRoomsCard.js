@@ -1,12 +1,36 @@
 import './SearchRoomsCard.css';
 import React, { useState, useEffect } from 'react';
-import Config from '../../../config';
 import { List, Card, Col, Row } from 'antd';
 import { Link, useParams } from 'react-router-dom'
 const { Meta } = Card;
 
+function useWindowSize() {
+    // Initialize state with undefined width/height so server and client renders match
+    // Learn more here: https://joshwcomeau.com/react/the-perils-of-rehydration/
+    const [windowSize, setWindowSize] = useState({
+        width: undefined,
+    });
+    useEffect(() => {
+        // Handler to call on window resize
+        function handleResize() {
+            // Set window width/height to state
+            setWindowSize({
+                width: window.innerWidth,
+            });
+        }
+        // Add event listener
+        window.addEventListener("resize", handleResize);
+        // Call handler right away so state gets updated with initial window size
+        handleResize();
+        // Remove event listener on cleanup
+        return () => window.removeEventListener("resize", handleResize);
+    }, []); // Empty array ensures that effect is only run on mount
+    return windowSize;
+}
+
 const MoreStarsSearchRoomsCard = (props) => {
 
+    const Size = useWindowSize();
     const [loading, setLoading] = useState(true);
     const [data, setData] = useState({
         rooms: [],
@@ -20,37 +44,13 @@ const MoreStarsSearchRoomsCard = (props) => {
     const { description } = useParams();
 
 
-
-    //Renderizar Tags
-    const renderTags = (tags) => {
-        return tags.map((tag) => {
-            return (
-                <label key={tag._id}>
-
-                    Type Room: {tag.typeRoom},
-                    VIP: {tag.vip.toString()},
-                    Nº Pool: {tag.nPool},
-                    Car Park: {tag.carPark.toString()},
-                    Breakfast: {tag.breakfast.toString()},
-                    Lunch: {tag.lunch.toString()},
-                    Spa: {tag.spa.toString()},
-                    Nº Stars: {tag.nStars},
-                    Nº Single Bed: {tag.nSingleBed},
-                    Nº Double Bed: {tag.nDoubleBed}
-                </label>
-            )
-        })
-    }
-
-
     const columns = [
         { title: 'Description', value: 'description', },
         { title: 'Nº Adults', value: 'nAdult', },
         { title: 'Nº Children', value: 'nChild', },
         { title: 'Nº Rooms', value: 'nRoom', },
         { title: 'Price (€)', value: 'price', },
-        { title: 'Nº Stars', value: 'nStars', },
-        //{ title: 'Tags', value: 'tags', render: renderTags }
+        { title: 'Nº Stars', value: 'nStars', }
     ];
 
 
@@ -101,9 +101,20 @@ const MoreStarsSearchRoomsCard = (props) => {
 
     const { rooms, pagination } = data;
 
+    var ncolumn = 5
+
+    if (Size.width < 576) {
+        ncolumn = 2
+    } else if (Size.width >= 576 && Size.width < 996) {
+        ncolumn = 3
+    } else if (Size.width >= 996 && Size.width < 1920) {
+        ncolumn = 4
+    } else if (Size.width >= 1920) {
+        ncolumn = 5
+    }
 
     return (
-        <List grid={{ gutter: 16, column: 3 }} dataSource={rooms} pagination={pagination} columns={columns} rowKey={record => record._id} loading={loading}
+        <List grid={{ gutter: 16, column: ncolumn }} dataSource={rooms} pagination={pagination} columns={columns} rowKey={record => record._id} loading={loading}
             renderItem={item => (
                 <List.Item>
                     <Link to={`/rooms/${item._id}`}>

@@ -1,40 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { Button } from './Button';
-import { Link, Navigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import './Navbar.css';
 import logo from '../assets/logo/logo_simples.png'
 import { Avatar, Popover, Row } from 'antd';
 import { UserOutlined } from '@ant-design/icons'
 
-function UseWindowSize() {
-  // Initialize state with undefined width/height so server and client renders match
-  // Learn more here: https://joshwcomeau.com/react/the-perils-of-rehydration/
-  const [windowSize, setWindowSize] = useState({
-    width: undefined,
-  });
-  useEffect(() => {
-    // Handler to call on window resize
-    function handleResize() {
-      // Set window width/height to state
-      setWindowSize({
-        width: window.innerWidth,
-      });
-    }
-    // Add event listener
-    window.addEventListener("resize", handleResize);
-    // Call handler right away so state gets updated with initial window size
-    handleResize();
-    // Remove event listener on cleanup
-    return () => window.removeEventListener("resize", handleResize);
-  }, []); // Empty array ensures that effect is only run on mount
-  return windowSize;
-}
-
 
 function Navbar() {
 
   const [click, setClick] = useState(false);
-  const [button, setButton] = useState(true);
   const [dashboardLink, setDashboardButton] = useState();
   const [dashboardeditorLink, setDashboardEditorButton] = useState();
   const [signUpLink, setSignUpButton] = useState();
@@ -58,12 +33,14 @@ function Navbar() {
       .then((response) => {
         if (response.logout) {
 
+          localStorage.removeItem('idUser');
           setUserLogged(false);
           window.location.reload(false);
         }
       })
 
       .catch(() => {
+        localStorage.removeItem('idUser');
         setUserLogged(false);
       })
   }
@@ -117,6 +94,7 @@ function Navbar() {
           setDashboardEditorButton(false);
           setReservesButton(false);
           showButtons();
+          localStorage.removeItem('idUser');
           console.log("guest");
 
 
@@ -148,7 +126,7 @@ function Navbar() {
 
 
         } else {
-
+          localStorage.removeItem('idUser');
           setDashboardButton(false);
           setDashboardEditorButton(false);
           setReservesButton(false);
@@ -158,12 +136,14 @@ function Navbar() {
       })
 
       .catch(() => {
+        localStorage.removeItem('idUser');
         setUserLogged(false);
       })
   }, [])
 
 
   if (!userLogged) {
+    localStorage.removeItem('idUser');
   }
 
 
@@ -178,11 +158,6 @@ function Navbar() {
             <i className={click ? 'fas fa-times' : 'fas fa-bars'} />
           </div>
           <ul className={click ? 'nav-menu active' : 'nav-menu'}>
-            {/* <li className='nav-item'>
-              <Link to='/' className='nav-links' onClick={closeMobileMenu}>
-                Home
-              </Link>
-            </li> */}
 
             <li className='nav-item'>
               <Link to='/roomList'

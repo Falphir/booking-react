@@ -1,7 +1,5 @@
 import './Rooms.css';
-import Config from '../../../config';
 import React from 'react';
-import { Navigate } from 'react-router-dom';
 import RoomsCard from './RoomsCard';
 
 

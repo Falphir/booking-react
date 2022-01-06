@@ -1,16 +1,9 @@
-import { Pagination, Table, Modal, Button, Row, Col } from 'antd';
-import { EditOutlined, DeleteOutlined, PlusOutlined } from '@ant-design/icons';
+import { Table, Modal, Button, Row, Col } from 'antd';
+import { DeleteOutlined, PlusOutlined } from '@ant-design/icons';
 import { useState, useEffect } from 'react';
 import './ReserveTable.css';
-import Config from '../../../config';
 
 const ReserveTable = (props) => {
-
-    let a = new Date(props.dateCheckIn);
-    let dateCheckIn = a.toLocaleString();
-
-    let b = new Date(props.dateCheckOut);
-    let dateCheckOut = b.toLocaleString();
 
     const [loading, setLoading] = useState();
     const [data, setData] = useState({
@@ -40,7 +33,7 @@ const ReserveTable = (props) => {
             title: 'Date Check Out',
             dataIndex: 'dateCheckOut',
         },
-        
+
         {
             title: 'Actions',
             render: (record) => {

@@ -1,9 +1,6 @@
-import { Layout } from 'antd';
-import { useState } from 'react';
 import '../../App.css'
 import BannerSection from '../BannerSection'
 import RoomsCard from '../Cards/allRooms/Rooms'
-import { Navigate } from 'react-router-dom';
 import Footer from '../Footer';
 
 

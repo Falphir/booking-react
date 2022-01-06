@@ -1,6 +1,5 @@
 import './UserTable.css';
 import { useState, useEffect } from 'react';
-import Config from '../../../config';
 import { Table, Row, Col, Button, Tag, Modal } from 'antd';
 import { PlusOutlined, DeleteOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
@@ -17,24 +16,17 @@ const UserTable = (props) => {
         }
     });
 
-     const renderRole = (role) => {
-         console.log(role)
-         let color = 'geekblue';
-         if(role.nameRole === 'admin') {
+    const renderRole = (role) => {
+        console.log(role)
+        let color = 'geekblue';
+        if (role.nameRole === 'admin') {
             color = 'green'
-        } else if(role.nameRole === 'editor') {
+        } else if (role.nameRole === 'editor') {
             color = 'red'
-        } 
-         return (
-             <Tag color={color}>{role.nameRole}</Tag>
-         )
-        // return role.map((roles) => {
-        //     return (
-        //         <label key={roles._id}>
-        //             <Tag></Tag>
-        //         </label>
-        //     )
-        // })
+        }
+        return (
+            <Tag color={color}>{role.nameRole}</Tag>
+        )
     }
 
     //Renderizar Scopes
@@ -49,15 +41,6 @@ const UserTable = (props) => {
         })
     }
 
-    /* const renderScopes = (scopes) => {
-        return scopes.map((scope) => {
-            return (
-                <label key={scope._id}>
-                    {scope.scopes}
-                </label>
-            )
-        })
-    } */
 
 
     const columns = [
@@ -92,12 +75,6 @@ const UserTable = (props) => {
                 </>
             }
         }
-
-        // {
-        //     title: 'Password',
-        //     dataIndex: 'password',
-        // } ,
-
     ];
 
     const onDeleteUser = (record) => {

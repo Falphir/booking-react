@@ -1,7 +1,6 @@
 import React from 'react'
 import '../../App.css'
 import LoginForm from '../../login/LoginForm'
-import Navbar from '../Navbar'
 
 function Login() {
     return (
@@ -10,7 +9,7 @@ function Login() {
                 <div className='loginForm'>
                     <LoginForm />
                 </div>
-                
+
             </div>
         </>
     )
