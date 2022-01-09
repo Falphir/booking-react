@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import Config from '../../config';
-import { List, Card, Col, Row, Button, DatePicker, Form, Image, Space, Rate, Tabs, Table, Layout, Divider, Tag, Tooltip } from 'antd';
+import { List, Card, Col, Row, Button, DatePicker, Form, Image, Space, Rate, Tabs, Table, Layout, Divider, Tag, Tooltip, Comment } from 'antd';
 import { useParams, Link } from 'react-router-dom';
 import Modal from 'antd/lib/modal/Modal';
 import { set, useForm } from "react-hook-form";
 import Footer from '../Footer';
+import TextArea from 'antd/lib/input/TextArea';
+import Avatar from 'antd/lib/avatar/avatar';
 
 
 const { TabPane } = Tabs;
@@ -254,7 +256,20 @@ const RoomDetails = (props) => {
                                             <Table columns={Extracolumns} dataSource={ExtrastableData} pagination={false} />
                                         </TabPane>
                                         <TabPane tab="Comments" key="2">
-                                            Content of Tab Pane 2
+                                            <Comment
+                                                avatar={<Avatar src="https://joeschmoe.io/api/v1/random" />}
+                                                content={
+                                                    <Form>
+                                                        <Form.Item>
+                                                            <TextArea rows={4}></TextArea>
+                                                        </Form.Item>
+                                                        <Form.Item>
+                                                            <Button type='primary'>Submit</Button>
+                                                        </Form.Item>
+                                                    </Form>
+                                                }
+                                            >
+                                            </Comment>
                                         </TabPane>
                                         <TabPane tab="Ratings" key="3">
                                             Content of Tab Pane 3
