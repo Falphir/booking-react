@@ -1,6 +1,8 @@
 import { Table } from 'antd';
 import { useState, useEffect } from 'react';
 import './ReserveTable.css';
+import { SelectOutlined } from '@ant-design/icons';
+
 
 const MyReserves = (props) => {
 
@@ -8,13 +10,14 @@ const MyReserves = (props) => {
     const [userLogged, setUserLogged] = useState();
     const [data, setData] = useState({
         reserves: [],
+        rooms: [],
         pagination: {
             current: 1,
             pageSize: 10,
             total: 0
         }
     });
-    let idUser, nameUser, currentID;
+    let idUser, nameUser, currentID, IDROOM;
 
 
 
@@ -42,8 +45,8 @@ const MyReserves = (props) => {
                 localStorage.setItem('idUser', response.decoded[1]);
 
                 nameUser = response.decoded[2];
-                console.log("idUser " + response.decoded[1]);
-                console.log("nameUser " + response.decoded[2]);
+                //console.log("idUser " + response.decoded[1]);
+                //console.log("nameUser " + response.decoded[2]);
             })
 
             .catch(() => {
@@ -71,21 +74,31 @@ const MyReserves = (props) => {
             dataIndex: 'dateCheckOut',
         },
         {
-            title: 'ID User',
-            dataIndex: 'idUser',
-        },
-        {
             title: 'ID Room',
             dataIndex: 'idRoom',
+        },
+        {
+            title: 'Room',
+            render: (record) => {
+                return <>
+                    <SelectOutlined onClick={() => { onViewRoom(record) }} style={{ color: "blue", marginLeft: 12 }} />
+                </>
+            }
         }
     ];
+
+
+    const onViewRoom = () => {
+        //wip see detail room
+        fetch('')
+    };
 
 
     const fetchApi = (pageSize, current) => {
 
         currentID = localStorage.getItem('idUser');
 
-        console.log("FETCHAPI idUser " + currentID);
+        //console.log("FETCHAPI idUser " + currentID);
 
         const url = '/reserve/user/reserves/' + currentID + '?' + new URLSearchParams({
             limit: pageSize,
@@ -102,6 +115,15 @@ const MyReserves = (props) => {
             .then((response) => {
                 const { auth, reserves = [], pagination } = response;
 
+                console.log(response);
+
+
+                if (response.reserves[0] != null) {
+                    IDROOM = response.reserves[0].idRoom;
+                    console.log(IDROOM);
+                }
+
+                fetch('/hotel/rooms/' + IDROOM)
 
                 if (auth) {
                     setLoading(false);
