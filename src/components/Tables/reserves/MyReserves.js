@@ -2,7 +2,8 @@ import { Table } from 'antd';
 import { useState, useEffect } from 'react';
 import './ReserveTable.css';
 import { SelectOutlined } from '@ant-design/icons';
-import { Link } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
+import { Modal } from 'antd';
 
 
 const MyReserves = (props) => {
@@ -74,10 +75,10 @@ const MyReserves = (props) => {
             title: 'Date Check Out',
             dataIndex: 'dateCheckOut',
         },
-        {
+        /* {
             title: 'ID Room',
             dataIndex: 'idRoom',
-        },
+        }, */
         {
             title: 'Room',
             render: (record) => {
@@ -90,8 +91,12 @@ const MyReserves = (props) => {
 
 
     const onViewRoom = (record) => {
-        //console.log(record);
-        <Link to={`/rooms/${record.idRoom}`}></Link>
+        Modal.confirm({
+            title: 'Are you sure, you want to see this room?',
+            onOk: () => {
+                <Link to={`/rooms/${record.idRoom}`}></Link>
+            },
+        });
     };
 
 

@@ -57,9 +57,9 @@ const RoomDetails = (props) => {
     const RenderExtras = () => {
         console.log(rooms.extras)
         if (rooms.extras == undefined) {
-            //console.log("extras undefined")
+            console.log("extras undefined")
         } else {
-            //console.log("extras ready")
+            console.log("extras ready")
             return rooms.extras.map((extra) => <Tag color="blue">{extra}</Tag>)
         }
 

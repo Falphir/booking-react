@@ -1,5 +1,9 @@
 import { Table } from 'antd';
 import { useState, useEffect } from 'react';
+import { Link, Navigate } from 'react-router-dom';
+import { SelectOutlined } from '@ant-design/icons';
+import { Modal } from 'antd';
+
 
 const MyFavorites = (props) => {
 
@@ -56,11 +60,28 @@ const MyFavorites = (props) => {
 
 
     const columns = [
-        {
+        /* {
             title: 'ID Room',
             dataIndex: 'idRoom',
+        } */
+        {
+            title: 'Room',
+            render: (record) => {
+                return <>
+                    <SelectOutlined onClick={() => { onViewRoom(record) }} style={{ color: "blue", marginLeft: 12 }} />
+                </>
+            }
         }
     ];
+
+    const onViewRoom = (record) => {
+        Modal.confirm({
+            title: 'Are you sure, you want to see this room?',
+            onOk: () => {
+                <Link to={`/rooms/${record.idRoom}`}></Link>
+            },
+        });
+    };
 
     const fetchApi = (pageSize, current) => {
 

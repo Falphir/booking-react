@@ -2,7 +2,7 @@ import './RoomTable.css';
 import React, { useState, useEffect } from 'react';
 import Config from '../../../config';
 import { Table, Modal, Tag, Button, Row, Col } from 'antd';
-import { EditOutlined, DeleteOutlined, PlusOutlined, ExclamationCircleOutlined } from '@ant-design/icons';
+import { SelectOutlined, EditOutlined, DeleteOutlined, PlusOutlined, ExclamationCircleOutlined } from '@ant-design/icons';
 import RoomsForm from './add/RoomsForm';
 import { Link } from 'react-router-dom';
 
@@ -22,7 +22,7 @@ const RoomTable = (props) => {
     const renderImage = (text, record) => {
         return (
             <Link to={`/rooms/${record._id}`}>
-            <img src={record.image} alt="Room Image" style={{ width: 150, height: 75 }} />
+                <img src={record.image} alt="Room Image" style={{ width: 150, height: 75 }} />
             </Link>
         );
     }
@@ -101,13 +101,23 @@ const RoomTable = (props) => {
             title: 'Actions',
             render: (record) => {
                 return <>
-                    <EditOutlined onClick={() => { onEditRoom(record) }} />
+                    <SelectOutlined onClick={() => { onViewRoom(record) }} style={{ color: "blue" }} />
+                    <EditOutlined onClick={() => { onEditRoom(record) }} style={{ marginLeft: 12 }} />
                     <DeleteOutlined onClick={() => { onDeleteRoom(record) }} style={{ color: "red", marginLeft: 12 }} />
                 </>
             }
         }
 
     ];
+
+    const onViewRoom = (record) => {
+        Modal.confirm({
+            title: 'Are you sure, you want to see this room?',
+            onOk: () => {
+                <Link to={`/rooms/${record._id}`}></Link>
+            },
+        });
+    };
 
     const onDeleteRoom = (record) => {
         Modal.confirm({
@@ -213,7 +223,7 @@ const RoomTable = (props) => {
     return (
         <div>
             <Row justify="end">
-                <Col> 
+                <Col>
                     <Link to='/roomsForm'>
                         <Button loading={loading}>
                             <PlusOutlined style={{ marginRight: 8 }} /> Add Room
