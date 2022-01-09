@@ -2,6 +2,7 @@ import { Table } from 'antd';
 import { useState, useEffect } from 'react';
 import './ReserveTable.css';
 import { SelectOutlined } from '@ant-design/icons';
+import { Link } from 'react-router-dom';
 
 
 const MyReserves = (props) => {
@@ -88,9 +89,9 @@ const MyReserves = (props) => {
     ];
 
 
-    const onViewRoom = () => {
-        //wip see detail room
-        fetch('')
+    const onViewRoom = (record) => {
+        //console.log(record);
+        <Link to={`/rooms/${record.idRoom}`}></Link>
     };
 
 
