@@ -22,14 +22,12 @@ const RegisterForm = () => {
 
                     console.log(response);
                     message.success('User Registered');
-                    //alert("User created");
                     return response.json();
 
                 } else {
 
                     console.log(response);
                     message.error('User duplicated');
-                    //alert("User duplicate");
                 }
             })
 
@@ -46,7 +44,7 @@ const RegisterForm = () => {
             password: e.password,
             role: {
                 nameRole: "user",
-                scopes: ["read-own-reserves", "create-reserve", "detail-reserve"]
+                scopes: ["read-own-reserves", "create-reserve", "detail-reserve", "create-favorite", "read-own-favorites", "delete-favorite", "create-comment"]
             }
         }
     }
@@ -137,7 +135,7 @@ const RegisterForm = () => {
                                     </Form.Item>
                                     <Row justify='center' style={{ marginTop: -15, marginBottom: -25 }}>
                                         <Form.Item>
-                                        <div style={{ color: '#fff' }}>Already have an Account?<Link to='/login'> Sign in!</Link></div>
+                                            <div style={{ color: '#fff' }}>Already have an Account?<Link to='/login'> Sign in!</Link></div>
                                         </Form.Item>
                                     </Row>
                                 </Form>

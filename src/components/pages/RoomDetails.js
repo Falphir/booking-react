@@ -57,9 +57,9 @@ const RoomDetails = (props) => {
     const RenderExtras = () => {
         console.log(rooms.extras)
         if (rooms.extras == undefined) {
-            console.log("extras undefined")
+            //console.log("extras undefined")
         } else {
-            console.log("extras ready")
+            //console.log("extras ready")
             return rooms.extras.map((extra) => <Tag color="blue">{extra}</Tag>)
         }
 
@@ -241,6 +241,19 @@ const RoomDetails = (props) => {
                                                     </Link>
                                                 }
 
+
+
+                                                {/* favorites */}
+                                                {!userLogged &&
+                                                    <Tooltip placement='top' title={"You need to have an Account in order to be able to reserve this room"}>
+                                                        <Button disabled type='primary'><i class="fas fa-star"></i> Add to Favorites</Button>
+                                                    </Tooltip>
+                                                }
+                                                {userLogged &&
+                                                    <Link to={`/favorites/${roomId}`}>
+                                                        <Button type='primary'><i class="fas fa-star"></i> Add to Favorites</Button>
+                                                    </Link>
+                                                }
                                             </Row>
                                         </Col>
                                     </Row>
