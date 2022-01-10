@@ -101,7 +101,7 @@ const RoomTable = (props) => {
             title: 'Actions',
             render: (record) => {
                 return <>
-                    <SelectOutlined onClick={() => { onViewRoom(record) }} style={{ color: "blue" }} />
+                    <Link to={`/rooms/${record._id}`}><SelectOutlined style={{ color: "blue" }} /></Link>
                     <EditOutlined onClick={() => { onEditRoom(record) }} style={{ marginLeft: 12 }} />
                     <DeleteOutlined onClick={() => { onDeleteRoom(record) }} style={{ color: "red", marginLeft: 12 }} />
                 </>
@@ -114,6 +114,7 @@ const RoomTable = (props) => {
         Modal.confirm({
             title: 'Are you sure, you want to see this room?',
             onOk: () => {
+                console.log(record._id);
                 <Link to={`/rooms/${record._id}`}></Link>
             },
         });
