@@ -17,6 +17,8 @@ import Register from './components/pages/Register';
 import AdminRegister from './components/pages/AdminRegister';
 import DashboardEditor from './components/pages/DashboardEditor';
 import MyReserves from './components/Tables/reserves/MyReserves';
+import MyFavorites from './components/Tables/favorites/MyFavorites';
+import FavoritesForm from './components/Tables/favorites/add/FavoritesForm';
 
 
 function App() {
@@ -39,6 +41,8 @@ function App() {
         <Route path='/myreserves' exact element={<MyReserves></MyReserves>}></Route>
         <Route path='/reserves/:roomId' exact element={<ReservesForm></ReservesForm>}></Route>
         <Route path='/roomList' exact element={<AllRoomsList></AllRoomsList>}></Route>
+        <Route path='/myfavorites' exact element={<MyFavorites></MyFavorites>}></Route>
+        <Route path='/favorites/:roomId' exact element={<FavoritesForm></FavoritesForm>}></Route>
       </Routes>
     </>
   );

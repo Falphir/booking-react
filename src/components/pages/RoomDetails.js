@@ -243,6 +243,19 @@ const RoomDetails = (props) => {
                                                     </Link>
                                                 }
 
+
+
+                                                {/* favorites */}
+                                                {!userLogged &&
+                                                    <Tooltip placement='top' title={"You need to have an Account in order to be able to reserve this room"}>
+                                                        <Button disabled type='primary'><i class="fas fa-star"></i> Add to Favorites</Button>
+                                                    </Tooltip>
+                                                }
+                                                {userLogged &&
+                                                    <Link to={`/favorites/${roomId}`}>
+                                                        <Button type='primary'><i class="fas fa-star"></i> Add to Favorites</Button>
+                                                    </Link>
+                                                }
                                             </Row>
                                         </Col>
                                     </Row>

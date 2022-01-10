@@ -22,6 +22,7 @@ function Navbar() {
   const handleClick = () => setClick(!click);
   const closeMobileMenu = () => setClick(false);
   const [userLogged, setUserLogged] = useState();
+  const [favoritesLink, setFavoritesButton] = useState();
 
   const onClickLogout = () => {
     fetch('/auth/logout', {
@@ -56,7 +57,7 @@ function Navbar() {
       .then((response) => {
         //se scope do utilizador for == ao scope q tem permissão pra ver button
         setUserLogged(response.auth);
-        console.log("stuff: " + response.auth);
+        //console.log("stuff: " + response.auth);
         console.log("scopes: " + response.decoded);
 
         function showButtons() {
@@ -93,6 +94,7 @@ function Navbar() {
           setDashboardButton(false);
           setDashboardEditorButton(false);
           setReservesButton(false);
+          setFavoritesButton(false);
           showButtons();
           localStorage.removeItem('idUser');
           console.log("guest");
@@ -103,6 +105,7 @@ function Navbar() {
           setDashboardButton(false);
           setDashboardEditorButton(false);
           setReservesButton(true);
+          setFavoritesButton(true);
           showButtons();
           console.log("user");
 
@@ -112,6 +115,7 @@ function Navbar() {
           setDashboardButton(true);
           setDashboardEditorButton(false);
           setReservesButton(false);
+          setFavoritesButton(false);
           showButtons();
           console.log("admin");
 
@@ -121,6 +125,7 @@ function Navbar() {
           setDashboardButton(false);
           setDashboardEditorButton(true);
           setReservesButton(false);
+          setFavoritesButton(false);
           showButtons();
           console.log("editor");
 
@@ -130,6 +135,7 @@ function Navbar() {
           setDashboardButton(false);
           setDashboardEditorButton(false);
           setReservesButton(false);
+          setFavoritesButton(false);
           showButtons();
           console.log("guest");
         }
@@ -175,6 +181,16 @@ function Navbar() {
                   onClick={closeMobileMenu}
                 >
                   My Reserves
+                </Link>
+              </li>}
+
+            {favoritesLink &&
+              <li className='nav-item'>
+                <Link to='/myfavorites'
+                  className='nav-links'
+                  onClick={closeMobileMenu}
+                >
+                  My Favorite Rooms
                 </Link>
               </li>}
 
@@ -245,8 +261,8 @@ function Navbar() {
 
           {signOutLink &&
             <div className='btn-mobile'>
-              <Popover placement="bottom" color={"#242424"}  align='middle' content={
-                <Row justify='center' style={{marginBottom: -8}}>
+              <Popover placement="bottom" color={"#242424"} align='middle' content={
+                <Row justify='center' style={{ marginBottom: -8 }}>
                   <Link to="" onClick={onClickLogout}><p style={{ color: '#fff' }}>Log Out</p></Link>
                 </Row>
               } trigger="click">

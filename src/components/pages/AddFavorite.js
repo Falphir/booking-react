@@ -1,17 +1,17 @@
 import React from 'react'
-import ReservesForm from '../Tables/reserves/add/ReservesForm'
+import FavoritesForm from '../Tables/favorites/add/FavoritesForm'
 import '../../App.css'
 
-function addReserve() {
+function addFavorite() {
     return (
         <>
             <div className='reserve-banner-container'>
                 <div className='reserveForm'>
-                    <ReservesForm />
+                    <FavoritesForm />
                 </div>
             </div>
         </>
     )
 }
 
-export default addReserve
+export default addFavorite

@@ -1,26 +1,26 @@
 import { useForm } from "react-hook-form";
 import { useParams } from 'react-router-dom';
-import './ReservesForm.css';
+import './FavoritesForm.css';
 import React, { useState, useEffect } from 'react';
 import Config from "../../../../config";
 import { Form, Button, Row, Col, DatePicker, Card, message } from "antd";
 import logo from '../../../../assets/logo/logo_simples.png'
 
+const FavoritesForm = () => {
 
-const ReservesForm = () => {
     const { roomId } = useParams();
     const { register, handleSubmit } = useForm();
-    const onSubmit = e => postReserve(onFinish(e));
-    const [reserveForm] = Form.useForm();
+    const onSubmit = e => postFavorite(onFinish(e));
+    const [favoriteForm] = Form.useForm();
     const [userLogged, setUserLogged] = useState();
     const { RangePicker } = DatePicker;
     const [loading, setLoading] = useState(true);
-    var DCI, DCO, userId, userName;
+    var userId, userName;
 
 
-    const postReserve = (data) => {
+    const postFavorite = (data) => {
 
-        fetch('/reserve/reserves/:roomId', {
+        fetch('/favorite/favorites/:roomId', {
             headers: { 'Content-Type': 'application/json' },
             method: 'POST',
             body: JSON.stringify(data)
@@ -30,7 +30,7 @@ const ReservesForm = () => {
                 if (response.ok) {
 
                     console.log(response);
-                    message.success('Reserve Successfully created!');
+                    message.success('Favorite Successfully created!');
                     return (
                         <>
                             {response.json()}
@@ -39,7 +39,7 @@ const ReservesForm = () => {
 
                 } else {
                     console.log(response);
-                    message.error('An Error Ocurred while reserving room! Try Again Later.');
+                    message.error('An Error Ocurred while favoriting room! Try Again Later.');
                 }
             })
 
@@ -79,16 +79,6 @@ const ReservesForm = () => {
             })
     }, [])
 
-    function onChangeDateCheckIn(date, DateCheckIn) {
-        console.log("date check in: " + DateCheckIn);
-        DCI = DateCheckIn;
-    }
-
-    function onChangeDateCheckOut(date, DateCheckOut) {
-        console.log("date check out: " + DateCheckOut);
-        DCO = DateCheckOut;
-    }
-
 
     const onFinish = (e) => {
 
@@ -96,13 +86,9 @@ const ReservesForm = () => {
 
         console.log(e);
         console.log("userID: " + userId);
-        console.log("DCI: " + DCI);
-        console.log("DCO: " + DCO);
         console.log("roomID: " + roomId);
 
         return {
-            dateCheckIn: DCI,
-            dateCheckOut: DCO,
             idUser: userId,
             idRoom: roomId
         }
@@ -125,27 +111,18 @@ const ReservesForm = () => {
                                         </div>
                                         <Row justify='center'>
                                             <h2 className='reserves-card-title-h2'>
-                                                <b>Reserve Room</b>
+                                                <b>Favorite Room</b>
                                             </h2>
                                         </Row>
                                     </Col>
                                 </Row>}
                                 bordered={false} style={{ width: 350 }}>
                                 <Form layout='vertical' onFinish={onSubmit}>
-                                    <Form.Item label={<h4 className='reserves-form-label-h4'><b>Date Check In</b></h4>} name="dateCheckIn">
-                                        <Row justify="center">
-                                            <DatePicker onChange={onChangeDateCheckIn} style={{ width: 300 }} required />
-                                        </Row>
-                                    </Form.Item>
-
-                                    <Form.Item label={<h4 className='reserves-form-label-h4'><b>Date Check In</b></h4>} name="dateCheckOut">
-                                        <Row justify="center">
-                                            <DatePicker onChange={onChangeDateCheckOut} style={{ width: 300 }} required />
-                                        </Row>
+                                    <Form.Item label={<h4 className='reserves-form-label-h4'><b>Are you sure you want to favorite this room?</b></h4>}>
                                     </Form.Item>
 
                                     <Form.Item>
-                                        <Button block className='reserves-Button-Outlined' htmlType='submit'><b>Reserve</b></Button>
+                                        <Button block className='reserves-Button-Outlined' htmlType='submit'><b>Favorite</b></Button>
                                     </Form.Item>
                                 </Form>
                             </Card>
@@ -158,4 +135,4 @@ const ReservesForm = () => {
     );
 }
 
-export default ReservesForm;
+export default FavoritesForm;

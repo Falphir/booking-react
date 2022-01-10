@@ -1,26 +1,23 @@
 import { Table } from 'antd';
 import { useState, useEffect } from 'react';
-import './ReserveTable.css';
-import { SelectOutlined } from '@ant-design/icons';
 import { Link, Navigate } from 'react-router-dom';
+import { SelectOutlined } from '@ant-design/icons';
 import { Modal } from 'antd';
 
 
-const MyReserves = (props) => {
+const MyFavorites = (props) => {
 
     const [loading, setLoading] = useState();
     const [userLogged, setUserLogged] = useState();
     const [data, setData] = useState({
-        reserves: [],
-        rooms: [],
+        favorites: [],
         pagination: {
             current: 1,
             pageSize: 10,
             total: 0
         }
     });
-    let idUser, nameUser, currentID, IDROOM;
-
+    let idUser, currentID;
 
 
     useEffect(() => {
@@ -43,12 +40,8 @@ const MyReserves = (props) => {
                 }
 
                 idUser = response.decoded[1];
-
                 localStorage.setItem('idUser', response.decoded[1]);
-
-                nameUser = response.decoded[2];
-                //console.log("idUser " + response.decoded[1]);
-                //console.log("nameUser " + response.decoded[2]);
+                console.log("idUser " + response.decoded[1]);
             })
 
             .catch(() => {
@@ -56,7 +49,7 @@ const MyReserves = (props) => {
             })
 
         return () => setData({
-            reserves: [],
+            favorites: [],
             pagination: {
                 current: 1,
                 pageSize: 10
@@ -67,18 +60,10 @@ const MyReserves = (props) => {
 
 
     const columns = [
-        {
-            title: 'Date Check In',
-            dataIndex: 'dateCheckIn',
-        },
-        {
-            title: 'Date Check Out',
-            dataIndex: 'dateCheckOut',
-        },
         /* {
             title: 'ID Room',
             dataIndex: 'idRoom',
-        }, */
+        } */
         {
             title: 'Room',
             render: (record) => {
@@ -89,7 +74,6 @@ const MyReserves = (props) => {
         }
     ];
 
-
     const onViewRoom = (record) => {
         Modal.confirm({
             title: 'Are you sure, you want to see this room?',
@@ -99,14 +83,13 @@ const MyReserves = (props) => {
         });
     };
 
-
     const fetchApi = (pageSize, current) => {
 
         currentID = localStorage.getItem('idUser');
 
-        //console.log("FETCHAPI idUser " + currentID);
+        console.log("FETCHAPI idUser " + currentID);
 
-        const url = '/reserve/user/reserves/' + currentID + '?' + new URLSearchParams({
+        const url = '/favorite/user/favorites/' + currentID + '?' + new URLSearchParams({
             limit: pageSize,
             skip: current - 1
         })
@@ -119,22 +102,13 @@ const MyReserves = (props) => {
             .then((response) => response.json())
 
             .then((response) => {
-                const { auth, reserves = [], pagination } = response;
+                const { auth, favorites = [], pagination } = response;
 
-                console.log(response);
-
-
-                if (response.reserves[0] != null) {
-                    IDROOM = response.reserves[0].idRoom;
-                    console.log(IDROOM);
-                }
-
-                fetch('/hotel/rooms/' + IDROOM)
 
                 if (auth) {
                     setLoading(false);
                     setData({
-                        reserves,
+                        favorites,
                         pagination: {
                             current: pagination.page + 1 || 1,
                             pageSize: pagination.pageSize || 10,
@@ -145,20 +119,17 @@ const MyReserves = (props) => {
             });
     }
 
-
-
-
     const handleTableChange = (pagination) => {
         fetchApi(pagination.pageSize, pagination.current)
     };
 
-    const { reserves, pagination } = data;
+    const { favorites, pagination } = data;
 
     return (
         <Table
             columns={columns}
             rowKey={record => record._id}
-            dataSource={reserves}
+            dataSource={favorites}
             pagination={pagination}
             loading={loading}
             onChange={handleTableChange}
@@ -166,4 +137,4 @@ const MyReserves = (props) => {
     )
 }
 
-export default MyReserves;
+export default MyFavorites;
