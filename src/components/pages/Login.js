@@ -6,7 +6,7 @@ function Login() {
     return (
         <>
             <div className='login-banner-container'>
-                <div className='loginForm'>
+                <div className=''>
                     <LoginForm />
                 </div>
 

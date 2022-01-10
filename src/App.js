@@ -18,7 +18,7 @@ import AdminRegister from './components/pages/AdminRegister';
 import DashboardEditor from './components/pages/DashboardEditor';
 import MyReserves from './components/Tables/reserves/MyReserves';
 import MyFavorites from './components/Tables/favorites/MyFavorites';
-import FavoritesForm from './components/Tables/favorites/add/FavoritesForm';
+import FavoritesForm from './components/pages/AddFavorite';
 
 
 function App() {

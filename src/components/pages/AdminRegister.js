@@ -5,8 +5,8 @@ import AdminRegisterForm from '../../register/admin/AdminRegisterForm'
 function Register() {
     return (
         <>
-            <div className='register-banner-container'>
-                <div className='registerForm'>
+            <div className='admin-register-banner-container'>
+                <div className=''>
                     <AdminRegisterForm />
                 </div>
 

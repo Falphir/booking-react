@@ -68,7 +68,7 @@ const MyFavorites = (props) => {
             title: 'Room',
             render: (record) => {
                 return <>
-                    <SelectOutlined onClick={() => { onViewRoom(record) }} style={{ color: "blue", marginLeft: 12 }} />
+                    <Link to={`/rooms/${record.idRoom}`}><SelectOutlined  style={{ color: "blue", marginLeft: 12 }} /></Link>
                 </>
             }
         }

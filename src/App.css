@@ -18,50 +18,16 @@
   font-size: 3rem;
 }
 
-.login-banner-container, .register-banner-container, .reserve-banner-container, .favorites-banner-container {
-  background: url('./assets/images/banner.jpg') center center/cover no-repeat;
-  background-size: auto;
-  height: 120vh;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+.register-banner-container,.login-banner-container, .reserve-banner-container, .favorites-banner-container , .admin-register-banner-container {
+  background: url('./assets/images/banner.jpg') fixed center center/cover no-repeat;
+  height: 94vh;
   box-shadow: inset 0 0 0 1000px rgba(0, 0, 0, 0.5);
-  object-fit: contain;
 }
 
 .rooms-banner-container {
-  background: url('./assets/images/banner.jpg') center center/cover no-repeat;
-  height: 115vh;
-  width: 100%;
-  display: flex;
-  position: sticky;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  background: url('./assets/images/banner.jpg') fixed center center/cover no-repeat;
+  height: 120vh;
   box-shadow: inset 0 0 0 1000px rgba(0, 0, 0, 0.5);
-  object-fit: contain;
-}
-
-.loginForm {
-  margin-top: -250px;
-}
-
-.favoritesForm {
-  margin-top: -250px;
-}
-
-.registerForm {
-  margin-top: -250px;
-}
-
-.roomsForm {
-  margin-top: -150px;
-}
-
-.reserveForm {
-  margin-top: -250px;
 }
 
 .rooms-details-icons {
@@ -80,34 +46,26 @@
 @media screen and (max-width: 1920px){
   
   .login-banner-container {
-    height: 92.1vh;
+    height: 92.5vh;
   }
 
   .register-banner-container {
-    height: 100vh;
+    height: 92.5vh;
+  }
+
+  .admin-register-banner-container {
+    height: 92.5vh;
   }
 
   .reserve-banner-container {
-    height: 90vh;
+    height: 92.5vh;
   }
 
   .rooms-banner-container {
-    height: 200vh;
+    height: 150vh;
   }
 
-  .loginForm {
-    margin-top: -200px;
-  }
-  
-  .registerForm {
-    margin-top: -150px;
-  }
-  
-  .roomsForm {
-    margin-top: -100px;
-  }
-  
-  .reserveForm {
-    margin-top: -100px;
+  .favorites-banner-container {
+    height: 92.5vh;
   }
 }
