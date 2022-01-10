@@ -46,7 +46,7 @@ const RegisterForm = () => {
             password: e.password,
             role: {
                 nameRole: "user",
-                scopes: ["read-own-reserves", "create-reserve", "detail-reserve"]
+                scopes: ["read-own-reserves", "create-reserve", "detail-reserve", "create-favorite", "read-own-favorites", "delete-favorite", "create-comment"]
             }
         }
     }

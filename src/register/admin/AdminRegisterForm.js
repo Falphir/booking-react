@@ -102,7 +102,7 @@ const RegisterForm = () => {
                 password: e.password,
                 role: {
                     nameRole: radio.value,
-                    scopes: ["read-own-reserves", "create-reserve", "detail-reserve"]
+                    scopes: ["read-own-reserves", "create-reserve", "detail-reserve", "create-favorite", "read-own-favorites", "delete-favorite", "create-comment"]
                 }
             }
         } else if (radio.value == 'editor') {
