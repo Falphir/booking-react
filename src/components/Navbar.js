@@ -253,7 +253,6 @@ function Navbar() {
               <Button buttonStyle='btn--gold--outline'>SIGN UP</Button>
             </Link>}
 
-
           {signInLink &&
             <Link to='/login' className='btn-mobile'>
               <Button buttonStyle='btn--gold--outline'>SIGN IN</Button>
@@ -262,9 +261,11 @@ function Navbar() {
           {signOutLink &&
             <div className='btn-mobile'>
               <Popover placement="bottom" color={"#242424"} align='middle' content={
-                <Row justify='center' style={{ marginBottom: -8 }}>
-                  <Link to="" onClick={onClickLogout}><p style={{ color: '#fff' }}>Log Out</p></Link>
-                </Row>
+                <>
+                  <Row justify='center' style={{ marginBottom: -8 }}>
+                    <Link to="" onClick={onClickLogout}><p style={{ color: '#fff' }}>Log Out</p></Link>
+                  </Row>
+                </>
               } trigger="click">
                 <Avatar size={60} icon={<UserOutlined />} />
               </Popover>

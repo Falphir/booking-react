@@ -1,5 +1,6 @@
 import './RegisterForm.css';
 import { useForm } from 'react-hook-form';
+import { Navigate } from 'react-router-dom';
 import { Col, Row, Card, Form, Input, Button, message } from 'antd';
 import { Link } from 'react-router-dom';
 import { LockOutlined, UserOutlined, MailOutlined } from '@ant-design/icons'
@@ -22,10 +23,13 @@ const RegisterForm = () => {
 
                     console.log(response);
                     message.success('User Registered');
-                    return response.json();
-
+                    return (
+                        <>
+                            {response.json()}
+                            <Navigate to="/login"></Navigate>
+                        </>
+                    )
                 } else {
-
                     console.log(response);
                     message.error('User duplicated');
                 }

@@ -5,8 +5,8 @@ import '../../App.css'
 function addFavorite() {
     return (
         <>
-            <div className='reserve-banner-container'>
-                <div className='reserveForm'>
+            <div className='favorites-banner-container'>
+                <div className='favoritesForm'>
                     <FavoritesForm />
                 </div>
             </div>

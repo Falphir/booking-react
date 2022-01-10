@@ -1,12 +1,15 @@
 import './UserTable.css';
+import React from 'react'
 import { useState, useEffect } from 'react';
 import { Table, Row, Col, Button, Tag, Modal } from 'antd';
-import { PlusOutlined, DeleteOutlined } from '@ant-design/icons';
+import { PlusOutlined, DeleteOutlined, EyeInvisibleOutlined, EyeOutlined} from '@ant-design/icons';
 import { Link } from 'react-router-dom';
 
 const UserTable = (props) => {
 
     const [loading, setLoading] = useState(true);
+    const [hidden, setHidden] = useState(true)
+    const [icon, setIcon] = useState(true)
     const [data, setData] = useState({
         users: [],
         pagination: {
@@ -47,19 +50,39 @@ const UserTable = (props) => {
         {
             title: 'ID',
             dataIndex: '_id',
+            hidden: hidden,
         },
         {
             title: 'Name',
             dataIndex: 'name',
+            sorter: (a, b) => a.name.localeCompare(b.name),
+            defaultSortOrder: 'ascend',
         },
 
         {
             title: 'Email',
             dataIndex: 'email',
+            sorter: (a, b) => a.email.localeCompare(b.email)
         },
         {
             title: 'Role',
             dataIndex: 'role',
+            filters: [
+                {
+                    text: 'Admin',
+                    value: 'admin',
+                },
+                {
+                    text: 'Editor',
+                    value: 'editor',
+                },
+                {
+                    text: 'User',
+                    value: 'user',
+                }
+            ],
+            onFilter: (value, record) => record.role.nameRole.indexOf(value) === 0,
+            sorter: (a, b) => a.role.nameRole.localeCompare(b.role.nameRole),
             render: renderRole
         },
         {
@@ -71,11 +94,18 @@ const UserTable = (props) => {
             title: 'Actions',
             render: (record) => {
                 return <>
+                    {icon &&
+                        <EyeOutlined onClick={() => { onUnlockId() }}/>
+                    }
+                    {!icon &&
+                        <EyeInvisibleOutlined onClick={() => { onUnlockId() }} />
+                    }
+
                     <DeleteOutlined onClick={() => { onDeleteUser(record) }} style={{ color: "red", marginLeft: 12 }} />
                 </>
             }
         }
-    ];
+    ].filter(item => !item.hidden);;
 
     const onDeleteUser = (record) => {
         Modal.confirm({
@@ -88,6 +118,11 @@ const UserTable = (props) => {
             },
         });
     };
+
+    const onUnlockId = () => {
+        setHidden(!hidden)
+        setIcon(!icon)
+    }
 
 
     const fetchApi = (pageSize, current) => {
@@ -147,13 +182,11 @@ const UserTable = (props) => {
         <div>
             <Row justify="end">
                 <Col>
-                    <div style={{ margin: 8 }}>
-                        <Link to='/admin/register'>
-                            <Button loading={loading}>
-                                <PlusOutlined style={{ marginRight: 8 }} /> Add User
-                            </Button>
-                        </Link>
-                    </div>
+                    <Link to='/admin/register'>
+                        <Button loading={loading} style={{ marginBottom: 8 }}>
+                            <PlusOutlined style={{ marginRight: 8 }} /> Add User
+                        </Button>
+                    </Link>
                 </Col>
             </Row>
             <Table

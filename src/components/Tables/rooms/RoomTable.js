@@ -64,26 +64,32 @@ const RoomTable = (props) => {
         {
             title: 'Description',
             dataIndex: 'description',
+            sorter: (a, b) => a.description.localeCompare(b.description),
+            defaultSortOrder: 'ascend',
         },
 
         {
             title: 'Nº Adults',
             dataIndex: 'nAdult',
+            sorter: (a, b) => a.nAdult - b.nAdult,
         },
 
         {
             title: 'Nº Children',
             dataIndex: 'nChild',
+            sorter: (a, b) => a.nChild - b.nChild,
         },
 
         {
             title: 'Nº Rooms',
             dataIndex: 'nRoom',
+            sorter: (a, b) => a.nRoom - b.nRoom,
         },
 
         {
             title: 'Price (€)',
             dataIndex: 'price',
+            sorter: (a, b) => a.price - b.price,
         },
 
         {
@@ -210,23 +216,12 @@ const RoomTable = (props) => {
 
     const { rooms, pagination } = data;
 
-    function onAddRoom() {
-        Modal.confirm({
-            title: 'Add Room',
-            icon: <ExclamationCircleOutlined />,
-            content: <RoomsForm />,
-            okText: 'Submit',
-            cancelText: 'Cancel',
-            width: 800
-        });
-    }
-
     return (
         <div>
             <Row justify="end">
                 <Col>
                     <Link to='/roomsForm'>
-                        <Button loading={loading}>
+                        <Button loading={loading} style={{ marginBottom: 8 }}>
                             <PlusOutlined style={{ marginRight: 8 }} /> Add Room
                         </Button>
                     </Link>

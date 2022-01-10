@@ -117,7 +117,7 @@ const RoomsCard = (props) => {
     }
 
     return (
-        <List grid={{ gutter: 16, column: ncolumn }} dataSource={rooms} columns={columns} rowKey={record => record._id} loading={loading}
+        <List grid={{ gutter: 16, column: ncolumn }} dataSource={rooms} rowKey={record => record._id} loading={loading}
             renderItem={item => (
                 <List.Item>
                     <Link to={`/rooms/${item._id}`}>

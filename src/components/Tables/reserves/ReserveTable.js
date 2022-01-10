@@ -2,6 +2,7 @@ import { Table, Modal, Button, Row, Col } from 'antd';
 import { DeleteOutlined, PlusOutlined } from '@ant-design/icons';
 import { useState, useEffect } from 'react';
 import './ReserveTable.css';
+import moment from 'moment';
 
 const ReserveTable = (props) => {
 
@@ -28,10 +29,13 @@ const ReserveTable = (props) => {
         {
             title: 'Date Check In',
             dataIndex: 'dateCheckIn',
+            sorter: (a, b) => moment(a.dateCheckIn).unix() - moment(b.dateCheckIn).unix(),
+            defaultSortOrder: 'ascend',
         },
         {
             title: 'Date Check Out',
             dataIndex: 'dateCheckOut',
+            sorter: (a, b) => moment(a.dateCheckOut).unix() - moment(b.dateCheckOut).unix(),
         },
 
         {
@@ -88,7 +92,6 @@ const ReserveTable = (props) => {
                 }
             });
     }
-
 
     useEffect(() => {
         fetchApi(data.pagination.pageSize, data.pagination.current);

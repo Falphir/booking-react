@@ -18,9 +18,10 @@
   font-size: 3rem;
 }
 
-.login-banner-container, .register-banner-container, .reserve-banner-container {
+.login-banner-container, .register-banner-container, .reserve-banner-container, .favorites-banner-container {
   background: url('./assets/images/banner.jpg') center center/cover no-repeat;
-  height: 95vh;
+  background-size: auto;
+  height: 120vh;
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -44,6 +45,10 @@
 }
 
 .loginForm {
+  margin-top: -250px;
+}
+
+.favoritesForm {
   margin-top: -250px;
 }
 
@@ -75,11 +80,11 @@
 @media screen and (max-width: 1920px){
   
   .login-banner-container {
-    height: 90vh;
+    height: 92.1vh;
   }
 
   .register-banner-container {
-    height: 120vh;
+    height: 100vh;
   }
 
   .reserve-banner-container {
@@ -91,11 +96,11 @@
   }
 
   .loginForm {
-    margin-top: -100px;
+    margin-top: -200px;
   }
   
   .registerForm {
-    margin-top: -100px;
+    margin-top: -150px;
   }
   
   .roomsForm {
