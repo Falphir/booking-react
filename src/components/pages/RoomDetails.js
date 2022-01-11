@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Config from '../../config';
-import { List, Card, Col, Row, Button, DatePicker, Form, Image, Space, Rate, Tabs, Table, Layout, Divider, Tag, Tooltip, Comment } from 'antd';
+import { List, Card, Col, Row, Button, DatePicker, Form, Image, Space, Rate, Tabs, Table, Layout, Divider, Tag, Tooltip, Comment, message } from 'antd';
 import { HeartOutlined, HeartFilled } from '@ant-design/icons'
 import { useParams, Link } from 'react-router-dom';
 import Modal from 'antd/lib/modal/Modal';
@@ -49,6 +49,8 @@ const RoomDetails = (props) => {
     const [loading, setLoading] = useState(true);
     const [userLogged, setUserLogged] = useState();
     const [reserve, setReserve] = useState();
+    const { register, handleSubmit } = useForm();
+    const onSubmit = e => postComment(onFinish(e));
     const [data, setData] = useState({
         rooms: [],
         pagination: {
@@ -121,6 +123,47 @@ const RoomDetails = (props) => {
             });
     }
 
+
+    const postComment = (data) => {
+        fetch('/comment/' + roomId, {
+            headers: { 'Content-Type': 'application/json' },
+            method: 'POST',
+            body: JSON.stringify(data)
+        })
+
+            .then((response) => {
+                if (response.ok) {
+
+                    console.log(response);
+                    message.success('User Registered');
+                    return (
+                        <>
+                            {response.json()}
+                        </>
+                    )
+                } else {
+                    console.log(response);
+                    message.error('User duplicated');
+                }
+            })
+
+            .catch((err) => {
+                console.error('error:', err);
+            });
+    }
+
+    const onFinish = (e) => {
+        console.log(e);
+        return {
+            name: e.name,
+            email: e.email,
+            password: e.password,
+            role: {
+                nameRole: "user",
+                scopes: ["read-own-reserves", "create-reserve", "detail-reserve", "create-favorite", "read-own-favorites", "delete-favorite", "create-comment"]
+            }
+        }
+    }
 
     useEffect(() => {
         fetch('/auth/me', {
@@ -223,21 +266,16 @@ const RoomDetails = (props) => {
                                     <Row style={{ marginTop: 10 }}>
                                         <Col span={24}>
                                             <Row>
-                                                <Col span={24}>
-                                                    <h4><b> Type of Room </b></h4>
-                                                    <Row justify='start'>
-                                                        {rooms.typeRoom}
-                                                    </Row>
-                                                </Col>
-                                            </Row>
-                                            <Divider style={{ marginTop: 0 }}></Divider>
-                                            <Row>
                                                 <h4><b> Capacity </b></h4>
                                             </Row>
                                             <Divider style={{ marginTop: 0 }}></Divider>
                                             <Row justify='start'>
+                                                <Tooltip placement='top' title={"Adults"}>
                                                 <div className='rooms-details-icons' style={{marginRight: 16}}><i class="fas fa-user-alt"></i> {rooms.nAdult} </div>
+                                                </Tooltip>
+                                                <Tooltip placement='top' title={"Childrens"}>
                                                 <div className='rooms-details-icons'><i class="fas fa-child"></i> {rooms.nChild}  </div>
+                                                </Tooltip>
                                             </Row>
                                             <Row justify='start' >
                                                 
@@ -288,7 +326,7 @@ const RoomDetails = (props) => {
                                             <Comment
                                                 avatar={<Avatar src="https://joeschmoe.io/api/v1/random" />}
                                                 content={
-                                                    <Form>
+                                                    <Form layout='vertical' onFinish={onSubmit}>
                                                         <Form.Item>
                                                             <Rate></Rate>
                                                         </Form.Item>
@@ -296,7 +334,7 @@ const RoomDetails = (props) => {
                                                             <TextArea rows={4} placeholder='Insert your comment!'></TextArea>
                                                         </Form.Item>
                                                         <Form.Item>
-                                                            <Button type='primary'>Submit</Button>
+                                                            <Button type='primary' htmlType='submit'>Submit</Button>
                                                         </Form.Item>
                                                     </Form>
                                                 }

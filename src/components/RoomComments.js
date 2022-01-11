@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { List } from 'antd'
+import { List, Row, Col, Card } from 'antd'
+import { useParams, Link } from 'react-router-dom';
+const { Meta } = Card;
 
 
 function useWindowSize() {
@@ -28,7 +30,8 @@ function useWindowSize() {
 
 const RoomComments = (props) => {
 
-    const roomId = props.data
+    //const { roomId } = props.data;
+    const { roomId } = useParams();
     const Size = useWindowSize();
     const [loading, setLoading] = useState(true);
     const [data, setData] = useState({
@@ -40,12 +43,13 @@ const RoomComments = (props) => {
         }
     });
 
+    
+
     const fetchApi = (pageSize, current) => {
-        const url = '/comments/' + {roomId} ({
+        const url = '/comments/' + roomId + '?' + new URLSearchParams({
             limit: pageSize,
             skip: current - 1
         })
-
 
         fetch(url, {
             headers: { 'Accept': 'application/json' }
@@ -71,6 +75,15 @@ const RoomComments = (props) => {
             });
     }
 
+    const columns = [
+        { title: 'Description', value: 'description', },
+        { title: 'Nº Adults', value: 'nAdult', },
+        { title: 'Nº Children', value: 'nChild', },
+        { title: 'Nº Rooms', value: 'nRoom', },
+        { title: 'Price (€)', value: 'price', },
+        { title: 'Nº Stars', value: 'nStars',},
+        //{ title: 'Tags', value: 'tags', render: renderTags }
+    ];
 
     useEffect(() => {
         fetchApi(data.pagination.pageSize, data.pagination.current);
@@ -96,9 +109,9 @@ const RoomComments = (props) => {
     console.log("Room ID: " + props.data)
     return (
         <>
-            <List>
-                
-            </List>
+        <h2>{rooms.comment}</h2> 
+
+            
         </>
     )
 }
