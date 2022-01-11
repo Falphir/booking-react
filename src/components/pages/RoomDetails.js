@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import Config from '../../config';
 import { List, Card, Col, Row, Button, DatePicker, Form, Image, Space, Rate, Tabs, Table, Layout, Divider, Tag, Tooltip, Comment } from 'antd';
+import { HeartOutlined, HeartFilled } from '@ant-design/icons'
 import { useParams, Link } from 'react-router-dom';
 import Modal from 'antd/lib/modal/Modal';
 import { set, useForm } from "react-hook-form";
 import Footer from '../Footer';
 import TextArea from 'antd/lib/input/TextArea';
 import Avatar from 'antd/lib/avatar/avatar';
+import RoomComments from '../RoomComments';
+
 
 
 const { TabPane } = Tabs;
@@ -41,6 +44,8 @@ function useWindowSize() {
 const RoomDetails = (props) => {
 
     const Size = useWindowSize();
+    const [state, setState] = useState();
+    const [icon, setIcon] = useState(true)
     const [loading, setLoading] = useState(true);
     const [userLogged, setUserLogged] = useState();
     const [reserve, setReserve] = useState();
@@ -179,6 +184,11 @@ const RoomDetails = (props) => {
         },
     ]
 
+    const onChange = () => {
+        setIcon(!icon)
+    }
+
+
     return (
         <>
 
@@ -226,36 +236,41 @@ const RoomDetails = (props) => {
                                             </Row>
                                             <Divider style={{ marginTop: 0 }}></Divider>
                                             <Row justify='start'>
-                                                <div className='rooms-details-icons'><i class="fas fa-user-alt"></i> {rooms.nAdult} </div>
-                                            </Row>
-                                            <Row justify='start'>
+                                                <div className='rooms-details-icons' style={{marginRight: 16}}><i class="fas fa-user-alt"></i> {rooms.nAdult} </div>
                                                 <div className='rooms-details-icons'><i class="fas fa-child"></i> {rooms.nChild}  </div>
                                             </Row>
+                                            <Row justify='start' >
+                                                
+                                            </Row>
                                             <Row style={{ paddingTop: 20 }}>
-                                                {!userLogged &&
-                                                    <Tooltip placement='top' title={"You need to have an Account in order to be able to reserve this room"}>
-                                                        <Button disabled type='primary'>Reserve This Room</Button>
-                                                    </Tooltip>
-                                                }
-                                                {userLogged &&
-                                                    <Link to={`/reserves/${roomId}`}>
-                                                        <Button type='primary'>Reserve This Room</Button>
-                                                    </Link>
-                                                }
+                                                <Col>
+                                                    {!userLogged &&
+                                                        <Tooltip placement='top' title={"You need to have an Account in order to be able to reserve this room"}>
+                                                            <Button disabled type='primary'>Reserve This Room</Button>
+                                                        </Tooltip>
+                                                    }
+                                                    {userLogged &&
+                                                        <Link to={`/reserves/${roomId}`}>
+                                                            <Button type='primary'>Reserve This Room</Button>
+                                                        </Link>
+                                                    }
+                                                </Col>
+                                                <Col>
+                                                    <div style={{ paddingLeft: 8 }}>
+                                                        {/* favorites */}
+                                                        {!userLogged &&
+                                                            <>
+                                                                <Button disabled><HeartOutlined />Add to Favorites</Button>
+                                                            </>
+                                                        }
+                                                        {userLogged &&
+                                                            <Link to={`/favorites/${roomId}`}>
+                                                                <Button bordered={false}><HeartFilled style={{ color: 'red' }} /> Add to Favorites</Button>
+                                                            </Link>
+                                                        }
+                                                    </div>
 
-
-
-                                                {/* favorites */}
-                                                {!userLogged &&
-                                                    <Tooltip placement='top' title={"You need to have an Account in order to be able to reserve this room"}>
-                                                        <Button disabled type='primary'><i class="fas fa-star"></i> Add to Favorites</Button>
-                                                    </Tooltip>
-                                                }
-                                                {userLogged &&
-                                                    <Link to={`/favorites/${roomId}`}>
-                                                        <Button type='primary'><i class="fas fa-star"></i> Add to Favorites</Button>
-                                                    </Link>
-                                                }
+                                                </Col>
                                             </Row>
                                         </Col>
                                     </Row>
@@ -269,12 +284,16 @@ const RoomDetails = (props) => {
                                             <Table columns={Extracolumns} dataSource={ExtrastableData} pagination={false} />
                                         </TabPane>
                                         <TabPane tab="Comments" key="2">
+                                            <RoomComments data={`${roomId}`}/>
                                             <Comment
                                                 avatar={<Avatar src="https://joeschmoe.io/api/v1/random" />}
                                                 content={
                                                     <Form>
                                                         <Form.Item>
-                                                            <TextArea rows={4}></TextArea>
+                                                            <Rate></Rate>
+                                                        </Form.Item>
+                                                        <Form.Item>
+                                                            <TextArea rows={4} placeholder='Insert your comment!'></TextArea>
                                                         </Form.Item>
                                                         <Form.Item>
                                                             <Button type='primary'>Submit</Button>
