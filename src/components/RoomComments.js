@@ -31,11 +31,10 @@ function useWindowSize() {
 const RoomComments = (props) => {
 
     //const { roomId } = props.data;
-    const { roomId } = useParams();
     const Size = useWindowSize();
     const [loading, setLoading] = useState(true);
     const [data, setData] = useState({
-        rooms: [],
+        comments: [],
         pagination: {
             current: 1,
             pageSize: 10,
@@ -43,10 +42,10 @@ const RoomComments = (props) => {
         }
     });
 
-    
+
 
     const fetchApi = (pageSize, current) => {
-        const url = '/comments/' + roomId + '?' + new URLSearchParams({
+        const url = '/comment/comments/' + props.data + new URLSearchParams({
             limit: pageSize,
             skip: current - 1
         })
@@ -58,13 +57,13 @@ const RoomComments = (props) => {
             .then((response) => response.json())
 
             .then((response) => {
-                const { auth, rooms = [], pagination } = response;
+                const { auth, comments = [], pagination } = response;
 
 
                 if (auth) {
                     setLoading(false);
                     setData({
-                        rooms,
+                        comments,
                         pagination: {
                             current: pagination.page + 1 || 1,
                             pageSize: pagination.pageSize || 10,
@@ -81,7 +80,7 @@ const RoomComments = (props) => {
         { title: 'Nº Children', value: 'nChild', },
         { title: 'Nº Rooms', value: 'nRoom', },
         { title: 'Price (€)', value: 'price', },
-        { title: 'Nº Stars', value: 'nStars',},
+        { title: 'Nº Stars', value: 'nStars', },
         //{ title: 'Tags', value: 'tags', render: renderTags }
     ];
 
@@ -89,7 +88,7 @@ const RoomComments = (props) => {
         fetchApi(data.pagination.pageSize, data.pagination.current);
 
         return () => setData({
-            rooms: [],
+            comments: [],
             pagination: {
                 current: 1,
                 pageSize: 10
@@ -104,14 +103,20 @@ const RoomComments = (props) => {
 
 
 
-    const { rooms, pagination } = data;
+    const { comments, pagination } = data;
 
     console.log("Room ID: " + props.data)
     return (
         <>
-        <h2>{rooms.comment}</h2> 
+            <h2>{comments.comment}</h2>
+            <List grid={{ gutter: 16, column: 1 }} dataSource={comments} pagination={pagination} onChange={onChange} columns={columns} rowKey={record => record._id} loading={loading}
+                renderItem={item => (
+                    <List.Item>
+                        <h2>{item.comment}</h2>
+                    </List.Item >
+                )}>
+            </List >
 
-            
         </>
     )
 }
