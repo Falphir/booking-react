@@ -40,9 +40,13 @@ const ReserveTable = (props) => {
 
         {
             title: 'Actions',
+            fixed: 'right',
+            width: '10%',
             render: (record) => {
                 return <>
+                <Row justify='center'>
                     <DeleteOutlined onClick={() => { onDeleteReserve(record) }} style={{ color: "red", marginLeft: 12 }} />
+                    </Row>
                 </>
             }
         }
@@ -123,6 +127,8 @@ const ReserveTable = (props) => {
                 pagination={pagination}
                 loading={loading}
                 onChange={handleTableChange}
+                scroll={{ x: 1000 }}
+                sticky
             />
         </div>
     )

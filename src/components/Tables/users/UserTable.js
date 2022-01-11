@@ -2,7 +2,7 @@ import './UserTable.css';
 import React from 'react'
 import { useState, useEffect } from 'react';
 import { Table, Row, Col, Button, Tag, Modal } from 'antd';
-import { PlusOutlined, DeleteOutlined, EyeInvisibleOutlined, EyeOutlined} from '@ant-design/icons';
+import { PlusOutlined, DeleteOutlined, EyeInvisibleOutlined, EyeOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
 
 const UserTable = (props) => {
@@ -92,16 +92,20 @@ const UserTable = (props) => {
         },
         {
             title: 'Actions',
+            fixed: 'right',
+            width: '10%',
             render: (record) => {
                 return <>
-                    {icon &&
-                        <EyeOutlined onClick={() => { onUnlockId() }}/>
-                    }
-                    {!icon &&
-                        <EyeInvisibleOutlined onClick={() => { onUnlockId() }} />
-                    }
+                    <Row justify='center'>
+                        {icon &&
+                            <EyeOutlined onClick={() => { onUnlockId() }} />
+                        }
+                        {!icon &&
+                            <EyeInvisibleOutlined onClick={() => { onUnlockId() }} />
+                        }
 
-                    <DeleteOutlined onClick={() => { onDeleteUser(record) }} style={{ color: "red", marginLeft: 12 }} />
+                        <DeleteOutlined onClick={() => { onDeleteUser(record) }} style={{ color: "red", marginLeft: 12 }} />
+                    </Row>
                 </>
             }
         }
@@ -196,6 +200,8 @@ const UserTable = (props) => {
                 pagination={pagination}
                 loading={loading}
                 onChange={handleTableChange}
+                scroll={{ x: 1000 }}
+                sticky
             />
         </div>
     )

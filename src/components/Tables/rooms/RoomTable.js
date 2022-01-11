@@ -1,14 +1,18 @@
 import './RoomTable.css';
 import React, { useState, useEffect } from 'react';
 import Config from '../../../config';
-import { Table, Modal, Tag, Button, Row, Col } from 'antd';
+import { Table, Modal, Tag, Button, Row, Col, Input, InputNumber } from 'antd';
 import { SelectOutlined, EditOutlined, DeleteOutlined, PlusOutlined, ExclamationCircleOutlined } from '@ant-design/icons';
 import RoomsForm from './add/RoomsForm';
 import { Link } from 'react-router-dom';
 
+const { TextArea } = Input;
+
 const RoomTable = (props) => {
 
     const [loading, setLoading] = useState(true);
+    const [isEditing, setIsEditing] = useState(false);
+    const [editingRoom, setEditingRoom] = useState(null)
     const [data, setData] = useState({
         rooms: [],
         pagination: {
@@ -105,26 +109,19 @@ const RoomTable = (props) => {
         },
         {
             title: 'Actions',
+            fixed: 'right',
             render: (record) => {
                 return <>
-                    <Link to={`/rooms/${record._id}`}><SelectOutlined style={{ color: "blue" }} /></Link>
-                    <EditOutlined onClick={() => { onEditRoom(record) }} style={{ marginLeft: 12 }} />
-                    <DeleteOutlined onClick={() => { onDeleteRoom(record) }} style={{ color: "red", marginLeft: 12 }} />
+                    <Row justify='center'>
+                        <Link to={`/rooms/${record._id}`}><SelectOutlined style={{ color: "blue" }} /></Link>
+                        <EditOutlined onClick={() => { onEditRoom(record) }} style={{ marginLeft: 12 }} />
+                        <DeleteOutlined onClick={() => { onDeleteRoom(record) }} style={{ color: "red", marginLeft: 12 }} />
+                    </Row>
                 </>
             }
         }
 
     ];
-
-    const onViewRoom = (record) => {
-        Modal.confirm({
-            title: 'Are you sure, you want to see this room?',
-            onOk: () => {
-                console.log(record._id);
-                <Link to={`/rooms/${record._id}`}></Link>
-            },
-        });
-    };
 
     const onDeleteRoom = (record) => {
         Modal.confirm({
@@ -139,30 +136,14 @@ const RoomTable = (props) => {
     };
 
     const onEditRoom = (record) => {
-
-        // Modal.confirm({
-        //     title: 'Edit Room',
-        //     onOk={},
-        //     onCancel={},
-        //     footer={[
-        //         <Button key="back" onClick={ }>
-        //             Return
-        //         </Button>,
-        //         <Button key="submit" type="primary" loading={loading} onClick={this.handleOk}>
-        //             Submit
-        //         </Button>,
-        //         <Button
-        //             key="link"
-        //             href="https://google.com"
-        //             type="primary"
-        //             loading={loading}
-        //             onClick={this.handleOk}
-        //         >
-        //             Search on Google
-        //         </Button>
-        //         ]}
-        // });
+        setIsEditing(true)
+        setEditingRoom({ ...record })
     };
+
+    const resetEditing = () => {
+        setIsEditing(false)
+        setEditingRoom(null)
+    }
 
 
     const fetchApi = (pageSize, current) => {
@@ -234,9 +215,51 @@ const RoomTable = (props) => {
                 pagination={pagination}
                 loading={loading}
                 onChange={handleTableChange}
+                scroll={{ x: 1500 }}
+                sticky
+
             >
                 <Table.Footer></Table.Footer>
             </Table>
+
+            <Modal
+                title="Edit Room"
+                visible={isEditing}
+                okText="Save"
+                onCancel={() => {
+                    resetEditing()
+                }}
+                onOk={() => {
+                    setIsEditing(false);
+                    resetEditing()
+                }}
+            >
+                <TextArea value={editingRoom?.description} onChange={(e) => {
+                    setEditingRoom(pre => {
+                        return { ...pre, description: e.target.value }
+                    })
+                }} />
+                <InputNumber value={editingRoom?.nAdult} onChange={(e) => {
+                    setEditingRoom(pre => {
+                        return { ...pre, nAdult: e.target.value }
+                    })
+                }} />
+                <InputNumber value={editingRoom?.nChild} onChange={(e) => {
+                    setEditingRoom(pre => {
+                        return { ...pre, nChild: e.target.value }
+                    })
+                }} />
+                <InputNumber value={editingRoom?.nRoom} onChange={(e) => {
+                    setEditingRoom(pre => {
+                        return { ...pre, nRoom: e.target.value }
+                    })
+                }} />
+                <InputNumber value={editingRoom?.price} onChange={(e) => {
+                    setEditingRoom(pre => {
+                        return { ...pre, price: e.target.value }
+                    })
+                }} />
+            </Modal>
         </div >
     )
 }
