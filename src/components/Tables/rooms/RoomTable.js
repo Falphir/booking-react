@@ -1,7 +1,7 @@
 import './RoomTable.css';
 import React, { useState, useEffect } from 'react';
 import Config from '../../../config';
-import { Table, Modal, Tag, Button, Row, Col, Input, InputNumber } from 'antd';
+import { Table, Modal, Tag, Button, Row, Col, Input, InputNumber, message } from 'antd';
 import { SelectOutlined, EditOutlined, DeleteOutlined, PlusOutlined, ExclamationCircleOutlined } from '@ant-design/icons';
 import RoomsForm from './add/RoomsForm';
 import { Link } from 'react-router-dom';
@@ -10,9 +10,11 @@ const { TextArea } = Input;
 
 const RoomTable = (props) => {
 
+    var idRoom = "";
     const [loading, setLoading] = useState(true);
     const [isEditing, setIsEditing] = useState(false);
     const [editingRoom, setEditingRoom] = useState(null)
+    const onSubmit = e => FetchEditRoom(updateRoom(e));
     const [data, setData] = useState({
         rooms: [],
         pagination: {
@@ -135,15 +137,10 @@ const RoomTable = (props) => {
         });
     };
 
-    const onEditRoom = (record) => {
+    const onEditRoom = (e) => {
         setIsEditing(true)
-        setEditingRoom({ ...record })
+        setEditingRoom({ ...e })
     };
-
-    const resetEditing = () => {
-        setIsEditing(false)
-        setEditingRoom(null)
-    }
 
 
     const fetchApi = (pageSize, current) => {
@@ -177,7 +174,6 @@ const RoomTable = (props) => {
             });
     }
 
-
     useEffect(() => {
         fetchApi(data.pagination.pageSize, data.pagination.current);
 
@@ -196,6 +192,64 @@ const RoomTable = (props) => {
     };
 
     const { rooms, pagination } = data;
+
+    const FetchEditRoom = (DATA) => {
+        console.log("ID ROOM FETCH : " + editingRoom._id);
+        fetch('/hotel/rooms/' + editingRoom._id, {
+            method: 'PUT',
+            body: JSON.stringify(DATA)
+        })
+            .then((response) => {
+                if (response.ok) {
+
+                    console.log(response);
+                    message.success('Room Successfully Edited!');
+                    //alert("Room created");
+                    return (
+                        <>
+                            {response.json()}
+
+                        </>
+                    )
+
+                } else {
+
+                    console.log(response);
+                    message.error('An ERROR Occurred While Editing the Room!');
+                    //alert("Room duplicate");
+                }
+            })
+
+            .catch((err) => {
+                console.error('error:', err);
+            });
+    }
+
+    const updateRoom = (e) => {
+        console.log("description: " + e.description)
+        return {
+            //image: url,
+            description: e.description,
+            nAdult: e.nAdults,
+            nChild: e.nChildren,
+            nRoom: e.nRooms,
+            price: e.price
+            //typeRoom: record.typeRoom,
+            //nSingleBed: record.nSingleBed,
+            //nDoubleBed: record.nDoubleBed,
+            //nStars: record.nStars
+        }
+    }
+
+    const resetEditing = () => {
+        setIsEditing(false)
+        setEditingRoom(null)
+    }
+
+
+
+
+    console.log(rooms._id)
 
     return (
         <div>
@@ -219,7 +273,6 @@ const RoomTable = (props) => {
                 sticky
 
             >
-                <Table.Footer></Table.Footer>
             </Table>
 
             <Modal
@@ -230,8 +283,12 @@ const RoomTable = (props) => {
                     resetEditing()
                 }}
                 onOk={() => {
+                    console.log("idRoom : " + editingRoom._id)
+                    //idRoom = editingRoom.id
                     setIsEditing(false);
                     resetEditing()
+                    onSubmit(editingRoom)
+                    
                 }}
             >
                 <TextArea value={editingRoom?.description} onChange={(e) => {
