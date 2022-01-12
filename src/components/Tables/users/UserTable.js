@@ -2,7 +2,7 @@ import './UserTable.css';
 import React from 'react'
 import { useState, useEffect } from 'react';
 import { Table, Row, Col, Button, Tag, Modal } from 'antd';
-import { PlusOutlined, DeleteOutlined, EyeInvisibleOutlined, EyeOutlined } from '@ant-design/icons';
+import { PlusOutlined, DeleteOutlined, EyeInvisibleOutlined, EyeOutlined, ReloadOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
 
 const UserTable = (props) => {
@@ -178,21 +178,38 @@ const UserTable = (props) => {
         fetchApi(pagination.pageSize, pagination.current)
     };
 
+    const reloadTable = () => {
+        handleTableChange(pagination)
+    }
 
     const { users, pagination } = data;
 
 
     return (
         <div>
-            <Row justify="end">
-                <Col>
-                    <Link to='/admin/register'>
-                        <Button loading={loading} style={{ marginBottom: 8 }}>
-                            <PlusOutlined style={{ marginRight: 8 }} /> Add User
-                        </Button>
-                    </Link>
+            <Row>
+                <Col span={12}>
+                    <Row justify="start">
+                        <Col>
+                            <Button onClick={reloadTable} style={{ marginBottom: 8 }}>
+                                <ReloadOutlined />
+                            </Button>
+                        </Col>
+                    </Row>
+                </Col>
+                <Col span={12}>
+                    <Row justify="end">
+                        <Col>
+                            <Link to='/admin/register'>
+                                <Button style={{ marginBottom: 8 }}>
+                                    <PlusOutlined style={{ marginRight: 8 }} /> Add User
+                                </Button>
+                            </Link>
+                        </Col>
+                    </Row>
                 </Col>
             </Row>
+
             <Table
                 columns={columns}
                 rowKey={record => record._id}

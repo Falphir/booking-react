@@ -9,6 +9,7 @@ import Footer from '../Footer';
 import TextArea from 'antd/lib/input/TextArea';
 import Avatar from 'antd/lib/avatar/avatar';
 import RoomComments from '../RoomComments';
+import moment from 'moment'
 
 
 
@@ -155,7 +156,7 @@ const RoomDetails = (props) => {
     const onFinish = (e) => {
         console.log(e);
         return {
-            name: e.name,
+            date: moment(),
             email: e.email,
             password: e.password,
             role: {

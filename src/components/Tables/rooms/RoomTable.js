@@ -2,7 +2,7 @@ import './RoomTable.css';
 import React, { useState, useEffect } from 'react';
 import Config from '../../../config';
 import { Table, Modal, Tag, Button, Row, Col, Input, InputNumber, message } from 'antd';
-import { SelectOutlined, EditOutlined, DeleteOutlined, PlusOutlined, ExclamationCircleOutlined } from '@ant-design/icons';
+import { SelectOutlined, EditOutlined, DeleteOutlined, PlusOutlined, ReloadOutlined } from '@ant-design/icons';
 import RoomsForm from './add/RoomsForm';
 import { Link } from 'react-router-dom';
 
@@ -10,7 +10,6 @@ const { TextArea } = Input;
 
 const RoomTable = (props) => {
 
-    var idRoom = "";
     const [loading, setLoading] = useState(true);
     const [isEditing, setIsEditing] = useState(false);
     const [editingRoom, setEditingRoom] = useState(null)
@@ -19,7 +18,7 @@ const RoomTable = (props) => {
         rooms: [],
         pagination: {
             current: 1,
-            pageSize: 20,
+            pageSize: 10,
             total: 0
         }
     });
@@ -132,7 +131,7 @@ const RoomTable = (props) => {
                 fetch(`/hotel/rooms/${record._id}`, {
                     method: 'DELETE',
                 })
-                window.location.reload(false)
+                reloadTable()
             },
         });
     };
@@ -197,6 +196,7 @@ const RoomTable = (props) => {
         console.log("ID ROOM FETCH : " + editingRoom._id);
         fetch('/hotel/rooms/' + editingRoom._id, {
             method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(DATA)
         })
             .then((response) => {
@@ -208,7 +208,7 @@ const RoomTable = (props) => {
                     return (
                         <>
                             {response.json()}
-
+                            {fetchApi()}
                         </>
                     )
 
@@ -246,22 +246,39 @@ const RoomTable = (props) => {
         setEditingRoom(null)
     }
 
-
+    const reloadTable = () => {
+        handleTableChange(pagination)
+    }
 
 
     console.log(rooms._id)
 
     return (
         <div>
-            <Row justify="end">
-                <Col>
-                    <Link to='/roomsForm'>
-                        <Button loading={loading} style={{ marginBottom: 8 }}>
-                            <PlusOutlined style={{ marginRight: 8 }} /> Add Room
-                        </Button>
-                    </Link>
+            <Row>
+                <Col span={12}>
+                    <Row justify="start">
+                        <Col>
+                            <Button onClick={reloadTable} style={{ marginBottom: 8 }}>
+                                <ReloadOutlined />
+                            </Button>
+                        </Col>
+                    </Row>
+
+                </Col>
+                <Col span={12}>
+                    <Row justify="end">
+                        <Col>
+                            <Link to='/roomsForm'>
+                                <Button style={{ marginBottom: 8 }}>
+                                    <PlusOutlined style={{ marginRight: 8 }} /> Add Room
+                                </Button>
+                            </Link>
+                        </Col>
+                    </Row>
                 </Col>
             </Row>
+
             <Table
                 columns={columns}
                 rowKey={record => record._id}
@@ -288,7 +305,7 @@ const RoomTable = (props) => {
                     setIsEditing(false);
                     resetEditing()
                     onSubmit(editingRoom)
-                    
+
                 }}
             >
                 <TextArea value={editingRoom?.description} onChange={(e) => {

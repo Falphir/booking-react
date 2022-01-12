@@ -1,5 +1,5 @@
 import { Table, Modal, Button, Row, Col } from 'antd';
-import { DeleteOutlined, PlusOutlined } from '@ant-design/icons';
+import { DeleteOutlined, ReloadOutlined } from '@ant-design/icons';
 import { useState, useEffect } from 'react';
 import './ReserveTable.css';
 import moment from 'moment';
@@ -61,7 +61,7 @@ const ReserveTable = (props) => {
                 fetch(`/reserve/reserves/${record._id}`, {
                     method: 'DELETE',
                 })
-                window.location.reload(false)
+                reloadTable()
             },
         });
     };
@@ -115,11 +115,25 @@ const ReserveTable = (props) => {
         fetchApi(pagination.pageSize, pagination.current)
     };
 
+    const reloadTable = () => {
+        handleTableChange(pagination)
+    }
 
     const { reserves, pagination } = data;
 
     return (
         <div>
+            <Row>
+                <Col span={12}>
+                    <Row justify="start">
+                        <Col>
+                            <Button onClick={reloadTable} style={{ marginBottom: 8 }}>
+                                <ReloadOutlined />
+                            </Button>
+                        </Col>
+                    </Row>
+                </Col>
+            </Row>
             <Table
                 columns={columns}
                 rowKey={record => record._id}
