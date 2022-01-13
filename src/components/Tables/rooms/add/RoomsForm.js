@@ -1,7 +1,7 @@
 import { set, useForm } from "react-hook-form";
 import { useState, useEffect } from "react";
 import './RoomsForm.css';
-import { Form, Button, Checkbox, Input, Select, Row, Col, Upload, message, Card, InputNumber, Tooltip } from "antd";
+import { Form, Button, Checkbox, Input, Select, Row, Col, Upload, message, Card, InputNumber, Tooltip, Rate } from "antd";
 import { storage } from '../../../../firebase';
 import logo from '../../../../assets/logo/logo_simples.png'
 
@@ -257,13 +257,14 @@ const RoomsForm = () => {
                                             },
                                         ]}>
                                         <Select required>
-                                            <Select.Option value="0" />
-                                            <Select.Option value="1" />
-                                            <Select.Option value="2" />
-                                            <Select.Option value="3" />
-                                            <Select.Option value="4" />
-                                            <Select.Option value="5" />
+                                            <Select.Option value={0} />
+                                            <Select.Option value={1} />
+                                            <Select.Option value={2} />
+                                            <Select.Option value={3} />
+                                            <Select.Option value={4} />
+                                            <Select.Option value={5} />
                                         </Select>
+                                        <Rate />
                                     </Form.Item>
                                     <h3 className='rooms-extra-h3'><b>Extras</b></h3>
                                     <Form.Item name="extras">
