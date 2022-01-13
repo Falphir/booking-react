@@ -14,10 +14,12 @@ const RoomTable = (props) => {
     const [loading, setLoading] = useState(true);
     const [isEditing, setIsEditing] = useState(false);
     const [editingRoom, setEditingRoom] = useState(null)
+    const [unlockSubmit, setUnlockSubmit] = useState()
     const onSubmit = e => FetchEditRoom(updateRoom(e));
     const [image, setImage] = useState(null);
     const [ImageUrl, setImageUrl] = useState("");
-    const [submit, setSubmit] = useState();
+    const [ImageChange, setImageChange] = useState();
+    const [submit, setSubmit] = useState(true);
     const [data, setData] = useState({
         rooms: [],
         pagination: {
@@ -32,6 +34,8 @@ const RoomTable = (props) => {
         if (e.target.files[0]) {
             setImage(e.target.files[0]);
         }
+        setSubmit(false);
+        setImageChange(true);
     }
 
     
@@ -258,7 +262,7 @@ const RoomTable = (props) => {
                     return (
                         <>
                             {response.json()}
-                            {fetchApi()}
+                            {reloadTable()}
                         </>
                     )
 
@@ -277,19 +281,38 @@ const RoomTable = (props) => {
 
     const updateRoom = (e) => {
         console.log("description: " + e.description)
-        return {
-            image: ImageUrl,
-            description: e.description,
-            nAdult: e.nAdult,
-            nChild: e.nChild,
-            nRoom: e.nRoom,
-            price: e.price,
-            typeRoom: e.typeRoom,
-            nSingleBed: e.nSingleBed,
-            nDoubleBed: e.nDoubleBed,
-            nStars: e.nStars,
-            extras: e.extras
+        if (ImageChange) {
+            setImageChange(false)
+            return {
+                image: ImageUrl,
+                description: e.description,
+                nAdult: e.nAdult,
+                nChild: e.nChild,
+                nRoom: e.nRoom,
+                price: e.price,
+                typeRoom: e.typeRoom,
+                nSingleBed: e.nSingleBed,
+                nDoubleBed: e.nDoubleBed,
+                nStars: e.nStars,
+                extras: e.extras
+            }
+            
+        } else {
+            return {
+                image: e.image,
+                description: e.description,
+                nAdult: e.nAdult,
+                nChild: e.nChild,
+                nRoom: e.nRoom,
+                price: e.price,
+                typeRoom: e.typeRoom,
+                nSingleBed: e.nSingleBed,
+                nDoubleBed: e.nDoubleBed,
+                nStars: e.nStars,
+                extras: e.extras
+            }
         }
+        
     }
 
     const resetEditing = () => {
@@ -303,6 +326,7 @@ const RoomTable = (props) => {
 
 
     console.log(rooms._id)
+    console.log("total: " + pagination.total)
 
     return (
         <div>
@@ -358,7 +382,7 @@ const RoomTable = (props) => {
                     onSubmit(editingRoom)
 
                 }}
-                wrapClassName={'rooms-card'}
+                okButtonProps={!submit && {disabled:true}}
             >
                 <h2></h2>
                 <Form layout='vertical'>
@@ -480,7 +504,7 @@ const RoomTable = (props) => {
                             </Row>
                         </Checkbox.Group>
                     </Form.Item>
-                    <input style={{ color: '#fff' }} type="file" onChange={handleChange} />
+                    <input type="file" onChange={handleChange} />
                 </Form>
 
             </Modal>

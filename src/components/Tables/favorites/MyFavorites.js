@@ -24,6 +24,7 @@ const MyFavorites = (props) => {
 
         fetchApi(data.pagination.pageSize, data.pagination.current);
 
+        fetchShowApi();
 
         fetch('/auth/me', {
             headers: { 'Accept': 'application/json' }
@@ -72,7 +73,7 @@ const MyFavorites = (props) => {
                 </>
             }
         }
-    ];
+    ]; 
 
     const onViewRoom = (record) => {
         Modal.confirm({
@@ -109,6 +110,37 @@ const MyFavorites = (props) => {
                     setLoading(false);
                     setData({
                         favorites,
+                        pagination: {
+                            current: pagination.page + 1 || 1,
+                            pageSize: pagination.pageSize || 10,
+                            total: pagination.total || 5
+                        }
+                    })
+                }
+            });
+    }
+
+    const fetchShowApi = (pageSize, current) => {
+        const url = '/hotel/rooms/'+ favorites.idRoom + new URLSearchParams({
+            limit: pageSize,
+            skip: current - 1
+        })
+
+
+        fetch(url, {
+            headers: { 'Accept': 'application/json' }
+        })
+
+            .then((response) => response.json())
+
+            .then((response) => {
+                const { auth, rooms = [], pagination } = response;
+
+
+                if (auth) {
+                    setLoading(false);
+                    setData({
+                        rooms,
                         pagination: {
                             current: pagination.page + 1 || 1,
                             pageSize: pagination.pageSize || 10,
