@@ -1,9 +1,10 @@
 import './RoomTable.css';
 import React, { useState, useEffect } from 'react';
 import Config from '../../../config';
-import { Table, Modal, Tag, Button, Row, Col, Input, InputNumber, message } from 'antd';
+import { Table, Modal, Tag, Button, Row, Col, Input, InputNumber, message, Form, Select, Rate, Checkbox } from 'antd';
 import { SelectOutlined, EditOutlined, DeleteOutlined, PlusOutlined, ReloadOutlined } from '@ant-design/icons';
 import RoomsForm from './add/RoomsForm';
+import { storage } from '../../../firebase';
 import { Link } from 'react-router-dom';
 
 const { TextArea } = Input;
@@ -14,6 +15,9 @@ const RoomTable = (props) => {
     const [isEditing, setIsEditing] = useState(false);
     const [editingRoom, setEditingRoom] = useState(null)
     const onSubmit = e => FetchEditRoom(updateRoom(e));
+    const [image, setImage] = useState(null);
+    const [ImageUrl, setImageUrl] = useState("");
+    const [submit, setSubmit] = useState();
     const [data, setData] = useState({
         rooms: [],
         pagination: {
@@ -22,6 +26,47 @@ const RoomTable = (props) => {
             total: 0
         }
     });
+
+    const handleChange = e => {
+        console.log(e)
+        if (e.target.files[0]) {
+            setImage(e.target.files[0]);
+        }
+    }
+
+    
+    const handleUpload = (file) => {
+        if (file != null) {
+            const uploadTask = storage.ref(`images/${file.name}`).put(file);
+            uploadTask.on(
+                "state_changed",
+                snapshot => { },
+                error => {
+                    console.log(error);
+                },
+                () => {
+                    storage
+                        .ref("images")
+                        .child(file.name)
+                        .getDownloadURL()
+                        .then(ImageUrl => {
+                            console.log(ImageUrl);
+                            setImageUrl(ImageUrl);
+                            if (ImageUrl = null) {
+                                setSubmit(false);
+                            } else {
+                                setSubmit(true);
+                            }
+
+                        });
+                }
+            )
+
+        }
+
+    }
+
+    console.log("image: ", image);
 
     //Renderizar Imagem
     const renderImage = (text, record) => {
@@ -185,6 +230,11 @@ const RoomTable = (props) => {
         });
     }, []);
 
+    useEffect(() => {
+        handleUpload(image);
+    }, [image]);
+
+
 
     const handleTableChange = (pagination) => {
         fetchApi(pagination.pageSize, pagination.current)
@@ -228,16 +278,17 @@ const RoomTable = (props) => {
     const updateRoom = (e) => {
         console.log("description: " + e.description)
         return {
-            //image: url,
+            image: ImageUrl,
             description: e.description,
-            nAdult: e.nAdults,
-            nChild: e.nChildren,
-            nRoom: e.nRooms,
-            price: e.price
-            //typeRoom: record.typeRoom,
-            //nSingleBed: record.nSingleBed,
-            //nDoubleBed: record.nDoubleBed,
-            //nStars: record.nStars
+            nAdult: e.nAdult,
+            nChild: e.nChild,
+            nRoom: e.nRoom,
+            price: e.price,
+            typeRoom: e.typeRoom,
+            nSingleBed: e.nSingleBed,
+            nDoubleBed: e.nDoubleBed,
+            nStars: e.nStars,
+            extras: e.extras
         }
     }
 
@@ -307,32 +358,131 @@ const RoomTable = (props) => {
                     onSubmit(editingRoom)
 
                 }}
+                wrapClassName={'rooms-card'}
             >
-                <TextArea value={editingRoom?.description} onChange={(e) => {
-                    setEditingRoom(pre => {
-                        return { ...pre, description: e.target.value }
-                    })
-                }} />
-                <InputNumber value={editingRoom?.nAdult} onChange={(e) => {
-                    setEditingRoom(pre => {
-                        return { ...pre, nAdult: e.target.value }
-                    })
-                }} />
-                <InputNumber value={editingRoom?.nChild} onChange={(e) => {
-                    setEditingRoom(pre => {
-                        return { ...pre, nChild: e.target.value }
-                    })
-                }} />
-                <InputNumber value={editingRoom?.nRoom} onChange={(e) => {
-                    setEditingRoom(pre => {
-                        return { ...pre, nRoom: e.target.value }
-                    })
-                }} />
-                <InputNumber value={editingRoom?.price} onChange={(e) => {
-                    setEditingRoom(pre => {
-                        return { ...pre, price: e.target.value }
-                    })
-                }} />
+                <h2></h2>
+                <Form layout='vertical'>
+                    <Form.Item label={<h4><b>Description</b></h4>}>
+                        <TextArea value={editingRoom?.description} onChange={(e) => {
+                            setEditingRoom(pre => {
+                                return { ...pre, description: e.target.value }
+                            })
+                        }} />
+                    </Form.Item>
+                    <Form.Item label={<h4><b>Number of Adults</b></h4>}>
+                        <InputNumber value={editingRoom?.nAdult} onChange={(e) => {
+                            console.log("n Adults: " + e)
+                            setEditingRoom(pre => {
+                                return { ...pre, nAdult: e }
+                            })
+                        }} />
+                    </Form.Item>
+                    <Form.Item label={<h4><b>Number of Childrens</b></h4>}>
+                        <InputNumber value={editingRoom?.nChild} onChange={(e) => {
+                            setEditingRoom(pre => {
+                                console.log("n Childs: " + e)
+                                return { ...pre, nChild: e }
+                            })
+                        }} />
+                    </Form.Item>
+                    <Form.Item label={<h4><b>Number of Rooms</b></h4>}>
+                        <InputNumber value={editingRoom?.nRoom} onChange={(e) => {
+                            console.log("n Rooms: " + e)
+                            setEditingRoom(pre => {
+                                return { ...pre, nRoom: e }
+                            })
+                        }} />
+                    </Form.Item>
+                    <Form.Item label={<h4><b>Price €</b></h4>}>
+                        <InputNumber value={editingRoom?.price} onChange={(e) => {
+                            setEditingRoom(pre => {
+                                return { ...pre, price: e }
+                            })
+                        }} />
+                    </Form.Item>
+                    <Form.Item name="typeRoom" label={<h4><b>Type of Room</b></h4>} style={{ width: 400 }}>
+                        <Select defaultValue={editingRoom?.typeRoom} onChange={e => {
+                            setEditingRoom(pre => {
+                                return { ...pre, typeRoom: e }
+                            })
+                        }}>
+                            <Select.Option value="Apartamento" />
+                            <Select.Option value="Quarto" />
+                            <Select.Option value="Casa de Férias" />
+                            <Select.Option value="Hostel" />
+                            <Select.Option value="Casa de Campo" />
+                            <Select.Option value="Outro" />
+                        </Select>
+                    </Form.Item>
+                    <Form.Item label={<h4><b>Number of Double Beds</b></h4>}>
+                        <InputNumber value={editingRoom?.nDoubleBed} onChange={(e) => {
+                            console.log("n DoubleBed: " + e)
+                            setEditingRoom(pre => {
+                                return { ...pre, nDoubleBed: e }
+                            })
+                        }} />
+                    </Form.Item>
+                    <Form.Item label={<h4><b>Number of Single Beds</b></h4>}>
+                        <InputNumber value={editingRoom?.nSingleBed} onChange={(e) => {
+                            console.log("n SingleBed: " + e)
+                            setEditingRoom(pre => {
+                                return { ...pre, nSingleBed: e }
+                            })
+                        }} />
+                    </Form.Item>
+                    <Form.Item label={<h4><b>Number of Stars</b></h4>}>
+                        <Rate value={editingRoom?.nStars} onChange={(e) => {
+                            console.log("n Stars: " + e)
+                            setEditingRoom(pre => {
+                                return { ...pre, nStars: e }
+                            })
+                        }} />
+                    </Form.Item>
+                    <h3><b>Extras</b></h3>
+                    <Form.Item >
+                        <Checkbox.Group value={editingRoom?.extras} onChange={(e) => {
+                            console.log("n extras: " + e)
+                            setEditingRoom(pre => {
+                                return { ...pre, extras: e }
+                            })
+                        }} >
+                            <Row>
+                                <Col>
+                                    <Checkbox value="vip" style={{ lineHeight: '32px'}}>
+                                        VIP
+                                    </Checkbox>
+                                </Col>
+                                <Col>
+                                    <Checkbox value="carPark" style={{ lineHeight: '32px'}}>
+                                        Car Park
+                                    </Checkbox>
+                                </Col>
+                                <Col>
+                                    <Checkbox value="breakfast" style={{ lineHeight: '32px'}}>
+                                        Breakfast
+                                    </Checkbox>
+                                </Col>
+                                <Col>
+                                    <Checkbox value="lunch" style={{ lineHeight: '32px'}}>
+                                        Lunch
+                                    </Checkbox>
+                                </Col>
+                                <Col>
+                                    <Checkbox value="spa" style={{ lineHeight: '32px'}}>
+                                        Spa
+                                    </Checkbox>
+                                </Col>
+                                <Col>
+                                    <Checkbox value="pool" style={{ lineHeight: '32px'}}>
+                                        Pool
+                                    </Checkbox>
+                                </Col>
+                            </Row>
+                        </Checkbox.Group>
+                    </Form.Item>
+                    <input style={{ color: '#fff' }} type="file" onChange={handleChange} />
+                </Form>
+
             </Modal>
         </div >
     )

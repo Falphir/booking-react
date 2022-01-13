@@ -30,6 +30,7 @@ const RoomsForm = () => {
         if (e.target.files[0]) {
             setImage(e.target.files[0]);
         }
+        
     }
 
     const handleUpload = (file) => {
@@ -153,7 +154,7 @@ const RoomsForm = () => {
                 <Col span={8}>
                     <Row justify="center">
                         <div >
-                            <Card headStyle={{ backgroundColor: "#242424" }} bodyStyle={{ backgroundColor: "#242424" }} className="login-card" title={
+                            <Card headStyle={{ backgroundColor: "#242424" }} bodyStyle={{ backgroundColor: "#242424" }} className="rooms-card" title={
 
                                 <Row justify='center'>
                                     <Col>
