@@ -6,6 +6,8 @@ import { SelectOutlined, EditOutlined, DeleteOutlined, PlusOutlined, ReloadOutli
 import RoomsForm from './add/RoomsForm';
 import { storage } from '../../../firebase';
 import { Link } from 'react-router-dom';
+import { useLocalStorage } from 'react-use-storage';
+import { getPreferencesUrlStorage, preferencesToStorage } from '../../../utils/localStorage'
 
 const { TextArea } = Input;
 
@@ -20,12 +22,19 @@ const RoomTable = (props) => {
     const [ImageUrl, setImageUrl] = useState("");
     const [ImageChange, setImageChange] = useState();
     const [submit, setSubmit] = useState(true);
+    const preferences = getPreferencesUrlStorage("RoomTable");
+    const [preferencesStorage, setPreferencesToStorage] = useLocalStorage(preferences, {
+        current: preferences[preferencesToStorage.PAGE_TABLE] || 1
+    })
+
+
     const [data, setData] = useState({
         rooms: [],
         pagination: {
             current: 1,
             pageSize: 10,
-            total: 0
+            total: 0,
+            ...preferencesStorage
         }
     });
 
@@ -38,7 +47,7 @@ const RoomTable = (props) => {
         setImageChange(true);
     }
 
-    
+
     const handleUpload = (file) => {
         if (file != null) {
             const uploadTask = storage.ref(`images/${file.name}`).put(file);
@@ -210,13 +219,20 @@ const RoomTable = (props) => {
 
                 if (auth) {
                     setLoading(false);
+
+                    const currentPage = pagination.page + 1 || 1;
+
                     setData({
                         rooms,
                         pagination: {
-                            current: pagination.page + 1 || 1,
+                            current: currentPage,
                             pageSize: pagination.pageSize || 10,
                             total: pagination.total || 5
                         }
+                    })
+
+                    setPreferencesToStorage({
+                        current: currentPage
                     })
                 }
             });
@@ -224,8 +240,7 @@ const RoomTable = (props) => {
 
     useEffect(() => {
         fetchApi(data.pagination.pageSize, data.pagination.current);
-
-        return () => setData({
+        setData({
             rooms: [],
             pagination: {
                 current: 1,
@@ -296,7 +311,7 @@ const RoomTable = (props) => {
                 nStars: e.nStars,
                 extras: e.extras
             }
-            
+
         } else {
             return {
                 image: e.image,
@@ -312,7 +327,7 @@ const RoomTable = (props) => {
                 extras: e.extras
             }
         }
-        
+
     }
 
     const resetEditing = () => {
@@ -382,7 +397,7 @@ const RoomTable = (props) => {
                     onSubmit(editingRoom)
 
                 }}
-                okButtonProps={!submit && {disabled:true}}
+                okButtonProps={!submit && { disabled: true }}
             >
                 <h2></h2>
                 <Form layout='vertical'>
@@ -472,32 +487,32 @@ const RoomTable = (props) => {
                         }} >
                             <Row>
                                 <Col>
-                                    <Checkbox value="vip" style={{ lineHeight: '32px'}}>
+                                    <Checkbox value="vip" style={{ lineHeight: '32px' }}>
                                         VIP
                                     </Checkbox>
                                 </Col>
                                 <Col>
-                                    <Checkbox value="carPark" style={{ lineHeight: '32px'}}>
+                                    <Checkbox value="carPark" style={{ lineHeight: '32px' }}>
                                         Car Park
                                     </Checkbox>
                                 </Col>
                                 <Col>
-                                    <Checkbox value="breakfast" style={{ lineHeight: '32px'}}>
+                                    <Checkbox value="breakfast" style={{ lineHeight: '32px' }}>
                                         Breakfast
                                     </Checkbox>
                                 </Col>
                                 <Col>
-                                    <Checkbox value="lunch" style={{ lineHeight: '32px'}}>
+                                    <Checkbox value="lunch" style={{ lineHeight: '32px' }}>
                                         Lunch
                                     </Checkbox>
                                 </Col>
                                 <Col>
-                                    <Checkbox value="spa" style={{ lineHeight: '32px'}}>
+                                    <Checkbox value="spa" style={{ lineHeight: '32px' }}>
                                         Spa
                                     </Checkbox>
                                 </Col>
                                 <Col>
-                                    <Checkbox value="pool" style={{ lineHeight: '32px'}}>
+                                    <Checkbox value="pool" style={{ lineHeight: '32px' }}>
                                         Pool
                                     </Checkbox>
                                 </Col>

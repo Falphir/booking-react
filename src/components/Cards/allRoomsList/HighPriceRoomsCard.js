@@ -36,7 +36,7 @@ const HighPriceRoomsCard = (props) => {
         rooms: [],
         pagination: {
             current: 1,
-            pageSize: 10,
+            pageSize: 20,
             total: 0
         }
     });

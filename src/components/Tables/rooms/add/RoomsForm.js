@@ -257,14 +257,13 @@ const RoomsForm = () => {
                                             },
                                         ]}>
                                         <Select required>
-                                            <Select.Option value={0} />
-                                            <Select.Option value={1} />
-                                            <Select.Option value={2} />
-                                            <Select.Option value={3} />
-                                            <Select.Option value={4} />
-                                            <Select.Option value={5} />
+                                            <Select.Option value={"0"} />
+                                            <Select.Option value={"1"} />
+                                            <Select.Option value={"2"} />
+                                            <Select.Option value={"3"} />
+                                            <Select.Option value={"4"} />
+                                            <Select.Option value={"5"} />
                                         </Select>
-                                        <Rate />
                                     </Form.Item>
                                     <h3 className='rooms-extra-h3'><b>Extras</b></h3>
                                     <Form.Item name="extras">

@@ -163,7 +163,7 @@ const RegisterForm = () => {
                                             message: 'Please input your username!',
                                         },
                                     ]} label={<h4 className='register-form-label-h4'><b>Username</b></h4>} >
-                                        <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder='Username' />
+                                        <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder='Username' required/>
                                     </Form.Item>
                                     <Form.Item name="email" rules={[
                                         {

@@ -3,16 +3,24 @@ import { DeleteOutlined, ReloadOutlined } from '@ant-design/icons';
 import { useState, useEffect } from 'react';
 import './ReserveTable.css';
 import moment from 'moment';
+import { useLocalStorage } from 'react-use-storage';
+import { getPreferencesUrlStorage, preferencesToStorage } from '../../../utils/localStorage'
 
 const ReserveTable = (props) => {
 
     const [loading, setLoading] = useState();
+    const preferences = getPreferencesUrlStorage("ReserveTable");
+    const [preferencesStorage, setPreferencesToStorage] = useLocalStorage(preferences, {
+        current: preferences[preferencesToStorage.PAGE_TABLE] || 1
+    })
+
     const [data, setData] = useState({
         reserves: [],
         pagination: {
             current: 1,
             pageSize: 10,
-            total: 0
+            total: 0,
+            ...preferencesStorage
         }
     });
 
@@ -85,13 +93,20 @@ const ReserveTable = (props) => {
 
                 if (auth) {
                     setLoading(false);
+
+                    const currentPage = pagination.page + 1 || 1;
+
                     setData({
                         reserves,
                         pagination: {
-                            current: pagination.page + 1 || 1,
+                            current: currentPage,
                             pageSize: pagination.pageSize || 10,
                             total: pagination.total || 5
                         }
+                    })
+
+                    setPreferencesToStorage({
+                        current: currentPage
                     })
                 }
             });

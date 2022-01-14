@@ -4,18 +4,26 @@ import { useState, useEffect } from 'react';
 import { Table, Row, Col, Button, Tag, Modal } from 'antd';
 import { PlusOutlined, DeleteOutlined, EyeInvisibleOutlined, EyeOutlined, ReloadOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
+import { useLocalStorage } from 'react-use-storage';
+import { getPreferencesUrlStorage, preferencesToStorage } from '../../../utils/localStorage'
 
 const UserTable = (props) => {
 
     const [loading, setLoading] = useState(true);
     const [hidden, setHidden] = useState(true)
     const [icon, setIcon] = useState(true)
+    const preferences = getPreferencesUrlStorage("UserTable");
+    const [preferencesStorage, setPreferencesToStorage] = useLocalStorage(preferences, {
+        current: preferences[preferencesToStorage.PAGE_TABLE] || 1
+    })
+
     const [data, setData] = useState({
         users: [],
         pagination: {
             current: 1,
             pageSize: 10,
-            total: 0
+            total: 0,
+            ...preferencesStorage
         }
     });
 
@@ -148,13 +156,20 @@ const UserTable = (props) => {
 
                 if (auth) {
                     setLoading(false);
+
+                    const currentPage = pagination.page + 1 || 1;
+
                     setData({
                         users,
                         pagination: {
-                            current: pagination.page + 1 || 1,
+                            current: currentPage,
                             pageSize: pagination.pageSize || 10,
                             total: pagination.total || 5
                         }
+                    })
+                    
+                    setPreferencesToStorage({
+                        current: currentPage
                     })
                 }
             });

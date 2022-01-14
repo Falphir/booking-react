@@ -16,25 +16,6 @@ function Dashboard() {
     const [menu, setMenu] = useState(1);
     const [userLogged, setUserLogged] = useState(true);
 
-    const onClickLogout = () => {
-        fetch('/auth/logout', {
-            headers: { 'Accept': 'application/json' }
-        })
-
-            .then((response) => response.json())
-
-            .then((response) => {
-                if (response.logout) {
-                    setUserLogged(false);
-                }
-            })
-
-            .catch(() => {
-                setUserLogged(false);
-            })
-    }
-
-
     useEffect(() => {
         fetch('/auth/me', {
             headers: { 'Accept': 'application/json' }
