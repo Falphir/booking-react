@@ -180,7 +180,7 @@ const MyFavorites = (props) => {
                 grid={{ gutter: 16, column: ncolumn }} pagination={pagination} rowKey={record => record._id} loading={loading}
                 dataSource={favorites}
                 renderItem={item => (
-                    <List.Item><FavoritesRooms data={item.idRoom} /></List.Item>
+                    <List.Item><FavoritesRooms favoriteId={item._id} data={item.idRoom} /></List.Item>
                 )}
             />
             {/*  <Table

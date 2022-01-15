@@ -166,15 +166,15 @@ const MyReserves = (props) => {
 
     var ncolumn = 5
 
-    if (Size.width < 576) {
+    if (Size.width < 768) {
         ncolumn = 1
-    } else if (Size.width >= 576 && Size.width < 768) {
-        ncolumn = 2
     } else if (Size.width >= 768 && Size.width < 992) {
-        ncolumn = 3
+        ncolumn = 2
     } else if (Size.width >= 992 && Size.width < 1200) {
+        ncolumn = 3
+    } else if (Size.width >= 1200 && Size.width <= 1920) {
         ncolumn = 4
-    } else if (Size.width >= 1200) {
+    } else if (Size.width > 1920) {
         ncolumn = 5
     }
 
@@ -185,13 +185,15 @@ const MyReserves = (props) => {
 
     const { reserves, pagination } = data;
 
+    console.log(reserves[0])
+
     return (
         <>
             <List
                 grid={{ gutter: 16, column: ncolumn }} pagination={pagination} rowKey={record => record._id} loading={loading}
                 dataSource={reserves}
                 renderItem={item => (
-                    <List.Item><ReserveRoom data={{id: item.idRoom, checkIn: item.dateCheckIn, checkOut: item.dateCheckOut}} /></List.Item>
+                    <List.Item><ReserveRoom checkIn={item.dateCheckIn} checkOut={item.dateCheckOut} RoomId={item.idRoom} /></List.Item>
                 )}
             />
             {/* <Table

@@ -1,4 +1,4 @@
-import { Table } from 'antd';
+import { Table, Tooltip } from 'antd';
 import { useState, useEffect } from 'react';
 import { Link, Navigate } from 'react-router-dom';
 import { SelectOutlined, EllipsisOutlined, DeleteOutlined, ClockCircleOutlined } from '@ant-design/icons';
@@ -22,7 +22,7 @@ const FavoritesRooms = (props) => {
 
 
     const fetchApi = (pageSize, current) => {
-        const url = '/hotel/rooms/' + props.data.idRoom + '?' + new URLSearchParams({
+        const url = '/hotel/rooms/' + props.RoomId + '?' + new URLSearchParams({
             limit: pageSize,
             skip: current - 1
         })
@@ -104,36 +104,38 @@ const FavoritesRooms = (props) => {
         } else {
             console.log("extras ready")
             return (<>
-                <Popover placement="topLeft" title="Settings" content={<DeleteOutlined style={{ color: 'red' }} />}>
-                    <Link to={`/rooms/${props.data}`}>
+                
+                    <Link to={`/rooms/${props.RoomId}`}>
                         <Card className='card' cover={<img className='card-img' alt="example" src={rooms.image} />}>
                             <Meta
                                 title={<span style={{ fontWeight: 'bold' }}>{rooms.description}</span>}>
                             </Meta>
-
                             <div className="additional" style={{ marginTop: 16 }}>
                                 <Row justify='center'>
                                     <Col flex="auto">
-                                        <span><ClockCircleOutlined />{props.data.DateCheckIn}</span>
+                                        <Row justify='center'>
+                                            <Tooltip title="Check In">
+                                                <ClockCircleOutlined /> {props.checkIn}
+                                            </Tooltip>
+                                        </Row>
                                     </Col>
-
-
-
                                     <Col flex="auto">
-                                        {rooms.price} <i class="fas fa-euro-sign"></i>
+                                        <Row justify='center'>
+                                            <Tooltip title="Check Out">
+                                                <ClockCircleOutlined /> {props.checkOut}
+                                            </Tooltip>
+                                        </Row>
                                     </Col>
                                 </Row>
                             </div>
                         </Card>
                     </Link>
-                </Popover>
             </>)
         }
 
     }
 
-
-    console.log(props.data)
+    console.log("teste: " + props.DateCheckOut)
 
     return (
         <>
