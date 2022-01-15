@@ -120,7 +120,7 @@ const MoreStarsRoomsCard = (props) => {
             renderItem={item => (
                 <List.Item>
                     <Link to={`/rooms/${item._id}`}>
-                        <Card key={item._id} cover={<img alt="example" src={item.image} />}>
+                        <Card className='card' key={item._id} cover={<img alt="example" src={item.image} />}>
                             <Meta
                                 title={<span style={{ fontWeight: 'bold' }}>{item.description}</span>}>
                             </Meta>

@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import { Link, Navigate } from 'react-router-dom';
 import { SelectOutlined, EllipsisOutlined, DeleteOutlined } from '@ant-design/icons';
 import { Modal, List, Card, Col, Row, Popover } from 'antd';
+import FavoritesRooms from './FavoritesRooms'
 
 const { Meta } = Card;
 
@@ -86,28 +87,16 @@ const MyFavorites = (props) => {
 
 
     const columns = [
-        /* {
-            title: 'ID Room',
-            dataIndex: 'idRoom',
-        } */
         {
             title: 'Room',
             render: (record) => {
                 return <>
+                    <FavoritesRooms data={record.idRoom} />
                     <Link to={`/rooms/${record.idRoom}`}><SelectOutlined style={{ color: "blue", marginLeft: 12 }} /></Link>
                 </>
             }
         }
     ];
-
-    const onViewRoom = (record) => {
-        Modal.confirm({
-            title: 'Are you sure, you want to see this room?',
-            onOk: () => {
-                <Link to={`/rooms/${record.idRoom}`}></Link>
-            },
-        });
-    };
 
     const fetchApi = (pageSize, current) => {
 
@@ -169,45 +158,31 @@ const MyFavorites = (props) => {
 
     const { favorites, pagination } = data;
 
+    var RoomId = () => {
+        favorites.forEach((d) => d.idRoom)
+
+    }
+
+    const Room = [
+        {
+            title: 'Id Room',
+            render: (record) => {
+                return record.idRoom
+            }
+        }
+
+    ];
+
     return (
         <>
-            <List grid={{ gutter: 16, column: ncolumn }} dataSource={favorites} pagination={pagination} rowKey={record => record._id} loading={loading}
+
+            <List
+                grid={{ gutter: 16, column: ncolumn }} pagination={pagination} rowKey={record => record._id} loading={loading}
+                dataSource={favorites}
                 renderItem={item => (
-                    <List.Item>
-                        <Popover placement="topLeft" title="Settings" content={<a onClick={RemoveFavorite(item)}><DeleteOutlined style={{ color: 'red' }} /> Remove Favorite</a>}>
-                            <Link to={`/rooms/${item.idRoom}`}>
-                                <Card className='card' cover={<img className='card-img' alt="example" src={item.Room.image} />}>
-                                    <Meta
-                                        title={<span style={{ fontWeight: 'bold' }}>{item.Room.description}</span>}>
-                                    </Meta>
-
-                                    <div className="additional" style={{ marginTop: 16 }}>
-                                        <Row justify='center'>
-                                            <Col flex="auto">
-                                                {item.Room.nStars} <i class="fas fa-star"></i>
-                                            </Col>
-
-                                            <Col flex="auto">
-                                                {item.Room.nAdult} <i class="fas fa-user-alt"></i>
-                                            </Col>
-
-                                            <Col flex="auto">
-                                                {item.Room.nChild} <i class="fas fa-child"></i>
-                                            </Col>
-
-                                            <Col flex="auto">
-                                                {item.Room.price} <i class="fas fa-euro-sign"></i>
-                                            </Col>
-                                        </Row>
-                                    </div>
-                                </Card>
-                            </Link>
-                        </Popover>
-                    </List.Item>
-                )}>
-                <p></p>
-            </List>
-
+                    <List.Item><FavoritesRooms data={item.idRoom} /></List.Item>
+                )}
+            />
             {/*  <Table
                 columns={columns}
                 rowKey={record => record._id}

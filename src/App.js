@@ -16,7 +16,7 @@ import SearchRoomsList from './components/Cards/searchRoomsList/Rooms';
 import Register from './components/pages/Register';
 import AdminRegister from './components/pages/AdminRegister';
 import DashboardEditor from './components/pages/DashboardEditor';
-import MyReserves from './components/Tables/reserves/MyReserves';
+import MyReserves from './components/pages/MyReservesPage';
 import MyFavorites from './components/pages/FavoritesPage';
 import FavoritesForm from './components/pages/AddFavorite';
 

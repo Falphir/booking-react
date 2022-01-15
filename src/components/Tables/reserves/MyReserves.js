@@ -3,11 +3,36 @@ import { useState, useEffect } from 'react';
 import './ReserveTable.css';
 import { SelectOutlined } from '@ant-design/icons';
 import { Link, Navigate } from 'react-router-dom';
-import { Modal } from 'antd';
+import { Modal, List } from 'antd';
+import ReserveRoom from './ReserveRoom'
 
+
+function useWindowSize() {
+    // Initialize state with undefined width so server and client renders match
+    const [windowSize, setWindowSize] = useState({
+        width: undefined,
+    });
+    useEffect(() => {
+        // Handler to call on window resize
+        function handleResize() {
+            // Set window width/height to state
+            setWindowSize({
+                width: window.innerWidth,
+            });
+        }
+        // Add event listener
+        window.addEventListener("resize", handleResize);
+        // Call handler right away so state gets updated with initial window size
+        handleResize();
+        // Remove event listener on cleanup
+        return () => window.removeEventListener("resize", handleResize);
+    }, []); // Empty array ensures that effect is only run on mount
+    return windowSize;
+}
 
 const MyReserves = (props) => {
 
+    const Size = useWindowSize();
     const [loading, setLoading] = useState();
     const [userLogged, setUserLogged] = useState();
     const [data, setData] = useState({
@@ -83,10 +108,10 @@ const MyReserves = (props) => {
             title: 'Room',
             render: (record) => {
                 return <>
-                <Link to={`/rooms/${record.idRoom}`}>
-                <SelectOutlined  style={{ color: "blue", marginLeft: 12 }} />
-                </Link>
-                    
+                    <Link to={`/rooms/${record.idRoom}`}>
+                        <SelectOutlined style={{ color: "blue", marginLeft: 12 }} />
+                    </Link>
+
                 </>
             }
         }
@@ -139,6 +164,19 @@ const MyReserves = (props) => {
     }
 
 
+    var ncolumn = 5
+
+    if (Size.width < 576) {
+        ncolumn = 1
+    } else if (Size.width >= 576 && Size.width < 768) {
+        ncolumn = 2
+    } else if (Size.width >= 768 && Size.width < 992) {
+        ncolumn = 3
+    } else if (Size.width >= 992 && Size.width < 1200) {
+        ncolumn = 4
+    } else if (Size.width >= 1200) {
+        ncolumn = 5
+    }
 
 
     const handleTableChange = (pagination) => {
@@ -148,14 +186,23 @@ const MyReserves = (props) => {
     const { reserves, pagination } = data;
 
     return (
-        <Table
+        <>
+            <List
+                grid={{ gutter: 16, column: ncolumn }} pagination={pagination} rowKey={record => record._id} loading={loading}
+                dataSource={reserves}
+                renderItem={item => (
+                    <List.Item><ReserveRoom data={{id: item.idRoom, checkIn: item.dateCheckIn, checkOut: item.dateCheckOut}} /></List.Item>
+                )}
+            />
+            {/* <Table
             columns={columns}
             rowKey={record => record._id}
             dataSource={reserves}
             pagination={pagination}
             loading={loading}
             onChange={handleTableChange}
-        />
+        /> */}
+        </>
     )
 }
 
