@@ -52,6 +52,7 @@ const RoomDetails = (props) => {
     const [reserve, setReserve] = useState();
     const { register, handleSubmit } = useForm();
     const onSubmit = e => postComment(onFinish(e));
+    var idUser, commentsss;
     const [data, setData] = useState({
         rooms: [],
         pagination: {
@@ -150,11 +151,6 @@ const RoomDetails = (props) => {
     }
 
 
-    function onChangeComment(date, comment) {
-        console.log("comment: " + comment);
-        commentsss = comment;
-    }
-
 
     useEffect(() => {
         fetch('/auth/me', {
@@ -220,6 +216,11 @@ const RoomDetails = (props) => {
 
     const onChange = () => {
         setIcon(!icon)
+    }
+
+    function onChangeComment(date, comment) {
+        console.log("comment: " + comment);
+        commentsss = comment;
     }
 
 
