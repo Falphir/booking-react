@@ -29,10 +29,12 @@ const ReserveTable = (props) => {
         {
             title: 'ID User',
             dataIndex: 'idUser',
+            //hidden: hidden,
         },
         {
             title: 'ID Room',
             dataIndex: 'idRoom',
+            //hidden: hidden,
         },
         {
             title: 'Date Check In',
