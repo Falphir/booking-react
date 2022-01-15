@@ -77,9 +77,6 @@ const RoomDetails = (props) => {
 
 
 
-
-
-
     const columns = [
         { title: 'Facilities', dataIndex: 'facilities' },
         { title: 'Quantity', dataIndex: 'quantity', width: '10%', align: 'center' },
@@ -88,8 +85,6 @@ const RoomDetails = (props) => {
     const Extracolumns = [
         { title: 'Extras', dataIndex: 'extras', render: RenderExtras },
     ];
-
-
 
 
 
@@ -127,6 +122,7 @@ const RoomDetails = (props) => {
 
     const postComment = (data) => {
         fetch('/comment/comments/' + roomId, {
+            //fetch('/comment/comments/:roomId', {
             headers: { 'Content-Type': 'application/json' },
             method: 'POST',
             body: JSON.stringify(data)
@@ -153,18 +149,12 @@ const RoomDetails = (props) => {
             });
     }
 
-    const onFinish = (e) => {
-        console.log(e);
-        return {
-            date: moment(),
-            email: e.email,
-            password: e.password,
-            role: {
-                nameRole: "user",
-                scopes: ["read-own-reserves", "create-reserve", "detail-reserve", "create-favorite", "read-own-favorites", "delete-favorite", "create-comment"]
-            }
-        }
+
+    function onChangeComment(date, comment) {
+        console.log("comment: " + comment);
+        commentsss = comment;
     }
+
 
     useEffect(() => {
         fetch('/auth/me', {
@@ -230,6 +220,26 @@ const RoomDetails = (props) => {
 
     const onChange = () => {
         setIcon(!icon)
+    }
+
+
+    const onFinish = (e) => {
+
+        userId = localStorage.getItem('idUser');
+
+        console.log("E: " + e);
+        console.log("userID: " + userId);
+        console.log("roomID: " + roomId);
+        console.log("comment: " + commentsss);
+
+        return {
+            date: moment(),
+            comment: commentsss,
+            rating: e.rating,
+            idUser: userId,
+            nameUser: e.nameUser,
+            idRoom: roomId
+        }
     }
 
 
@@ -327,12 +337,12 @@ const RoomDetails = (props) => {
                                             <Comment
                                                 avatar={<Avatar src="https://joeschmoe.io/api/v1/random" />}
                                                 content={
-                                                    <Form layout='vertical' onFinish={onSubmit}>
-                                                        <Form.Item>
+                                                    <Form layout='vertical' onFinish={onFinish}>
+                                                        <Form.Item name="rating">
                                                             <Rate></Rate>
                                                         </Form.Item>
-                                                        <Form.Item>
-                                                            <TextArea rows={4} placeholder='Insert your comment!'></TextArea>
+                                                        <Form.Item name="comment">
+                                                            <TextArea onChange={onChangeComment} rows={4} placeholder='Insert your comment!'></TextArea>
                                                         </Form.Item>
                                                         <Form.Item>
                                                             <Button type='primary' htmlType='submit'>Submit</Button>
