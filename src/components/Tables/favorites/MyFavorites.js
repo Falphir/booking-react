@@ -176,27 +176,27 @@ const MyFavorites = (props) => {
                     <List.Item>
                         <Popover placement="topLeft" title="Settings" content={<a onClick={RemoveFavorite(item)}><DeleteOutlined style={{ color: 'red' }} /> Remove Favorite</a>}>
                             <Link to={`/rooms/${item.idRoom}`}>
-                                <Card className='card' cover={<img className='card-img' alt="example" src={item.Room.image} />}>
+                                <Card className='card' cover={<img className='card-img' alt="example" src={item.room.image} />}>
                                     <Meta
-                                        title={<span style={{ fontWeight: 'bold' }}>{item.Room.description}</span>}>
+                                        title={<span style={{ fontWeight: 'bold' }}>{item.room.description}</span>}>
                                     </Meta>
 
                                     <div className="additional" style={{ marginTop: 16 }}>
                                         <Row justify='center'>
                                             <Col flex="auto">
-                                                {item.Room.nStars} <i class="fas fa-star"></i>
+                                                {item.room.nStars} <i class="fas fa-star"></i>
                                             </Col>
 
                                             <Col flex="auto">
-                                                {item.Room.nAdult} <i class="fas fa-user-alt"></i>
+                                                {item.room.nAdult} <i class="fas fa-user-alt"></i>
                                             </Col>
 
                                             <Col flex="auto">
-                                                {item.Room.nChild} <i class="fas fa-child"></i>
+                                                {item.room.nChild} <i class="fas fa-child"></i>
                                             </Col>
 
                                             <Col flex="auto">
-                                                {item.Room.price} <i class="fas fa-euro-sign"></i>
+                                                {item.room.price} <i class="fas fa-euro-sign"></i>
                                             </Col>
                                         </Row>
                                     </div>
