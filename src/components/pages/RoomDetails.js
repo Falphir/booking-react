@@ -52,7 +52,7 @@ const RoomDetails = (props) => {
     const [reserve, setReserve] = useState();
     const { register, handleSubmit } = useForm();
     const onSubmit = e => postComment(onFinish(e));
-    var idUser, commentsss;
+    var userId, commentsss;
     const [data, setData] = useState({
         rooms: [],
         pagination: {
@@ -122,8 +122,8 @@ const RoomDetails = (props) => {
 
 
     const postComment = (data) => {
-        fetch('/comment/comments/' + roomId, {
-            //fetch('/comment/comments/:roomId', {
+        //fetch('/comment/comments/' + roomId, {
+        fetch('/comment/comments/:roomId', {
             headers: { 'Content-Type': 'application/json' },
             method: 'POST',
             body: JSON.stringify(data)
@@ -162,6 +162,16 @@ const RoomDetails = (props) => {
             .then((response) => {
                 //se scope do utilizador for == ao scope q tem permissão pra ver button
                 setUserLogged(response.auth);
+
+                if (response.auth == false) {
+                    localStorage.removeItem('idUser');
+                }
+
+
+                localStorage.setItem('idUser', response.decoded[1]);
+                userId = localStorage.getItem('idUser');
+
+
                 console.log("stuff: " + response.auth);
                 console.log("scopes: " + response.decoded);
             })
@@ -218,24 +228,24 @@ const RoomDetails = (props) => {
         setIcon(!icon)
     }
 
-    function onChangeComment(date, comment) {
+    /* function onChangeComment(date, comment) {
         console.log("comment: " + comment);
         commentsss = comment;
-    }
+    } */
 
 
     const onFinish = (e) => {
 
         userId = localStorage.getItem('idUser');
 
-        console.log("E: " + e);
+        console.log(e);
         console.log("userID: " + userId);
         console.log("roomID: " + roomId);
         console.log("comment: " + commentsss);
 
         return {
             date: moment(),
-            comment: commentsss,
+            comment: e.comment,
             rating: e.rating,
             idUser: userId,
             nameUser: e.nameUser,
@@ -338,12 +348,12 @@ const RoomDetails = (props) => {
                                             <Comment
                                                 avatar={<Avatar src="https://joeschmoe.io/api/v1/random" />}
                                                 content={
-                                                    <Form layout='vertical' onFinish={onFinish}>
+                                                    <Form layout='vertical' onFinish={onSubmit}>
                                                         <Form.Item name="rating">
                                                             <Rate></Rate>
                                                         </Form.Item>
                                                         <Form.Item name="comment">
-                                                            <TextArea onChange={onChangeComment} rows={4} placeholder='Insert your comment!'></TextArea>
+                                                            <TextArea rows={4} placeholder='Insert your comment!'></TextArea>
                                                         </Form.Item>
                                                         <Form.Item>
                                                             <Button type='primary' htmlType='submit'>Submit</Button>
