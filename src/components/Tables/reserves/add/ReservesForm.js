@@ -67,7 +67,7 @@ const ReservesForm = () => {
 
 
                 localStorage.setItem('idUser', response.decoded[1]);
-                userId = localStorage.getItem('idUser');
+                //userId = localStorage.getItem('idUser');
 
                 userName = response.decoded[2];
                 console.log("userId " + response.decoded[1]);
@@ -92,7 +92,7 @@ const ReservesForm = () => {
 
     const onFinish = (e) => {
 
-        userId = localStorage.getItem('idUser');
+        //userId = localStorage.getItem('idUser');
 
         console.log(e);
         console.log("userID: " + userId);

@@ -6,12 +6,26 @@ import { Col, Row, Card, Form, Input, Button, Checkbox, message } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom'
 import logo from '../assets/logo/logo_simples.png'
+import { useLocalStorage } from 'react-use-storage';
+import { getPreferencesUrlStorage, preferencesToStorage } from '../utils/localStorage';
+
 
 const LoginForm = () => {
 
     const { register, handleSubmit } = useForm();
     const [loginSuccess, setLoginSuccess] = useState(false);
     const onSubmit = data => login(data);
+
+    var idUser;
+
+    const preferences = getPreferencesUrlStorage("iduser");
+
+
+    const [preferencesStorage, setPreferencesToStorage] = useLocalStorage(preferences, {
+        iduser: preferences[preferencesStorage.IDUSER] || idUser
+    });
+
+
 
     const login = (data) => {
         fetch('/auth/admin/login', {
@@ -27,6 +41,13 @@ const LoginForm = () => {
 
                 if (response.auth) {
                     window.location.href = '/'
+
+                    idUser = response.decoded[1];
+
+                    setPreferencesToStorage({
+                        iduser: idUser
+                    });
+
                     message.success('Loged In Sucessfuly');
                     setLoginSuccess(true);
 

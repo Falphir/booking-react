@@ -233,7 +233,6 @@ const RoomDetails = (props) => {
         commentsss = comment;
     } */
 
-
     const onFinish = (e) => {
 
         userId = localStorage.getItem('idUser');
@@ -244,7 +243,7 @@ const RoomDetails = (props) => {
         console.log("comment: " + commentsss);
 
         return {
-            date: moment(),
+            date: moment().format('YYYY/MM/DD'),
             comment: e.comment,
             rating: e.rating,
             idUser: userId,
