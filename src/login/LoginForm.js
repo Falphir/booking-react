@@ -16,11 +16,6 @@ const LoginForm = () => {
     const [loginSuccess, setLoginSuccess] = useState(false);
     const onSubmit = data => login(data);
     var idUser;
-    //const preferences = getPreferencesUrlStorage("iduser");
-
-    /* const [preferencesToStorage, setPreferencesToStorage] = useLocalStorage(preferences, {
-        iduser: preferences[preferencesToStorage.IDUSER] || idUser
-    }); */
 
 
 
@@ -37,8 +32,6 @@ const LoginForm = () => {
 
                 if (response.auth) {
                     window.location.href = '/'
-
-                    idUser = response.decoded[1];
 
                     /* setPreferencesToStorage({
                         iduser: idUser
