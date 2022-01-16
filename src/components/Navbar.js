@@ -60,6 +60,8 @@ function Navbar() {
         //console.log("stuff: " + response.auth);
         console.log("scopes: " + response.decoded);
 
+        //localStorage.setItem('idUser', response.decoded[1]);
+
         function showButtons() {
           if (window.innerWidth <= 960) {
             setSignInButton(false);

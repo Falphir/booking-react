@@ -4,7 +4,9 @@ import './ReserveTable.css';
 import { SelectOutlined } from '@ant-design/icons';
 import { Link, Navigate } from 'react-router-dom';
 import { Modal, List } from 'antd';
-import ReserveRoom from './ReserveRoom'
+import ReserveRoom from './ReserveRoom';
+import { useLocalStorage } from 'react-use-storage';
+import { getPreferencesUrlStorage, preferencesToStorage } from '../../../utils/localStorage';
 
 
 function useWindowSize() {
@@ -45,6 +47,8 @@ const MyReserves = (props) => {
         }
     });
     let idUser, nameUser, currentID, IDROOM;
+    // const preferences = getPreferencesUrlStorage("iduser");
+
 
 
 
@@ -69,7 +73,9 @@ const MyReserves = (props) => {
 
                 idUser = response.decoded[1];
 
-                localStorage.setItem('idUser', response.decoded[1]);
+                //preferencesStorage = response.decoded[1];
+
+                //localStorage.setItem('idUser', response.decoded[1]);
 
                 nameUser = response.decoded[2];
                 //console.log("idUser " + response.decoded[1]);

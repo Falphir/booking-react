@@ -4,6 +4,8 @@ export const PAGE_TABLE = "page";
 
 export const REMEMBERME = "rememberme";
 
+export const IDUSER = "iduser";
+
 /**
  * Return the preferences of the tables than can be saved
  * 
@@ -17,5 +19,6 @@ export const getPreferencesUrlStorage = (resourceUrl = "") => {
 
 export const preferencesToStorage = {
     PAGE_TABLE,
-    REMEMBERME
+    REMEMBERME,
+    IDUSER
 };

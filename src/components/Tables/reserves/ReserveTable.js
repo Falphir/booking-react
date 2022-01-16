@@ -54,8 +54,8 @@ const ReserveTable = (props) => {
             width: '10%',
             render: (record) => {
                 return <>
-                <Row justify='center'>
-                    <DeleteOutlined onClick={() => { onDeleteReserve(record) }} style={{ color: "red", marginLeft: 12 }} />
+                    <Row justify='center'>
+                        <DeleteOutlined onClick={() => { onDeleteReserve(record) }} style={{ color: "red", marginLeft: 12 }} />
                     </Row>
                 </>
             }

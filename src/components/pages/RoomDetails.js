@@ -169,7 +169,7 @@ const RoomDetails = (props) => {
                 }
 
 
-                localStorage.setItem('idUser', response.decoded[1]);
+                //localStorage.setItem('idUser', response.decoded[1]);
                 userId = localStorage.getItem('idUser');
 
 
@@ -239,7 +239,6 @@ const RoomDetails = (props) => {
         commentsss = comment;
     } */
 
-
     const onFinish = (e) => {
 
         userId = localStorage.getItem('idUser');
@@ -250,7 +249,7 @@ const RoomDetails = (props) => {
         console.log("comment: " + commentsss);
 
         return {
-            date: moment(),
+            date: moment().format('YYYY/MM/DD'),
             comment: e.comment,
             rating: e.rating,
             idUser: userId,
