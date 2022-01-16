@@ -143,7 +143,7 @@ const RoomDetails = (props) => {
                 if (response.ok) {
 
                     console.log(response);
-                    message.success('Comment published');
+                    message.success('Comment Published');
                     return (
                         <>
                             {response.json()}
@@ -153,7 +153,7 @@ const RoomDetails = (props) => {
                     )
                 } else {
                     console.log(response);
-                    message.error('Comment duplicated. Try again');
+                    message.error('An Error Occurred while publishing the comment. Please Try Again Later!');
                 }
             })
 
@@ -176,27 +176,28 @@ const RoomDetails = (props) => {
                 setUserLogged(response.auth);
 
                 if (response.auth == false) {
-
                     localStorage.removeItem('idUser');
                     setDisabled(true);
-
                 } else {
-                    localStorage.setItem('idUser', response.decoded[1]);
+                    localStorage.setItem('idUser', response.decoded[2]);
                     idUser = localStorage.getItem('idUser');
                     setUsername(response.decoded[3])
-
                     if (response.decoded[2] === "user") {
-
                         setDisabled(false);
-
                     } else {
                         setDisabled(true);
                     }
                 }
 
+
                 console.log(response);
+                //localStorage.setItem('idUser', response.decoded[1]);
+                //const userId = localStorage.getItem('idUser');
+
+
                 console.log("stuff: " + response);
                 console.log("scopes: " + response.decoded);
+
             })
 
         fetchApi(data.pagination.pageSize, data.pagination.current);
@@ -393,13 +394,13 @@ const RoomDetails = (props) => {
                                                         content={
                                                             <Form layout='vertical' onFinish={onSubmit}>
                                                                 <Form.Item name="rating">
-                                                                    <Rate></Rate>
+                                                                    <Rate disabled></Rate>
                                                                 </Form.Item>
                                                                 <Form.Item name="comment">
-                                                                    <TextArea rows={4} placeholder='Insert your comment!'></TextArea>
+                                                                    <TextArea disabled rows={4} placeholder='Insert your comment!'></TextArea>
                                                                 </Form.Item>
                                                                 <Form.Item>
-                                                                    <Button type='primary' htmlType='submit'>Submit</Button>
+                                                                    <Button disabled type='primary' htmlType='submit'>Submit</Button>
                                                                 </Form.Item>
                                                             </Form>
                                                         }
