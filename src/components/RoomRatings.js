@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { List, Row, Col, Card, Comment, Avatar, Rate } from 'antd'
 import { useParams, Link } from 'react-router-dom';
+
 const { Meta } = Card;
 
 
@@ -111,34 +112,16 @@ const RoomRatings = (props) => {
                 <>
                     <Row>
                         <Col span={24}>
-                            <Row justify='start'>
-                                <Col >
-                                    <Row justify='center' align='middle'>
-                                        <Col>
-                                            <Row justify='center'>
-                                                <h1 style={{ fontSize: 48 }}><b>{RoundedAvg}</b></h1>
-                                            </Row>
-                                            <Row justify='center' style={{ marginTop: -32 }}>
-                                                <h4>{comments.length} Total</h4>
-                                            </Row>
-                                            <Row justify='center'>
-                                                <Rate allowHalf={true} value={RoundedAvg}></Rate>
-                                            </Row>
-                                        </Col>
+                            <Row justify='center' align='middle'>
+                                <Col>
+                                    <Row justify='center'>
+                                        <h1 style={{ fontSize: 56 }}><b>{RoundedAvg}</b></h1>
                                     </Row>
-                                </Col>
-                                <Col>
-                                    <hr style={{
-                                        margin: 16,
-                                        border: "none",
-                                        borderLeft: "1px solid hsla(200, 10%, 50%,0.2)",
-                                        height: "100%",
-                                        width: 1
-                                    }} />
-                                </Col>
-                                <Col>
-                                    <Row justify='start'>
-
+                                    <Row justify='center' style={{ marginTop: -40 }}>
+                                        <h3>{comments.length} Total</h3>
+                                    </Row>
+                                    <Row justify='center'>
+                                        <Rate disabled allowHalf={true} value={RoundedAvg}></Rate>
                                     </Row>
                                 </Col>
                             </Row>
