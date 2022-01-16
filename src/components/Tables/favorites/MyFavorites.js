@@ -45,7 +45,7 @@ const MyFavorites = (props) => {
             total: 0
         }
     });
-    let idUser, currentID;
+    let idUser, currentID, userId;
 
 
     useEffect(() => {
@@ -65,6 +65,10 @@ const MyFavorites = (props) => {
                 if (response.auth == false) {
                     localStorage.removeItem('idUser');
                 }
+
+
+                localStorage.setItem('idUser', response.decoded[1]);
+                userId = localStorage.getItem('idUser');
 
                 idUser = response.decoded[1];
                 localStorage.setItem('idUser', response.decoded[1]);

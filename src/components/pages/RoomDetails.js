@@ -52,6 +52,7 @@ const RoomDetails = (props) => {
     const [reserve, setReserve] = useState();
     const { register, handleSubmit } = useForm();
     const onSubmit = e => postComment(onFinish(e));
+    var userId, commentsss;
     const [data, setData] = useState({
         rooms: [],
         pagination: {
@@ -77,9 +78,6 @@ const RoomDetails = (props) => {
 
 
 
-
-
-
     const columns = [
         { title: 'Facilities', dataIndex: 'facilities' },
         { title: 'Quantity', dataIndex: 'quantity', width: '10%', align: 'center' },
@@ -88,8 +86,6 @@ const RoomDetails = (props) => {
     const Extracolumns = [
         { title: 'Extras', dataIndex: 'extras', render: RenderExtras },
     ];
-
-
 
 
 
@@ -126,7 +122,8 @@ const RoomDetails = (props) => {
 
 
     const postComment = (data) => {
-        fetch('/comment/' + roomId, {
+        //fetch('/comment/comments/' + roomId, {
+        fetch('/comment/comments/:roomId', {
             headers: { 'Content-Type': 'application/json' },
             method: 'POST',
             body: JSON.stringify(data)
@@ -153,18 +150,7 @@ const RoomDetails = (props) => {
             });
     }
 
-    const onFinish = (e) => {
-        console.log(e);
-        return {
-            date: moment(),
-            email: e.email,
-            password: e.password,
-            role: {
-                nameRole: "user",
-                scopes: ["read-own-reserves", "create-reserve", "detail-reserve", "create-favorite", "read-own-favorites", "delete-favorite", "create-comment"]
-            }
-        }
-    }
+
 
     useEffect(() => {
         fetch('/auth/me', {
@@ -176,6 +162,16 @@ const RoomDetails = (props) => {
             .then((response) => {
                 //se scope do utilizador for == ao scope q tem permissão pra ver button
                 setUserLogged(response.auth);
+
+                if (response.auth == false) {
+                    localStorage.removeItem('idUser');
+                }
+
+
+                localStorage.setItem('idUser', response.decoded[1]);
+                userId = localStorage.getItem('idUser');
+
+
                 console.log("stuff: " + response.auth);
                 console.log("scopes: " + response.decoded);
             })
@@ -232,6 +228,31 @@ const RoomDetails = (props) => {
         setIcon(!icon)
     }
 
+    /* function onChangeComment(date, comment) {
+        console.log("comment: " + comment);
+        commentsss = comment;
+    } */
+
+
+    const onFinish = (e) => {
+
+        userId = localStorage.getItem('idUser');
+
+        console.log(e);
+        console.log("userID: " + userId);
+        console.log("roomID: " + roomId);
+        console.log("comment: " + commentsss);
+
+        return {
+            date: moment(),
+            comment: e.comment,
+            rating: e.rating,
+            idUser: userId,
+            nameUser: e.nameUser,
+            idRoom: roomId
+        }
+    }
+
 
     return (
         <>
@@ -255,7 +276,7 @@ const RoomDetails = (props) => {
                                     <Row>
                                         <Col span={16}>
                                             <Row justify='start'>
-                                                <p className='rooms-details-price-label'><b className='rooms-details-price'>{rooms.price}€ </b>p/Pessoa</p>
+                                                <p className='rooms-details-price-label'><b className='rooms-details-price'>{rooms.price}€ </b>p/Person</p>
                                             </Row>
                                         </Col>
                                         <Col span={8}>
@@ -272,14 +293,14 @@ const RoomDetails = (props) => {
                                             <Divider style={{ marginTop: 0 }}></Divider>
                                             <Row justify='start'>
                                                 <Tooltip placement='top' title={"Adults"}>
-                                                <div className='rooms-details-icons' style={{marginRight: 16}}><i class="fas fa-user-alt"></i> {rooms.nAdult} </div>
+                                                    <div className='rooms-details-icons' style={{ marginRight: 16 }}><i class="fas fa-user-alt"></i> {rooms.nAdult} </div>
                                                 </Tooltip>
                                                 <Tooltip placement='top' title={"Childrens"}>
-                                                <div className='rooms-details-icons'><i class="fas fa-child"></i> {rooms.nChild}  </div>
+                                                    <div className='rooms-details-icons'><i class="fas fa-child"></i> {rooms.nChild}  </div>
                                                 </Tooltip>
                                             </Row>
                                             <Row justify='start' >
-                                                
+
                                             </Row>
                                             <Row style={{ paddingTop: 20 }}>
                                                 <Col>
@@ -323,15 +344,15 @@ const RoomDetails = (props) => {
                                             <Table columns={Extracolumns} dataSource={ExtrastableData} pagination={false} />
                                         </TabPane>
                                         <TabPane tab="Comments" key="2">
-                                            <RoomComments data={`${roomId}`}/>
+                                            <RoomComments data={`${roomId}`} />
                                             <Comment
                                                 avatar={<Avatar src="https://joeschmoe.io/api/v1/random" />}
                                                 content={
                                                     <Form layout='vertical' onFinish={onSubmit}>
-                                                        <Form.Item>
+                                                        <Form.Item name="rating">
                                                             <Rate></Rate>
                                                         </Form.Item>
-                                                        <Form.Item>
+                                                        <Form.Item name="comment">
                                                             <TextArea rows={4} placeholder='Insert your comment!'></TextArea>
                                                         </Form.Item>
                                                         <Form.Item>
