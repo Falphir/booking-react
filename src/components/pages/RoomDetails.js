@@ -9,6 +9,7 @@ import Footer from '../Footer';
 import TextArea from 'antd/lib/input/TextArea';
 import Avatar from 'antd/lib/avatar/avatar';
 import RoomComments from '../RoomComments';
+import RoomRatings from '../RoomRatings';
 import moment from 'moment'
 
 
@@ -49,6 +50,8 @@ const RoomDetails = (props) => {
     const [icon, setIcon] = useState(true)
     const [loading, setLoading] = useState(true);
     const [userLogged, setUserLogged] = useState();
+    const [disabled, setDisabled] = useState();
+    const [username, setUsername] = useState();
     const [reserve, setReserve] = useState();
     const { register, handleSubmit } = useForm();
     const onSubmit = e => postComment(onFinish(e));
@@ -173,14 +176,19 @@ const RoomDetails = (props) => {
                     idUser = localStorage.getItem('idUser');
                 }
 
-                
-
+                setUsername(response.decoded[3])
+                console.log(response);
                 //localStorage.setItem('idUser', response.decoded[1]);
                 //const userId = localStorage.getItem('idUser');
 
 
-                console.log("stuff: " + response.auth);
-                console.log(response.decoded);
+                console.log("stuff: " + response);
+                console.log("scopes: " + response.decoded);
+                if (response.decoded[2] === "user") {
+                    setDisabled(false);
+                } else {
+                    setDisabled(true);
+                }
             })
 
         fetchApi(data.pagination.pageSize, data.pagination.current);
@@ -254,7 +262,7 @@ const RoomDetails = (props) => {
             comment: e.comment,
             rating: e.rating,
             idUser: idUser,
-            //nameUser: nameUser,
+            nameUser: username,
             idRoom: roomId
         }
     }
@@ -282,7 +290,7 @@ const RoomDetails = (props) => {
                                     <Row>
                                         <Col span={16}>
                                             <Row justify='start'>
-                                                <p className='rooms-details-price-label'><b className='rooms-details-price'>{rooms.price}€ </b>p/Person</p>
+                                                <p className='rooms-details-price-label'><b className='rooms-details-price'>{rooms.price}€ </b>per/Person</p>
                                             </Row>
                                         </Col>
                                         <Col span={8}>
@@ -316,23 +324,41 @@ const RoomDetails = (props) => {
                                                         </Tooltip>
                                                     }
                                                     {userLogged &&
-                                                        <Link to={`/reserves/${roomId}`}>
-                                                            <Button type='primary'>Reserve This Room</Button>
-                                                        </Link>
+                                                        <>
+                                                            {disabled &&
+                                                                <Tooltip placement='top' title={"You need to be logged as User in order to be able to reserve this room"}>
+                                                                    <Button disabled type='primary'>Reserve This Room</Button>
+                                                                </Tooltip>
+                                                            }
+                                                            {!disabled &&
+                                                                <Link to={`/reserves/${roomId}`}>
+                                                                    <Button type='primary'>Reserve This Room</Button>
+                                                                </Link>
+                                                            }
+                                                        </>
                                                     }
                                                 </Col>
                                                 <Col>
                                                     <div style={{ paddingLeft: 8 }}>
                                                         {/* favorites */}
                                                         {!userLogged &&
-                                                            <>
+                                                            <Tooltip placement='top' title={"You need to have an Account in order to be able to Add this room to favorites"}>
                                                                 <Button disabled><HeartOutlined />Add to Favorites</Button>
-                                                            </>
+                                                            </Tooltip>
                                                         }
                                                         {userLogged &&
-                                                            <Link to={`/favorites/${roomId}`}>
-                                                                <Button bordered={false}><HeartFilled style={{ color: 'red' }} /> Add to Favorites</Button>
-                                                            </Link>
+                                                            <>
+                                                                {disabled &&
+                                                                    <Tooltip placement='top' title={"You need to be logged as User in order to be able to Add this room to favorites"}>
+                                                                        <Button disabled ><HeartFilled style={{ color: 'red' }} /> Add to Favorites</Button>
+                                                                    </Tooltip>
+                                                                }
+                                                                {!disabled &&
+                                                                    <Link to={`/favorites/${roomId}`}>
+                                                                        <Button bordered={false}><HeartFilled style={{ color: 'red' }} /> Add to Favorites</Button>
+                                                                    </Link>
+                                                                }
+                                                            </>
                                                         }
                                                     </div>
 
@@ -350,27 +376,76 @@ const RoomDetails = (props) => {
                                             <Table columns={Extracolumns} dataSource={ExtrastableData} pagination={false} />
                                         </TabPane>
                                         <TabPane tab="Comments" key="2">
-                                            <RoomComments data={`${roomId}`} />
-                                            <Comment
-                                                avatar={<Avatar src="https://joeschmoe.io/api/v1/random" />}
-                                                content={
-                                                    <Form layout='vertical' onFinish={onSubmit}>
-                                                        <Form.Item name="rating">
-                                                            <Rate></Rate>
-                                                        </Form.Item>
-                                                        <Form.Item name="comment">
-                                                            <TextArea rows={4} placeholder='Insert your comment!'></TextArea>
-                                                        </Form.Item>
-                                                        <Form.Item>
-                                                            <Button type='primary' htmlType='submit'>Submit</Button>
-                                                        </Form.Item>
-                                                    </Form>
-                                                }
-                                            >
-                                            </Comment>
+                                            <RoomComments data={roomId} />
+                                            {!userLogged &&
+                                                <Tooltip placement='top' title={"You need to have an Account in order to be able to Add this room to favorites"}>
+                                                    <Comment
+                                                        disabled
+                                                        avatar={<Avatar src="https://joeschmoe.io/api/v1/random" />}
+                                                        content={
+                                                            <Form layout='vertical' onFinish={onSubmit}>
+                                                                <Form.Item name="rating">
+                                                                    <Rate></Rate>
+                                                                </Form.Item>
+                                                                <Form.Item name="comment">
+                                                                    <TextArea rows={4} placeholder='Insert your comment!'></TextArea>
+                                                                </Form.Item>
+                                                                <Form.Item>
+                                                                    <Button type='primary' htmlType='submit'>Submit</Button>
+                                                                </Form.Item>
+                                                            </Form>
+                                                        }
+                                                    >
+                                                    </Comment>
+                                                </Tooltip>
+                                            }
+                                            {userLogged &&
+                                                <>
+                                                    {disabled &&
+                                                        <Tooltip placement='top' title={"You need to be logged as User in order to be able to comment in this Room"}>
+                                                            <Comment
+                                                                avatar={<Avatar src="https://joeschmoe.io/api/v1/random" />}
+                                                                content={
+                                                                    <Form layout='vertical' onFinish={onSubmit}>
+                                                                        <Form.Item name="rating">
+                                                                            <Rate disabled></Rate>
+                                                                        </Form.Item>
+                                                                        <Form.Item name="comment">
+                                                                            <TextArea disabled rows={4} placeholder='Insert your comment!'></TextArea>
+                                                                        </Form.Item>
+                                                                        <Form.Item>
+                                                                            <Button disabled type='primary' htmlType='submit'>Submit</Button>
+                                                                        </Form.Item>
+                                                                    </Form>
+                                                                }
+                                                            >
+                                                            </Comment>
+                                                        </Tooltip>
+                                                    }
+                                                    {!disabled &&
+                                                        <Comment
+                                                            avatar={<Avatar src="https://joeschmoe.io/api/v1/random" />}
+                                                            content={
+                                                                <Form layout='vertical' onFinish={onSubmit}>
+                                                                    <Form.Item name="rating">
+                                                                        <Rate></Rate>
+                                                                    </Form.Item>
+                                                                    <Form.Item name="comment">
+                                                                        <TextArea rows={4} placeholder='Insert your comment!'></TextArea>
+                                                                    </Form.Item>
+                                                                    <Form.Item>
+                                                                        <Button type='primary' htmlType='submit'>Submit</Button>
+                                                                    </Form.Item>
+                                                                </Form>
+                                                            }
+                                                        >
+                                                        </Comment>
+                                                    }
+                                                </>
+                                            }
                                         </TabPane>
                                         <TabPane tab="Ratings" key="3">
-                                            Content of Tab Pane 3
+                                            <RoomRatings data={roomId} />
                                         </TabPane>
                                     </Tabs>
                                 </Col>
@@ -380,79 +455,6 @@ const RoomDetails = (props) => {
                 </Col>
                 <Col span={2}></Col>
             </Row>
-
-            {/* <List grid={{ gutter: 16, column: ncolumn }} columns={columns}>
-                <Card key={roomId}
-                    cover={<img alt="example" src={rooms.image} />}>
-                    <Meta
-                        title={<p><span style={{ fontWeight: 'bold' }}>{rooms.description}</span></p>}>
-                    </Meta>
-
-                    <p></p>
-
-                    <div className="additional">
-                        <Row xs={24} xl={16}>
-                            <Col xs={24} xl={8}>
-                                {rooms.nStars} <i class="fas fa-star"></i>
-                            </Col>
-
-                            <Col xs={20} xl={4}>
-                                {rooms.nAdult} <i class="fas fa-user-alt"></i>
-                            </Col>
-
-                            <Col xs={24} xl={8}>
-                                {rooms.nChild} <i class="fas fa-child"></i>
-                            </Col>
-
-                            <Col xs={20} xl={4}>
-                                {rooms.price} <i class="fas fa-euro-sign"></i>
-                            </Col>
-                        </Row>
-                    </div>
-
-                    <br></br>
-
-                    <div className="additional">
-                        <Row xs={24} xl={16}>
-                            <Col xs={24} xl={8}>
-                                Nº Double Bed <i class="fas fa-long-arrow-alt-right"></i> {rooms.nDoubleBed} <i class="fas fa-bed"></i>
-                            </Col>
-
-                            <Col xs={24} xl={8}>
-                                Nº Single Bed <i class="fas fa-long-arrow-alt-right"></i> {rooms.nSingleBed} <i class="fas fa-bed"></i>
-                            </Col>
-
-                            <Col xs={24} xl={8}>
-                                Type Room <i class="fas fa-long-arrow-alt-right"></i> <i class="fas fa-home"></i> {rooms.typeRoom}
-                            </Col>
-
-                            <Col xs={24} xl={8}>
-                                Nº Rooms <i class="fas fa-long-arrow-alt-right"></i> {rooms.nRoom} <i class="fas fa-door"></i>
-                            </Col>
-                        </Row>
-                    </div>
-
-                    <br></br>
-
-                    <div className="additional">
-                        <Row xs={24} xl={16}>
-                            <Col xs={24} xl={8}>
-                                EXTRAS <i class="fas fa-long-arrow-alt-right"></i> {rooms.extras}
-                            </Col>
-                        </Row>
-                    </div>
-
-                    <br></br>
-
-                    <div className="reserves">
-                        <Row xs={24} xl={16}>
-                            <Link to={`/reserves/${roomId}`}>
-                                <Button>Reserve this room</Button>
-                            </Link>
-                        </Row>
-                    </div>
-                </Card>
-            </List> */}
             <Footer />
         </>
     )
