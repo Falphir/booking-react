@@ -45,7 +45,7 @@ const MyFavorites = (props) => {
             total: 0
         }
     });
-    let idUser, currentID, userId;
+    let idUser, currentID;
 
 
     useEffect(() => {
@@ -66,12 +66,17 @@ const MyFavorites = (props) => {
                     localStorage.removeItem('idUser');
                 }
 
+<<<<<<< HEAD
 
                 //localStorage.setItem('idUser', response.decoded[1]);
                 //userId = localStorage.getItem('idUser');
 
                 //idUser = response.decoded[1];
                 //localStorage.setItem('idUser', response.decoded[1]);
+=======
+                idUser = response.decoded[1];
+                localStorage.setItem('idUser', response.decoded[1]);
+>>>>>>> parent of 6d8639b (Merge branch 'alice_+_master')
                 console.log("idUser " + response.decoded[1]);
             })
 

@@ -55,7 +55,6 @@ const RoomDetails = (props) => {
     const [username, setUsername] = useState();
     const { register, handleSubmit } = useForm();
     const onSubmit = e => postComment(onFinish(e));
-    var userId, commentsss;
     const [data, setData] = useState({
         rooms: [],
         pagination: {
@@ -81,6 +80,9 @@ const RoomDetails = (props) => {
 
 
 
+
+
+
     const columns = [
         { title: 'Facilities', dataIndex: 'facilities' },
         { title: 'Quantity', dataIndex: 'quantity', width: '10%', align: 'center' },
@@ -89,6 +91,8 @@ const RoomDetails = (props) => {
     const Extracolumns = [
         { title: 'Extras', dataIndex: 'extras', render: RenderExtras },
     ];
+
+
 
 
 
@@ -125,8 +129,7 @@ const RoomDetails = (props) => {
 
 
     const postComment = (data) => {
-        //fetch('/comment/comments/' + roomId, {
-        fetch('/comment/comments/:roomId', {
+        fetch('/comment/' + roomId, {
             headers: { 'Content-Type': 'application/json' },
             method: 'POST',
             body: JSON.stringify(data)
@@ -153,7 +156,18 @@ const RoomDetails = (props) => {
             });
     }
 
-
+    const onFinish = (e) => {
+        console.log(e);
+        return {
+            date: moment(),
+            email: e.email,
+            password: e.password,
+            role: {
+                nameRole: "user",
+                scopes: ["read-own-reserves", "create-reserve", "detail-reserve", "create-favorite", "read-own-favorites", "delete-favorite", "create-comment"]
+            }
+        }
+    }
 
     useEffect(() => {
         fetch('/auth/me', {
@@ -165,6 +179,7 @@ const RoomDetails = (props) => {
             .then((response) => {
                 //se scope do utilizador for == ao scope q tem permissão pra ver button
                 setUserLogged(response.auth);
+<<<<<<< HEAD
 
                 if (response.auth == false) {
                     localStorage.removeItem('idUser');
@@ -177,6 +192,9 @@ const RoomDetails = (props) => {
 
                 console.log("stuff: " + response);
                 console.log(response);
+=======
+                console.log("stuff: " + response.auth);
+>>>>>>> parent of 6d8639b (Merge branch 'alice_+_master')
                 console.log("scopes: " + response.decoded);
                 setUsername(response.decoded[3])
                 if (response.decoded[2] === "user") {
@@ -238,6 +256,7 @@ const RoomDetails = (props) => {
         setIcon(!icon)
     }
 
+<<<<<<< HEAD
     /* function onChangeComment(date, comment) {
         console.log("comment: " + comment);
         commentsss = comment;
@@ -262,6 +281,8 @@ const RoomDetails = (props) => {
         }
     }
 
+=======
+>>>>>>> parent of 6d8639b (Merge branch 'alice_+_master')
 
     return (
         <>
@@ -285,7 +306,11 @@ const RoomDetails = (props) => {
                                     <Row>
                                         <Col span={16}>
                                             <Row justify='start'>
+<<<<<<< HEAD
                                                 <p className='rooms-details-price-label'><b className='rooms-details-price'>{rooms.price}€ </b>per/Person</p>
+=======
+                                                <p className='rooms-details-price-label'><b className='rooms-details-price'>{rooms.price}€ </b>p/Pessoa</p>
+>>>>>>> parent of 6d8639b (Merge branch 'alice_+_master')
                                             </Row>
                                         </Col>
                                         <Col span={8}>
@@ -302,14 +327,14 @@ const RoomDetails = (props) => {
                                             <Divider style={{ marginTop: 0 }}></Divider>
                                             <Row justify='start'>
                                                 <Tooltip placement='top' title={"Adults"}>
-                                                    <div className='rooms-details-icons' style={{ marginRight: 16 }}><i class="fas fa-user-alt"></i> {rooms.nAdult} </div>
+                                                <div className='rooms-details-icons' style={{marginRight: 16}}><i class="fas fa-user-alt"></i> {rooms.nAdult} </div>
                                                 </Tooltip>
                                                 <Tooltip placement='top' title={"Childrens"}>
-                                                    <div className='rooms-details-icons'><i class="fas fa-child"></i> {rooms.nChild}  </div>
+                                                <div className='rooms-details-icons'><i class="fas fa-child"></i> {rooms.nChild}  </div>
                                                 </Tooltip>
                                             </Row>
                                             <Row justify='start' >
-
+                                                
                                             </Row>
                                             <Row style={{ paddingTop: 20 }}>
                                                 <Col>
@@ -371,6 +396,7 @@ const RoomDetails = (props) => {
                                             <Table columns={Extracolumns} dataSource={ExtrastableData} pagination={false} />
                                         </TabPane>
                                         <TabPane tab="Comments" key="2">
+<<<<<<< HEAD
                                             <RoomComments data={roomId} />
                                             {!userLogged &&
                                                 <Tooltip placement='top' title={"You need to have an Account in order to be able to Add this room to favorites"}>
@@ -439,6 +465,26 @@ const RoomDetails = (props) => {
                                                 </>
                                             }
 
+=======
+                                            <RoomComments data={`${roomId}`}/>
+                                            <Comment
+                                                avatar={<Avatar src="https://joeschmoe.io/api/v1/random" />}
+                                                content={
+                                                    <Form layout='vertical' onFinish={onSubmit}>
+                                                        <Form.Item>
+                                                            <Rate></Rate>
+                                                        </Form.Item>
+                                                        <Form.Item>
+                                                            <TextArea rows={4} placeholder='Insert your comment!'></TextArea>
+                                                        </Form.Item>
+                                                        <Form.Item>
+                                                            <Button type='primary' htmlType='submit'>Submit</Button>
+                                                        </Form.Item>
+                                                    </Form>
+                                                }
+                                            >
+                                            </Comment>
+>>>>>>> parent of 6d8639b (Merge branch 'alice_+_master')
                                         </TabPane>
                                         <TabPane tab="Ratings" key="3">
                                         <RoomRatings data={roomId} />
