@@ -34,6 +34,7 @@ const ReservesForm = () => {
                     return (
                         <>
                             {response.json()}
+                            {window.location.href = '/dashboard'}
                         </>
                     )
 

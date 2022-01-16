@@ -83,7 +83,7 @@ const RoomsForm = () => {
                     return (
                         <>
                             {response.json()}
-
+                            {window.location.href = '/dashboard'}
                         </>
                     )
 
@@ -186,7 +186,7 @@ const RoomsForm = () => {
                                                 message: 'Please input the number of adults!',
                                             },
                                         ]} >
-                                        <InputNumber required />
+                                        <InputNumber min={0} required />
                                     </Form.Item>
                                     <Form.Item name="nChildren" label={<h4 className='rooms-form-label-h4'><b>Number of Childrens</b></h4>}
                                         rules={[
@@ -195,7 +195,7 @@ const RoomsForm = () => {
                                                 message: 'Please input the number of childrens!',
                                             },
                                         ]} >
-                                        <InputNumber required />
+                                        <InputNumber min={0} required />
                                     </Form.Item>
                                     <Form.Item name="nRooms" label={<h4 className='rooms-form-label-h4'><b>Number of Rooms</b></h4>}
                                         rules={[
@@ -204,7 +204,7 @@ const RoomsForm = () => {
                                                 message: 'Please input the number of rooms!',
                                             },
                                         ]} >
-                                        <InputNumber required />
+                                        <InputNumber min={0} required />
                                     </Form.Item>
                                     <Form.Item name="price" label={<h4 className='rooms-form-label-h4'><b>Price</b></h4>}
                                         rules={[
@@ -213,7 +213,7 @@ const RoomsForm = () => {
                                                 message: 'Please input a price!',
                                             },
                                         ]} >
-                                        <InputNumber required />
+                                        <InputNumber addonAfter="€" min={0} required />
                                     </Form.Item>
                                     <Form.Item name="typeRoom" label={<h4 className='rooms-form-label-h4'><b>Type of Room</b></h4>} style={{ width: 400 }}
                                         rules={[
@@ -238,7 +238,7 @@ const RoomsForm = () => {
                                                 message: 'Please input the number of single Beds!',
                                             },
                                         ]}>
-                                        <InputNumber required />
+                                        <InputNumber min={0} required />
                                     </Form.Item>
                                     <Form.Item name="nDoubleBed" label={<h4 className='rooms-form-label-h4'><b>Number of Double Beds</b></h4>}
                                         rules={[
@@ -247,7 +247,7 @@ const RoomsForm = () => {
                                                 message: 'Please input the number of double beds!',
                                             },
                                         ]}>
-                                        <InputNumber required />
+                                        <InputNumber min={0} required />
                                     </Form.Item>
                                     <Form.Item name="nStars" label={<h4 className='rooms-form-label-h4'><b>Number of Stars</b></h4>} style={{ width: 175 }}
                                         rules={[

@@ -409,7 +409,7 @@ const RoomTable = (props) => {
                         }} />
                     </Form.Item>
                     <Form.Item label={<h4><b>Number of Adults</b></h4>}>
-                        <InputNumber value={editingRoom?.nAdult} onChange={(e) => {
+                        <InputNumber min={0} value={editingRoom?.nAdult} onChange={(e) => {
                             console.log("n Adults: " + e)
                             setEditingRoom(pre => {
                                 return { ...pre, nAdult: e }
@@ -417,7 +417,7 @@ const RoomTable = (props) => {
                         }} />
                     </Form.Item>
                     <Form.Item label={<h4><b>Number of Childrens</b></h4>}>
-                        <InputNumber value={editingRoom?.nChild} onChange={(e) => {
+                        <InputNumber min={0} value={editingRoom?.nChild} onChange={(e) => {
                             setEditingRoom(pre => {
                                 console.log("n Childs: " + e)
                                 return { ...pre, nChild: e }
@@ -425,15 +425,15 @@ const RoomTable = (props) => {
                         }} />
                     </Form.Item>
                     <Form.Item label={<h4><b>Number of Rooms</b></h4>}>
-                        <InputNumber value={editingRoom?.nRoom} onChange={(e) => {
+                        <InputNumber min={0} value={editingRoom?.nRoom} onChange={(e) => {
                             console.log("n Rooms: " + e)
                             setEditingRoom(pre => {
                                 return { ...pre, nRoom: e }
                             })
                         }} />
                     </Form.Item>
-                    <Form.Item label={<h4><b>Price €</b></h4>}>
-                        <InputNumber value={editingRoom?.price} onChange={(e) => {
+                    <Form.Item label={<h4><b>Price</b></h4>}>
+                        <InputNumber min={0} addonAfter="€" value={editingRoom?.price} onChange={(e) => {
                             setEditingRoom(pre => {
                                 return { ...pre, price: e }
                             })
@@ -454,7 +454,7 @@ const RoomTable = (props) => {
                         </Select>
                     </Form.Item>
                     <Form.Item label={<h4><b>Number of Double Beds</b></h4>}>
-                        <InputNumber value={editingRoom?.nDoubleBed} onChange={(e) => {
+                        <InputNumber min={0} value={editingRoom?.nDoubleBed} onChange={(e) => {
                             console.log("n DoubleBed: " + e)
                             setEditingRoom(pre => {
                                 return { ...pre, nDoubleBed: e }
@@ -462,7 +462,7 @@ const RoomTable = (props) => {
                         }} />
                     </Form.Item>
                     <Form.Item label={<h4><b>Number of Single Beds</b></h4>}>
-                        <InputNumber value={editingRoom?.nSingleBed} onChange={(e) => {
+                        <InputNumber min={0} value={editingRoom?.nSingleBed} onChange={(e) => {
                             console.log("n SingleBed: " + e)
                             setEditingRoom(pre => {
                                 return { ...pre, nSingleBed: e }

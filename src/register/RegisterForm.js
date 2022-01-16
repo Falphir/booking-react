@@ -26,7 +26,7 @@ const RegisterForm = () => {
                     return (
                         <>
                             {response.json()}
-                            <Navigate to="/login"></Navigate>
+                            {window.location.href = '/login'}
                         </>
                     )
                 } else {

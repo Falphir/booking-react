@@ -33,6 +33,7 @@ const RegisterForm = () => {
                     //alert("User created");
                     return <>
                         {response.json()}
+                        {window.location.href = '/dashboard'}
                         {/* {setScopes([])} */}
                     </>
 

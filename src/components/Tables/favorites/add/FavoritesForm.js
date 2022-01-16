@@ -34,6 +34,7 @@ const FavoritesForm = () => {
                     return (
                         <>
                             {response.json()}
+                            {window.location.href = '/dashboard'}
                         </>
                     )
 
