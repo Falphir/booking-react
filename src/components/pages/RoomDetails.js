@@ -12,7 +12,7 @@ import RoomComments from '../RoomComments';
 import RoomRatings from '../RoomRatings';
 import moment from 'moment'
 
-
+const { forwardRef, useRef, useImperativeHandle } = React;
 
 const { TabPane } = Tabs;
 const { Meta } = Card;
@@ -55,8 +55,11 @@ const RoomDetails = (props) => {
     const [reserve, setReserve] = useState();
     const { register, handleSubmit } = useForm();
     const onSubmit = e => postComment(onFinish(e));
+    const [Commentform] = Form.useForm();
     var commentsss;
     let idUser;
+
+    const childRef = useRef();
 
     idUser = localStorage.getItem('idUser');
 
@@ -144,6 +147,8 @@ const RoomDetails = (props) => {
                     return (
                         <>
                             {response.json()}
+                            {Commentform.resetFields()}
+                            {childRef.current.reloadList()}
                         </>
                     )
                 } else {
@@ -151,6 +156,7 @@ const RoomDetails = (props) => {
                     message.error('An Error Occurred while publishing the comment. Please Try Again Later!');
                 }
             })
+
             .catch((err) => {
                 console.error('error:', err);
             });
@@ -378,7 +384,7 @@ const RoomDetails = (props) => {
                                             <Table columns={Extracolumns} dataSource={ExtrastableData} pagination={false} />
                                         </TabPane>
                                         <TabPane tab="Comments" key="2">
-                                            <RoomComments data={roomId} />
+                                            <RoomComments data={roomId} ref={childRef} />
                                             {!userLogged &&
                                                 <Tooltip placement='top' title={"You need to have an Account in order to be able to Add this room to favorites"}>
                                                     <Comment
@@ -428,7 +434,7 @@ const RoomDetails = (props) => {
                                                         <Comment
                                                             avatar={<Avatar src="https://joeschmoe.io/api/v1/random" />}
                                                             content={
-                                                                <Form layout='vertical' onFinish={onSubmit}>
+                                                                <Form form={Commentform} layout='vertical' onFinish={onSubmit}>
                                                                     <Form.Item name="rating">
                                                                         <Rate></Rate>
                                                                     </Form.Item>

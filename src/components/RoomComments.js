@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { List, Row, Col, Card, Comment, Avatar } from 'antd'
 import { useParams, Link } from 'react-router-dom';
+const { forwardRef, useRef, useImperativeHandle } = React;
 const { Meta } = Card;
 
 
@@ -28,7 +29,7 @@ function useWindowSize() {
     return windowSize;
 }
 
-const RoomComments = (props) => {
+const RoomComments = forwardRef((props, ref) => {
 
     //const { roomId } = props.data;
     const Size = useWindowSize();
@@ -74,6 +75,8 @@ const RoomComments = (props) => {
             });
     }
 
+    
+
     const columns = [
         { title: 'Description', value: 'description', },
         { title: 'Nº Adults', value: 'nAdult', },
@@ -105,6 +108,20 @@ const RoomComments = (props) => {
 
     const { comments, pagination } = data;
 
+    const handleListChange = (pagination) => {
+        fetchApi(pagination.pageSize, pagination.current)
+    };
+
+    
+
+    useImperativeHandle(ref, () => ({
+
+        reloadList() {
+            handleListChange(pagination)
+        }
+    
+      }));
+
     const RenderComments = () => {
         console.log(comments)
         if (comments == null) {
@@ -114,7 +131,7 @@ const RoomComments = (props) => {
             console.log("Comments ready")
             return (<>
                 <List pagination={pagination} rowKey={record => record._id} loading={loading}
-                    dataSource={comments}
+                    dataSource={comments} onChange={handleListChange}
                     renderItem={item => (
                         <li>
                             <Comment
@@ -131,6 +148,8 @@ const RoomComments = (props) => {
 
     }
 
+    
+
     console.log("Room ID: " + props.data)
     console.log(comments)
 
@@ -139,6 +158,6 @@ const RoomComments = (props) => {
             {RenderComments()}
         </>
     )
-}
+});
 
 export default RoomComments
