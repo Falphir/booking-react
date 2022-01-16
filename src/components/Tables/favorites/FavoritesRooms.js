@@ -93,18 +93,15 @@ const FavoritesRooms = (props) => {
         if (rooms == null) {
             console.log("room Null")
             return (<>
-                <Popover placement="topLeft" title="Settings" content={<a><DeleteOutlined style={{ color: 'red' }}/> Remove from Favorites </a>}>
                     <Image
                         preview={false}
                         src={NotFound}
                     />
-                </Popover>
             </>)
 
         } else {
             console.log("extras ready")
             return (<>
-                <Popover placement="topLeft" title="Settings" content={<a onClick={RemoveFavorite}><DeleteOutlined style={{ color: 'red' }}/> Remove from Favorites </a>}>
                     <Link to={`/rooms/${props.data}`}>
                         <Card className='card' cover={<img className='card-img' alt="example" src={rooms.image} />}>
                             <Meta
@@ -132,24 +129,12 @@ const FavoritesRooms = (props) => {
                             </div>
                         </Card>
                     </Link>
-                </Popover>
             </>)
         }
 
     }
 
-    const RemoveFavorite = () => {
-
-        Modal.confirm({
-            title: 'Are you sure, you want to Remove From Favorites?',
-            onOk: () => {
-                fetch(`/favorite/favorites/${props.favoriteId}`, {
-                    method: 'DELETE',
-                })
-            },
-        });
-    };
-
+    
 
     console.log(props.data)
 
