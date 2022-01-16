@@ -32,11 +32,6 @@ const LoginForm = () => {
 
                 if (response.auth) {
                     window.location.href = '/'
-
-                    /* setPreferencesToStorage({
-                        iduser: idUser
-                    }); */
-
                     message.success('Logged In Successfuly');
                     setLoginSuccess(true);
 

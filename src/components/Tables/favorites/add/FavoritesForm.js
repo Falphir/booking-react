@@ -16,6 +16,8 @@ const FavoritesForm = () => {
     const { RangePicker } = DatePicker;
     const [loading, setLoading] = useState(true);
     var userId, userName;
+    let currentID;
+    currentID = localStorage.getItem('idUser');
 
 
     const postFavorite = (data) => {
@@ -66,12 +68,14 @@ const FavoritesForm = () => {
                 }
 
 
-                //localStorage.setItem('idUser', response.decoded[1]);
-                userId = localStorage.getItem('idUser');
+                localStorage.setItem('idUser', response.decoded[1]);
+                currentID = localStorage.getItem('idUser');
 
-                userName = response.decoded[2];
+                userId = response.decoded[1];
+
+                //userName = response.decoded[2];
                 console.log("userId " + response.decoded[1]);
-                console.log("userName " + response.decoded[2]);
+                console.log("userName " + response.decoded[3]);
             })
 
             .catch(() => {
@@ -82,10 +86,10 @@ const FavoritesForm = () => {
 
     const onFinish = (e) => {
 
-        userId = localStorage.getItem('idUser');
+        currentID = localStorage.getItem('idUser');
 
         console.log(e);
-        console.log("userID: " + userId);
+        console.log("currentID: " + currentID);
         console.log("roomID: " + roomId);
 
         return {

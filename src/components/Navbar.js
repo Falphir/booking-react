@@ -71,6 +71,7 @@ function Navbar() {
               setMobileSignInButton(false);
               setMobileSignUpButton(false);
               setMobileSignOutButton(true);
+              localStorage.getItem('idUser');
             } else {
               setMobileSignInButton(true);
               setMobileSignUpButton(true);
@@ -81,6 +82,7 @@ function Navbar() {
               setSignInButton(false);
               setSignUpButton(false);
               setSignOutButton(true);
+              localStorage.getItem('idUser');
             } else {
               setSignInButton(true);
               setSignUpButton(true);
@@ -109,6 +111,7 @@ function Navbar() {
           setReservesButton(true);
           setFavoritesButton(true);
           showButtons();
+          localStorage.getItem('idUser');
           console.log("user");
 
 
@@ -119,6 +122,7 @@ function Navbar() {
           setReservesButton(false);
           setFavoritesButton(false);
           showButtons();
+          localStorage.getItem('idUser');
           console.log("admin");
 
 
@@ -129,6 +133,7 @@ function Navbar() {
           setReservesButton(false);
           setFavoritesButton(false);
           showButtons();
+          localStorage.getItem('idUser');
           console.log("editor");
 
 
@@ -139,6 +144,7 @@ function Navbar() {
           setReservesButton(false);
           setFavoritesButton(false);
           showButtons();
+          localStorage.getItem('idUser');
           console.log("guest");
         }
       })

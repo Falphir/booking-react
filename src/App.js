@@ -19,9 +19,41 @@ import DashboardEditor from './components/pages/DashboardEditor';
 import MyReserves from './components/pages/MyReservesPage';
 import MyFavorites from './components/pages/FavoritesPage';
 import FavoritesForm from './components/pages/AddFavorite';
+import { useState, useEffect } from 'react';
 
 
 function App() {
+
+  const [userLogged, setUserLogged] = useState();
+
+  let currentID;
+  currentID = localStorage.getItem('idUser');
+
+
+  useEffect(() => {
+
+    fetch('/auth/me', {
+      headers: { 'Accept': 'application/json' }
+    })
+
+      .then((response) => response.json())
+
+      .then((response) => {
+        setUserLogged(response.auth);
+        currentID = localStorage.getItem('idUser');
+      })
+
+      .catch(() => {
+        localStorage.removeItem('idUser');
+        setUserLogged(false);
+      })
+  }, [])
+
+  if (!userLogged) {
+    localStorage.removeItem('idUser');
+  }
+
+
   return (
     <>
       <Navbar />

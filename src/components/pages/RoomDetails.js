@@ -52,7 +52,11 @@ const RoomDetails = (props) => {
     const [reserve, setReserve] = useState();
     const { register, handleSubmit } = useForm();
     const onSubmit = e => postComment(onFinish(e));
-    var userId, commentsss;
+    var commentsss;
+    let idUser;
+
+    idUser = localStorage.getItem('idUser');
+
     const [data, setData] = useState({
         rooms: [],
         pagination: {
@@ -167,13 +171,14 @@ const RoomDetails = (props) => {
                     localStorage.removeItem('idUser');
                 }
 
+                idUser = localStorage.getItem('idUser');
 
                 //localStorage.setItem('idUser', response.decoded[1]);
-                userId = localStorage.getItem('idUser');
+                //const userId = localStorage.getItem('idUser');
 
 
                 console.log("stuff: " + response.auth);
-                console.log("scopes: " + response.decoded);
+                console.log(response.decoded);
             })
 
         fetchApi(data.pagination.pageSize, data.pagination.current);
@@ -235,10 +240,10 @@ const RoomDetails = (props) => {
 
     const onFinish = (e) => {
 
-        userId = localStorage.getItem('idUser');
+        idUser = localStorage.getItem('idUser');
 
         console.log(e);
-        console.log("userID: " + userId);
+        console.log("userID: " + idUser);
         console.log("roomID: " + roomId);
         console.log("comment: " + commentsss);
 
@@ -246,7 +251,7 @@ const RoomDetails = (props) => {
             date: moment().format('YYYY/MM/DD'),
             comment: e.comment,
             rating: e.rating,
-            idUser: userId,
+            idUser: idUser,
             nameUser: e.nameUser,
             idRoom: roomId
         }

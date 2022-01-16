@@ -15,7 +15,9 @@ const ReservesForm = () => {
     const [userLogged, setUserLogged] = useState();
     const { RangePicker } = DatePicker;
     const [loading, setLoading] = useState(true);
-    var DCI, DCO, userId, userName;
+    var DCI, DCO, userId, a;
+
+    userId = localStorage.getItem('idUser');
 
 
     const postReserve = (data) => {
@@ -66,12 +68,17 @@ const ReservesForm = () => {
                 }
 
 
-                //localStorage.setItem('idUser', response.decoded[1]);
                 userId = localStorage.getItem('idUser');
 
-                userName = response.decoded[2];
+
+                //localStorage.setItem('idUser', response.decoded[1]);
+                //userId = localStorage.getItem('idUser');
+
+                a = response.decoded[1];
+
+                //userName = response.decoded[3];
                 console.log("userId " + response.decoded[1]);
-                console.log("userName " + response.decoded[2]);
+                console.log("userName " + response.decoded[3]);
             })
 
             .catch(() => {
@@ -95,7 +102,7 @@ const ReservesForm = () => {
         userId = localStorage.getItem('idUser');
 
         console.log(e);
-        console.log("userID: " + userId);
+        console.log("userID: " + a);
         console.log("DCI: " + DCI);
         console.log("DCO: " + DCO);
         console.log("roomID: " + roomId);
@@ -103,7 +110,7 @@ const ReservesForm = () => {
         return {
             dateCheckIn: DCI,
             dateCheckOut: DCO,
-            idUser: userId,
+            idUser: a,
             idRoom: roomId
         }
     }

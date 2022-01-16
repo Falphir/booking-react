@@ -46,8 +46,9 @@ const MyReserves = (props) => {
             total: 0
         }
     });
-    let idUser, nameUser, currentID, IDROOM;
-    // const preferences = getPreferencesUrlStorage("iduser");
+    let nameUser, currentID, IDROOM;
+    var idUser;
+    currentID = localStorage.getItem('idUser');
 
 
 
@@ -71,11 +72,14 @@ const MyReserves = (props) => {
                     localStorage.removeItem('idUser');
                 }
 
+
+                currentID = localStorage.getItem('idUser');
                 idUser = response.decoded[1];
 
                 //preferencesStorage = response.decoded[1];
 
                 //localStorage.setItem('idUser', response.decoded[1]);
+                //currentID = localStorage.getItem('idUser');
 
                 nameUser = response.decoded[2];
                 //console.log("idUser " + response.decoded[1]);
@@ -128,7 +132,9 @@ const MyReserves = (props) => {
 
         currentID = localStorage.getItem('idUser');
 
-        //console.log("FETCHAPI idUser " + currentID);
+        console.log("FETCHAPI idUser " + currentID);
+
+        console.log("FETCHAPI idUser " + idUser);
 
         const url = '/reserve/user/reserves/' + currentID + '?' + new URLSearchParams({
             limit: pageSize,
