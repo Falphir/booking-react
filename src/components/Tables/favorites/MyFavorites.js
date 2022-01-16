@@ -138,11 +138,7 @@ const MyFavorites = (props) => {
             });
     }
 
-    const RemoveFavorite = (item) => {
-
-    }
-
-    const handleTableChange = (pagination) => {
+    const handleListChange = (pagination) => {
         fetchApi(pagination.pageSize, pagination.current)
     };
 
@@ -177,14 +173,43 @@ const MyFavorites = (props) => {
 
     ];
 
+    const RemoveFavorite = (item) => {
+
+        Modal.confirm({
+            title: 'Are you sure, you want to Remove From Favorites?',
+            onOk: () => {
+                fetch(`/favorite/favorites/${item._id}`, {
+                    method: 'DELETE',
+                })
+                reloadList()
+            },
+        });
+    };
+
+    const reloadList = () => {
+        handleListChange(pagination)
+    }
+
+
     return (
         <>
 
             <List
                 grid={{ gutter: 16, column: ncolumn }} pagination={pagination} rowKey={record => record._id} loading={loading}
                 dataSource={favorites}
+                onChange={handleListChange}
                 renderItem={item => (
-                    <List.Item><FavoritesRooms favoriteId={item._id} data={item.idRoom} /></List.Item>
+                    <Popover placement="topLeft" title="Settings" content={
+                        <a onClick={() => { RemoveFavorite(item) }}>
+                            <DeleteOutlined style={{ color: 'red' }} />
+                             Remove from Favorites
+                        </a>}>
+                        <List.Item>
+
+                            <FavoritesRooms favoriteId={item._id} data={item.idRoom} />
+
+                        </List.Item>
+                    </Popover>
                 )}
             />
             {/*  <Table
