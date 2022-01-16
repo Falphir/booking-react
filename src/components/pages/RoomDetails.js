@@ -176,25 +176,27 @@ const RoomDetails = (props) => {
                 setUserLogged(response.auth);
 
                 if (response.auth == false) {
+
                     localStorage.removeItem('idUser');
+                    setDisabled(true);
+
                 } else {
                     localStorage.setItem('idUser', response.decoded[1]);
                     idUser = localStorage.getItem('idUser');
                     setUsername(response.decoded[3])
-                    console.log(response);
-                    //localStorage.setItem('idUser', response.decoded[1]);
-                    //const userId = localStorage.getItem('idUser');
 
-
-                    console.log("stuff: " + response);
-                    console.log("scopes: " + response.decoded);
                     if (response.decoded[2] === "user") {
+
                         setDisabled(false);
+
                     } else {
                         setDisabled(true);
                     }
                 }
 
+                console.log(response);
+                console.log("stuff: " + response);
+                console.log("scopes: " + response.decoded);
             })
 
         fetchApi(data.pagination.pageSize, data.pagination.current);
