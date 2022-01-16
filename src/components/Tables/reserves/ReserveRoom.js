@@ -102,7 +102,7 @@ const FavoritesRooms = (props) => {
             </>)
 
         } else {
-            console.log("extras ready")
+            console.log("Rooms ready")
             return (<>
                 
                     <Link to={`/rooms/${props.RoomId}`}>

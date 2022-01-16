@@ -9,6 +9,7 @@ import Footer from '../Footer';
 import TextArea from 'antd/lib/input/TextArea';
 import Avatar from 'antd/lib/avatar/avatar';
 import RoomComments from '../RoomComments';
+import RoomRatings from '../RoomRatings';
 import moment from 'moment'
 
 
@@ -174,6 +175,7 @@ const RoomDetails = (props) => {
 
 
                 console.log("stuff: " + response);
+                console.log(response);
                 console.log("scopes: " + response.decoded);
                 if (response.decoded[2] === "user") {
                     setDisabled(false);
@@ -281,7 +283,7 @@ const RoomDetails = (props) => {
                                     <Row>
                                         <Col span={16}>
                                             <Row justify='start'>
-                                                <p className='rooms-details-price-label'><b className='rooms-details-price'>{rooms.price}€ </b>p/Person</p>
+                                                <p className='rooms-details-price-label'><b className='rooms-details-price'>{rooms.price}€ </b>per/Person</p>
                                             </Row>
                                         </Col>
                                         <Col span={8}>
@@ -367,7 +369,7 @@ const RoomDetails = (props) => {
                                             <Table columns={Extracolumns} dataSource={ExtrastableData} pagination={false} />
                                         </TabPane>
                                         <TabPane tab="Comments" key="2">
-                                            <RoomComments data={`${roomId}`} />
+                                            <RoomComments data={roomId} />
                                             {!userLogged &&
                                                 <Tooltip placement='top' title={"You need to have an Account in order to be able to Add this room to favorites"}>
                                                     <Comment
@@ -437,7 +439,7 @@ const RoomDetails = (props) => {
 
                                         </TabPane>
                                         <TabPane tab="Ratings" key="3">
-                                            Content of Tab Pane 3
+                                        <RoomRatings data={roomId} />
                                         </TabPane>
                                     </Tabs>
                                 </Col>

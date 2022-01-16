@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { List, Row, Col, Card, Comment, Avatar } from 'antd'
+import { List, Row, Col, Card, Comment, Avatar, Rate } from 'antd'
 import { useParams, Link } from 'react-router-dom';
 const { Meta } = Card;
 
@@ -28,7 +28,7 @@ function useWindowSize() {
     return windowSize;
 }
 
-const RoomComments = (props) => {
+const RoomRatings = (props) => {
 
     //const { roomId } = props.data;
     const Size = useWindowSize();
@@ -95,28 +95,55 @@ const RoomComments = (props) => {
     const { comments, pagination } = data;
 
 
-    const RenderComments = () => {
+    const RenderRatings = () => {
         console.log(comments)
         if (comments == null) {
             console.log("Comments Null")
-
         } else {
             console.log("Comments ready")
-            return (<>
-                <List pagination={pagination} rowKey={record => record._id} loading={loading}
-                    dataSource={comments}
-                    renderItem={item => (
-                        <li>
-                            <Comment
-                                author={item.nameUser}
-                                avatar={<Avatar src="https://joeschmoe.io/api/v1/random" />}
-                                content={item.comment}
-                                datetime={item.date}
-                            />
-                        </li>
-                    )}
-                />
-            </>)
+            console.log("length: " + comments.length)
+            const rating = Object.keys(comments).map((key) => comments[key].rating);
+            const avg = rating.reduce((sum, curr) => sum + Number(curr), 0) / comments.length;
+            const RoundedAvg = Math.round(avg * 10) / 10
+
+            console.log("avg: " + RoundedAvg)
+            return (
+                <>
+                    <Row>
+                        <Col span={24}>
+                            <Row justify='start'>
+                                <Col >
+                                    <Row justify='center'>
+                                        <h1 style={{ fontSize: 48 }}><b>{RoundedAvg}</b></h1>
+                                    </Row>
+                                    <Row justify='center' style={{ marginTop: -32 }}>
+                                        <h4>{comments.length} Total</h4>
+                                    </Row>
+                                    <Row justify='center'>
+                                        <Rate allowHalf={true} value={RoundedAvg}></Rate>
+                                    </Row>
+                                </Col>
+                                <Col>
+                                    <hr style={{
+                                        marginLeft: 16,
+                                        border: "none",
+                                        borderLeft: "1px solid hsla(200, 10%, 50%,0.2)",
+                                        height: "100%",
+                                        width: 1    
+                                    }} />
+                                </Col>
+                                <Col>
+                                    <Row justify='start'>
+
+                                    </Row>
+                                </Col>
+                            </Row>
+
+                        </Col>
+                    </Row>
+
+                </>
+            )
         }
 
     }
@@ -126,9 +153,9 @@ const RoomComments = (props) => {
     console.log(comments)
     return (
         <>
-            {RenderComments()}
+            {RenderRatings()}
         </>
     )
 }
 
-export default RoomComments
+export default RoomRatings
