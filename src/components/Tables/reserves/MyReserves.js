@@ -150,7 +150,7 @@ const MyReserves = (props) => {
 
                 if (response.reserves[0] != null) {
                     IDROOM = response.reserves[0].idRoom;
-                    console.log(IDROOM);
+                    console.log("idroom: " +IDROOM);
                 }
 
                 fetch('/hotel/rooms/' + IDROOM)
@@ -191,7 +191,7 @@ const MyReserves = (props) => {
 
     const { reserves, pagination } = data;
 
-    console.log(reserves[0])
+    console.log(reserves)
 
     return (
         <>

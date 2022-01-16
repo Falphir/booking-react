@@ -52,6 +52,7 @@ const RoomDetails = (props) => {
     const [userLogged, setUserLogged] = useState();
     const [disabled, setDisabled] = useState();
     const [reserve, setReserve] = useState();
+    const [username, setUsername] = useState();
     const { register, handleSubmit } = useForm();
     const onSubmit = e => postComment(onFinish(e));
     var userId, commentsss;
@@ -177,6 +178,7 @@ const RoomDetails = (props) => {
                 console.log("stuff: " + response);
                 console.log(response);
                 console.log("scopes: " + response.decoded);
+                setUsername(response.decoded[3])
                 if (response.decoded[2] === "user") {
                     setDisabled(false);
                 } else {
@@ -255,7 +257,7 @@ const RoomDetails = (props) => {
             comment: e.comment,
             rating: e.rating,
             idUser: userId,
-            nameUser: e.nameUser,
+            nameUser: username,
             idRoom: roomId
         }
     }

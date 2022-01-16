@@ -129,7 +129,7 @@ const RoomRatings = (props) => {
                                 </Col>
                                 <Col>
                                     <hr style={{
-                                        marginLeft: 16,
+                                        margin: 16,
                                         border: "none",
                                         borderLeft: "1px solid hsla(200, 10%, 50%,0.2)",
                                         height: "100%",
