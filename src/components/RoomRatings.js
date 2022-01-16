@@ -113,14 +113,18 @@ const RoomRatings = (props) => {
                         <Col span={24}>
                             <Row justify='start'>
                                 <Col >
-                                    <Row justify='center'>
-                                        <h1 style={{ fontSize: 48 }}><b>{RoundedAvg}</b></h1>
-                                    </Row>
-                                    <Row justify='center' style={{ marginTop: -32 }}>
-                                        <h4>{comments.length} Total</h4>
-                                    </Row>
-                                    <Row justify='center'>
-                                        <Rate allowHalf={true} value={RoundedAvg}></Rate>
+                                    <Row justify='center' align='middle'>
+                                        <Col>
+                                            <Row justify='center'>
+                                                <h1 style={{ fontSize: 48 }}><b>{RoundedAvg}</b></h1>
+                                            </Row>
+                                            <Row justify='center' style={{ marginTop: -32 }}>
+                                                <h4>{comments.length} Total</h4>
+                                            </Row>
+                                            <Row justify='center'>
+                                                <Rate allowHalf={true} value={RoundedAvg}></Rate>
+                                            </Row>
+                                        </Col>
                                     </Row>
                                 </Col>
                                 <Col>
@@ -129,7 +133,7 @@ const RoomRatings = (props) => {
                                         border: "none",
                                         borderLeft: "1px solid hsla(200, 10%, 50%,0.2)",
                                         height: "100%",
-                                        width: 1    
+                                        width: 1
                                     }} />
                                 </Col>
                                 <Col>
