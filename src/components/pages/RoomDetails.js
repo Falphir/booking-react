@@ -168,7 +168,7 @@ const RoomDetails = (props) => {
                 }
 
 
-                localStorage.setItem('idUser', response.decoded[1]);
+                //localStorage.setItem('idUser', response.decoded[1]);
                 userId = localStorage.getItem('idUser');
 
 

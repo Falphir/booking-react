@@ -47,7 +47,7 @@ const MyReserves = (props) => {
         }
     });
     let idUser, nameUser, currentID, IDROOM;
-    const preferences = getPreferencesUrlStorage("iduser");
+    // const preferences = getPreferencesUrlStorage("iduser");
 
 
 
@@ -75,7 +75,7 @@ const MyReserves = (props) => {
 
                 //preferencesStorage = response.decoded[1];
 
-                localStorage.setItem('idUser', response.decoded[1]);
+                //localStorage.setItem('idUser', response.decoded[1]);
 
                 nameUser = response.decoded[2];
                 //console.log("idUser " + response.decoded[1]);
@@ -126,11 +126,11 @@ const MyReserves = (props) => {
 
     const fetchApi = (pageSize, current) => {
 
-        //currentID = localStorage.getItem('idUser');
+        currentID = localStorage.getItem('idUser');
 
         //console.log("FETCHAPI idUser " + currentID);
 
-        const url = '/reserve/user/reserves/' + preferences + '?' + new URLSearchParams({
+        const url = '/reserve/user/reserves/' + currentID + '?' + new URLSearchParams({
             limit: pageSize,
             skip: current - 1
         })

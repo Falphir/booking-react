@@ -67,11 +67,11 @@ const MyFavorites = (props) => {
                 }
 
 
-                localStorage.setItem('idUser', response.decoded[1]);
-                userId = localStorage.getItem('idUser');
+                //localStorage.setItem('idUser', response.decoded[1]);
+                //userId = localStorage.getItem('idUser');
 
-                idUser = response.decoded[1];
-                localStorage.setItem('idUser', response.decoded[1]);
+                //idUser = response.decoded[1];
+                //localStorage.setItem('idUser', response.decoded[1]);
                 console.log("idUser " + response.decoded[1]);
             })
 
@@ -104,11 +104,11 @@ const MyFavorites = (props) => {
 
     const fetchApi = (pageSize, current) => {
 
-        currentID = localStorage.getItem('idUser');
+        const currentID = localStorage.getItem('idUser');
 
-        console.log("FETCHAPI idUser " + currentID);
+        console.log("FETCHAPI idUser " + { currentID });
 
-        const url = '/favorite/user/favorites/' + currentID + '?' + new URLSearchParams({
+        const url = '/favorite/user/favorites/' + { currentID } + '?' + new URLSearchParams({
             limit: pageSize,
             skip: current - 1
         })

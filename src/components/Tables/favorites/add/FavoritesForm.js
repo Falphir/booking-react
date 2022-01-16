@@ -66,7 +66,7 @@ const FavoritesForm = () => {
                 }
 
 
-                localStorage.setItem('idUser', response.decoded[1]);
+                //localStorage.setItem('idUser', response.decoded[1]);
                 userId = localStorage.getItem('idUser');
 
                 userName = response.decoded[2];
