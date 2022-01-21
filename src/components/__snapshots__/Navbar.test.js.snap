@@ -1,0 +1,65 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Navbar response decoded 1`] = `
+<Fragment>
+  <nav
+    className="navbar"
+  >
+    <div
+      className="navbar-container"
+    >
+      <Link
+        className="navbar-logo"
+        onClick={[Function]}
+        to="/"
+      >
+        <img
+          className="Logo"
+          src="logo_simples.png"
+        />
+      </Link>
+      <div
+        className="menu-icon"
+        onClick={[Function]}
+      >
+        <i
+          className="fas fa-bars"
+        />
+      </div>
+      <ul
+        className="nav-menu"
+      >
+        <li
+          className="nav-item"
+        >
+          <Link
+            className="nav-links"
+            onClick={[Function]}
+            to="/roomList"
+          >
+            Rooms
+          </Link>
+        </li>
+        <li>
+          <Link
+            className="nav-links-mobile"
+            onClick={[Function]}
+            to="/register"
+          >
+            Sign Up
+          </Link>
+        </li>
+        <li>
+          <Link
+            className="nav-links-mobile"
+            onClick={[Function]}
+            to="/login"
+          >
+            Sign In
+          </Link>
+        </li>
+      </ul>
+    </div>
+  </nav>
+</Fragment>
+`;

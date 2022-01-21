@@ -86,6 +86,7 @@ function Navbar() {
             }
           }
         }
+        
         window.addEventListener('resize', showButtons);
         window.addEventListener('load', showButtons);
 
@@ -123,6 +124,7 @@ function Navbar() {
         } else if (response.decoded[2] == 'editor') {
 
           setDashboardButton(false);
+          
           setDashboardEditorButton(true);
           setReservesButton(false);
           setFavoritesButton(false);
@@ -144,6 +146,7 @@ function Navbar() {
       .catch(() => {
         localStorage.removeItem('idUser');
         setUserLogged(false);
+        console.log("try catch");
       })
   }, [])
 
@@ -152,6 +155,7 @@ function Navbar() {
     localStorage.removeItem('idUser');
   }
 
+  console.log("passei aqui", dashboardeditorLink)
 
   return (
     <>
@@ -204,7 +208,7 @@ function Navbar() {
                 </Link>
               </li>}
             {dashboardeditorLink &&
-              <li className='nav-item'>
+              <li data-testid="dashboardEditor" className='nav-item'>
                 <Link to='/dashboardeditor'
                   className='nav-links'
                   onClick={closeMobileMenu}
