@@ -155,7 +155,7 @@ function Navbar() {
     localStorage.removeItem('idUser');
   }
 
-  console.log("passei aqui", dashboardeditorLink)
+  //console.log("passei aqui", dashboardeditorLink)
 
   return (
     <>
@@ -169,7 +169,7 @@ function Navbar() {
           </div>
           <ul className={click ? 'nav-menu active' : 'nav-menu'}>
 
-            <li className='nav-item'>
+            <li data-testid="rooms" className='nav-item'>
               <Link to='/roomList'
                 className='nav-links'
                 onClick={closeMobileMenu}
@@ -179,7 +179,7 @@ function Navbar() {
             </li>
 
             {reservesLink &&
-              <li className='nav-item'>
+              <li data-testid="myreserves" className='nav-item'>
                 <Link to='/myreserves'
                   className='nav-links'
                   onClick={closeMobileMenu}
@@ -189,7 +189,7 @@ function Navbar() {
               </li>}
 
             {favoritesLink &&
-              <li className='nav-item'>
+              <li data-testid="myfavorites" className='nav-item'>
                 <Link to='/myfavorites'
                   className='nav-links'
                   onClick={closeMobileMenu}
@@ -199,7 +199,7 @@ function Navbar() {
               </li>}
 
             {dashboardLink &&
-              <li className='nav-item'>
+              <li data-testid="dashboard" className='nav-item'>
                 <Link to='/dashboard'
                   className='nav-links'
                   onClick={closeMobileMenu}
@@ -217,7 +217,7 @@ function Navbar() {
                 </Link>
               </li>}
             {MobilesignUpLink &&
-              <li>
+              <li data-testid="register">
                 <Link
                   to='/register'
                   className='nav-links-mobile'
@@ -228,7 +228,7 @@ function Navbar() {
               </li>
             }
             {MobilesignInLink &&
-              <li>
+              <li data-testid="login">
                 <Link
                   to='/login'
                   className='nav-links-mobile'
@@ -239,7 +239,7 @@ function Navbar() {
               </li>
             }
             {MobilesignOutLink &&
-              <li >
+              <li data-testid="logout">
                 <Link
                   to='/'
                   className='nav-links-mobile'
@@ -253,17 +253,17 @@ function Navbar() {
 
 
           {signUpLink &&
-            <Link to='/register' className='btn-mobile'>
+            <Link data-testid="register" to='/register' className='btn-mobile'>
               <Button buttonStyle='btn--gold--outline'>SIGN UP</Button>
             </Link>}
 
           {signInLink &&
-            <Link to='/login' className='btn-mobile'>
+            <Link data-testid="login" to='/login' className='btn-mobile'>
               <Button buttonStyle='btn--gold--outline'>SIGN IN</Button>
             </Link>}
 
           {signOutLink &&
-            <div className='btn-mobile'>
+            <div data-testid="logout" className='btn-mobile'>
               <Popover placement="bottom" color={"#242424"} align='middle' content={
                 <>
                   <Row justify='center' style={{ marginBottom: -8 }}>

@@ -9,3 +9,4 @@ import enableHooks from 'jest-react-hooks-shallow';
 
 //fetchMock.enableMocks();
 enableHooks(jest);
+jest.setTimeout(20000)
