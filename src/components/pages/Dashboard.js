@@ -28,6 +28,11 @@ function Dashboard() {
 
                 console.log(response.decoded);
 
+                if (response.auth == false) {
+                    console.log("nao pode aceder ao dashboard");
+                    setUserLogged(false);                
+                }
+
                 if (response.decoded[2] == 'admin') {
 
                     console.log("pode aceder ao dashboard");

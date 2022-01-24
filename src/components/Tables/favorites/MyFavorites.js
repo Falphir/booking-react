@@ -36,7 +36,7 @@ const MyFavorites = (props) => {
 
     const Size = useWindowSize();
     const [loading, setLoading] = useState();
-    const [userLogged, setUserLogged] = useState();
+    const [userLogged, setUserLogged] = useState(true);
     const [data, setData] = useState({
         favorites: [],
         pagination: {
@@ -64,15 +64,30 @@ const MyFavorites = (props) => {
 
                 if (response.auth == false) {
                     localStorage.removeItem('idUser');
+                    console.log("nao pode aceder ao My Favorites");
+                    setUserLogged(false);
+                } else {
+                    localStorage.setItem('idUser', response.decoded[1]);
+                    userId = localStorage.getItem('idUser');
+
+                    idUser = response.decoded[1];
+                    localStorage.setItem('idUser', response.decoded[1]);
+                    console.log("idUser " + response.decoded[1]);
+
+                    if (response.decoded[2] == 'user') {
+
+                        console.log("pode aceder ao My Favorites");
+                        console.log(userLogged)
+                        setUserLogged(true);
+                        console.log(userLogged)
+    
+                    } else {
+    
+                        console.log("nao pode aceder ao My Favorites");
+                        setUserLogged(false);
+                    }
                 }
 
-
-                localStorage.setItem('idUser', response.decoded[1]);
-                userId = localStorage.getItem('idUser');
-
-                idUser = response.decoded[1];
-                localStorage.setItem('idUser', response.decoded[1]);
-                console.log("idUser " + response.decoded[1]);
             })
 
             .catch(() => {
@@ -142,6 +157,10 @@ const MyFavorites = (props) => {
         fetchApi(pagination.pageSize, pagination.current)
     };
 
+    if (!userLogged) {
+        return <Navigate to={'/'}></Navigate>
+    }
+
     var ncolumn = 5
 
     if (Size.width < 576) {
@@ -202,7 +221,7 @@ const MyFavorites = (props) => {
                     <Popover placement="topLeft" title="Settings" content={
                         <a onClick={() => { RemoveFavorite(item) }}>
                             <DeleteOutlined style={{ color: 'red' }} />
-                             Remove from Favorites
+                            Remove from Favorites
                         </a>}>
                         <List.Item>
 

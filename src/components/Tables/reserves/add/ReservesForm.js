@@ -1,5 +1,5 @@
 import { useForm } from "react-hook-form";
-import { useParams } from 'react-router-dom';
+import { useParams, Navigate } from 'react-router-dom';
 import './ReservesForm.css';
 import React, { useState, useEffect } from 'react';
 import Config from "../../../../config";
@@ -12,7 +12,7 @@ const ReservesForm = () => {
     const { register, handleSubmit } = useForm();
     const onSubmit = e => postReserve(onFinish(e));
     const [reserveForm] = Form.useForm();
-    const [userLogged, setUserLogged] = useState();
+    const [userLogged, setUserLogged] = useState(true);
     const { RangePicker } = DatePicker;
     const [loading, setLoading] = useState(true);
     var DCI, DCO, userId, userName;
@@ -64,21 +64,43 @@ const ReservesForm = () => {
 
                 if (response.auth == false) {
                     localStorage.removeItem('idUser');
+                    console.log("nao pode aceder a esta pagina");
+                    setUserLogged(false);  
+                } else {
+                    localStorage.setItem('idUser', response.decoded[1]);
+                    userId = localStorage.getItem('idUser');
+
+                    userName = response.decoded[2];
+                    console.log("userId " + response.decoded[1]);
+                    console.log("userName " + response.decoded[2]);
+
+                    if (response.decoded[2] == 'user') {
+
+                        console.log("pode aceder a esta pagina");
+                        console.log(userLogged)
+                        setUserLogged(true);
+                        console.log(userLogged)
+
+                    } else {
+
+                        console.log("nao pode aceder a esta pagina");
+                        setUserLogged(false);
+                    }
+
                 }
 
 
-                localStorage.setItem('idUser', response.decoded[1]);
-                userId = localStorage.getItem('idUser');
 
-                userName = response.decoded[2];
-                console.log("userId " + response.decoded[1]);
-                console.log("userName " + response.decoded[2]);
             })
 
             .catch(() => {
                 setUserLogged(false);
             })
     }, [])
+
+    if (!userLogged) {
+        return <Navigate to={'/'}></Navigate>
+    }
 
     function onChangeDateCheckIn(date, DateCheckIn) {
         console.log("date check in: " + DateCheckIn);

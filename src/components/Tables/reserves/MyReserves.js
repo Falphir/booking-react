@@ -34,7 +34,7 @@ const MyReserves = (props) => {
 
     const Size = useWindowSize();
     const [loading, setLoading] = useState();
-    const [userLogged, setUserLogged] = useState();
+    const [userLogged, setUserLogged] = useState(true);
     const [data, setData] = useState({
         reserves: [],
         rooms: [],
@@ -61,17 +61,32 @@ const MyReserves = (props) => {
 
             .then((response) => {
 
-                setUserLogged(response.auth);
 
                 if (response.auth == false) {
                     localStorage.removeItem('idUser');
+                    console.log("nao pode aceder ao My Reserves");
+                    setUserLogged(false);  
+                } else {
+                    localStorage.setItem('idUser', response.decoded[1]);
+
+                    idUser = response.decoded[1];
+
+                    nameUser = response.decoded[2];
+
+                    if (response.decoded[2] == 'user') {
+
+                        console.log("pode aceder ao My Reserves");
+                        console.log(userLogged)
+                        setUserLogged(true);
+                        console.log(userLogged)
+    
+                    } else {
+    
+                        console.log("nao pode aceder ao My Reserves");
+                        setUserLogged(false);
+                    }
+    
                 }
-
-                idUser = response.decoded[1];
-
-                localStorage.setItem('idUser', response.decoded[1]);
-
-                nameUser = response.decoded[2];
                 //console.log("idUser " + response.decoded[1]);
                 //console.log("nameUser " + response.decoded[2]);
             })
@@ -89,6 +104,7 @@ const MyReserves = (props) => {
         });
 
     }, []);
+
 
 
     const columns = [
@@ -140,29 +156,33 @@ const MyReserves = (props) => {
                 const { auth, reserves = [], pagination } = response;
 
                 console.log(response);
-
-
-                if (response.reserves[0] != null) {
-                    IDROOM = response.reserves[0].idRoom;
-                    console.log(IDROOM);
-                }
-
-                fetch('/hotel/rooms/' + IDROOM)
-
-                if (auth) {
-                    setLoading(false);
-                    setData({
-                        reserves,
-                        pagination: {
-                            current: pagination.page + 1 || 1,
-                            pageSize: pagination.pageSize || 10,
-                            total: pagination.total || 5
-                        }
-                    })
-                }
-            });
+                    if (response.reserves[0] != null) {
+                        IDROOM = response.reserves[0].idRoom;
+                        console.log(IDROOM);
+                    }
+    
+                    fetch('/hotel/rooms/' + IDROOM)
+    
+                    if (auth) {
+                        setLoading(false);
+                        setData({
+                            reserves,
+                            pagination: {
+                                current: pagination.page + 1 || 1,
+                                pageSize: pagination.pageSize || 10,
+                                total: pagination.total || 5
+                            }
+                        })
+                    }
+            })
+            .catch(() => {
+                console.log("An Error Occurred!")
+            })
     }
 
+    if (!userLogged) {
+        return <Navigate to={'/'}></Navigate>
+    }
 
     var ncolumn = 5
 

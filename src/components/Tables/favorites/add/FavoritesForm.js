@@ -1,5 +1,5 @@
 import { useForm } from "react-hook-form";
-import { useParams } from 'react-router-dom';
+import { useParams, Navigate } from 'react-router-dom';
 import './FavoritesForm.css';
 import React, { useState, useEffect } from 'react';
 import Config from "../../../../config";
@@ -12,7 +12,7 @@ const FavoritesForm = () => {
     const { register, handleSubmit } = useForm();
     const onSubmit = e => postFavorite(onFinish(e));
     const [favoriteForm] = Form.useForm();
-    const [userLogged, setUserLogged] = useState();
+    const [userLogged, setUserLogged] = useState(true);
     const { RangePicker } = DatePicker;
     const [loading, setLoading] = useState(true);
     var userId, userName;
@@ -64,15 +64,29 @@ const FavoritesForm = () => {
 
                 if (response.auth == false) {
                     localStorage.removeItem('idUser');
+                } else {
+                    localStorage.setItem('idUser', response.decoded[1]);
+                    userId = localStorage.getItem('idUser');
+    
+                    userName = response.decoded[2];
+                    console.log("userId " + response.decoded[1]);
+                    console.log("userName " + response.decoded[2]);
+
+                    if (response.decoded[2] == 'user') {
+
+                        console.log("pode aceder a esta pagina");
+                        console.log(userLogged)
+                        setUserLogged(true);
+                        console.log(userLogged)
+
+                    } else {
+
+                        console.log("nao pode aceder a esta pagina");
+                        setUserLogged(false);
+                    }
+
                 }
 
-
-                localStorage.setItem('idUser', response.decoded[1]);
-                userId = localStorage.getItem('idUser');
-
-                userName = response.decoded[2];
-                console.log("userId " + response.decoded[1]);
-                console.log("userName " + response.decoded[2]);
             })
 
             .catch(() => {
@@ -80,6 +94,9 @@ const FavoritesForm = () => {
             })
     }, [])
 
+    if (!userLogged) {
+        return <Navigate to={'/'}></Navigate>
+    }
 
     const onFinish = (e) => {
 

@@ -11,7 +11,7 @@ const { Content, Sider } = Layout;
 
 function DashboardEditor() {
 
-    const [menu, setMenu] = useState(2);
+    const [menu, setMenu] = useState(1);
     const [userLogged, setUserLogged] = useState(true);
 
     const onClickLogout = () => {
@@ -86,8 +86,8 @@ function DashboardEditor() {
                                     defaultSelectedKeys={['1']}
                                     style={{ height: '100%' }}
                                 >
-                                    <Menu.Item key="2" onClick={() => setMenu(1)}>Rooms</Menu.Item>
-                                    <Menu.Item key="3" onClick={() => setMenu(2)}>Reserves</Menu.Item>
+                                    <Menu.Item key="1" onClick={() => setMenu(1)}>Rooms</Menu.Item>
+                                    <Menu.Item key="2" onClick={() => setMenu(2)}>Reserves</Menu.Item>
                                 </Menu>
                             </Sider>
                             <Content className='content' style={{ padding: '12px 24px', minHeight: 280, background: '#fff' }}>

@@ -38,11 +38,11 @@ function App() {
         {/* <Route path='/users' exact element={<Users />}></Route> */}
         <Route path='/roomsform' exact element={<RoomsForm></RoomsForm>}></Route>
         {/* <Route path='/reserves' exact element={<Reserves></Reserves>}></Route> */}
-        <Route path='/myreserves' exact element={<MyReserves></MyReserves>}></Route> {/* Falta IF */}
-        <Route path='/reserves/:roomId' exact element={<ReservesForm></ReservesForm>}></Route> {/* Falta IF */}
+        <Route path='/myreserves' exact element={<MyReserves></MyReserves>}></Route> 
+        <Route path='/reserves/:roomId' exact element={<ReservesForm></ReservesForm>}></Route> 
         <Route path='/roomList' exact element={<AllRoomsList></AllRoomsList>}></Route> 
-        <Route path='/myfavorites' exact element={<MyFavorites></MyFavorites>}></Route> {/* Falta IF */}
-        <Route path='/favorites/:roomId' exact element={<FavoritesForm></FavoritesForm>}></Route> {/* Falta IF */}
+        <Route path='/myfavorites' exact element={<MyFavorites></MyFavorites>}></Route> 
+        <Route path='/favorites/:roomId' exact element={<FavoritesForm></FavoritesForm>}></Route>
       </Routes>
     </>
   );
