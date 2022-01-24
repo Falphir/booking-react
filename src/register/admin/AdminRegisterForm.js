@@ -113,7 +113,7 @@ const RegisterForm = () => {
                 password: e.password,
                 role: {
                     nameRole: radio.value,
-                    scopes: ["read-own-reserves", "create-reserve", "detail-reserve", "update-reserve", "read-reserves", "delete-reserve", "create-room", "update-room", "read-reserve-client", "delete-room"]
+                    scopes: ["create-reserve", "detail-reserve", "update-reserve", "read-reserves", "delete-reserve", "create-room", "update-room", "read-reserve-client", "delete-room"]
                 }
             }
         } else if (radio.value == 'admin') {
@@ -123,7 +123,7 @@ const RegisterForm = () => {
                 password: e.password,
                 role: {
                     nameRole: radio.value,
-                    scopes: ["read-own-reserves", "create-reserve", "detail-reserve", "update-reserve", "read-reserves", "delete-reserve", "create-room", "update-room", "read-reserve-client", "delete-room", "read-users", "delete-user"]
+                    scopes: ["create-reserve", "detail-reserve", "update-reserve", "read-reserves", "delete-reserve", "create-room", "update-room", "read-reserve-client", "delete-room", "read-users", "delete-user"]
                 }
             }
         }

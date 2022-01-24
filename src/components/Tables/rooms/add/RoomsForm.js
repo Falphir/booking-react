@@ -302,7 +302,7 @@ const RoomsForm = () => {
                                             </Row>
                                         </Checkbox.Group>
                                     </Form.Item>
-                                    <input style={{ color: '#fff' }} type="file" onChange={handleChange} />
+                                    <input style={{ color: '#fff' }} accept=".jpg , .jpeg, .jfif" type="file" onChange={handleChange} />
                                     <Form.Item style={{ paddingTop: 20 }}>
                                         {submit &&
                                             <Button block size="large" className='rooms-Button-Outlined' htmlType="submit">
